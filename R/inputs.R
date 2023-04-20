@@ -7,7 +7,8 @@ button_extra <- function(id) {
   htmlwidgets::JS(
     glue::glue(
       "function(cellInfo) {
-                 return React.createElement(ButtonExtras, {id: '{{id}}', label: cellInfo.value}, cellInfo.id)
+                 return React.createElement(ButtonExtras,
+                 {id: '{{id}}', label: cellInfo.value}, cellInfo.id)
     }",
     .open = "{{",
     .close = "}}"
@@ -24,7 +25,8 @@ checkbox_extra <- function(id) {
   htmlwidgets::JS(
     glue::glue(
       "function(cellInfo) {
-              return React.createElement(checkboxExtras,  {id: '{{id}}', value: cellInfo.value}, cellInfo.id)
+              return React.createElement(checkboxExtras,
+              {id: '{{id}}', value: cellInfo.value}, cellInfo.id)
   }",
   .open = "{{",
   .close = "}}"
@@ -41,7 +43,8 @@ date_extra <- function(id) {
   htmlwidgets::JS(
     glue::glue(
       "function(cellInfo) {
-              return React.createElement(dateExtras, {id: '{{id}}', value: cellInfo.value}, cellInfo.id)
+              return React.createElement(dateExtras,
+              {id: '{{id}}', value: cellInfo.value}, cellInfo.id)
   }",
   .open = "{{",
   .close = "}}"

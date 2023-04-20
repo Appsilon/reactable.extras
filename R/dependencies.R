@@ -16,7 +16,7 @@ reactable_extras_dependency <- function() {
 #' @return HTML dependency object.
 #'
 #' @export
-reactableExtrasDependency <- function() {
+reactable_extras_dependency <- function() {
   htmltools::htmlDependency(
     name = "reactable.extras",
     version = "0.0.1",

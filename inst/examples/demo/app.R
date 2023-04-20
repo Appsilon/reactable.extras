@@ -8,10 +8,9 @@ string_list <- function(values) {
   )
 }
 
-
 shinyApp(
   ui = fluidPage(
-    reactable.extras::reactableExtrasDependency(),
+    reactable.extras::reactable_extras_dependency(),
     reactableOutput("react"),
     hr(),
     textOutput("date_text"),
@@ -21,8 +20,11 @@ shinyApp(
   server = function(input, output) {
     output$react <- renderReactable({
       df <- MASS::Cars93[1:8, 1:4]
-      df$Date <- sample(seq(as.Date('2020/01/01'), as.Date('2023/01/01'), by="day"), 8)
-      df$Check <- sample(c(TRUE,FALSE), 8, TRUE)
+      df$Date <- sample(seq(as.Date("2020/01/01"),
+                            as.Date("2023/01/01"),
+                            by = "day"),
+                        8)
+      df$Check <- sample(c(TRUE, FALSE), 8, TRUE)
       reactable(
         df,
         searchable = TRUE,
@@ -32,7 +34,7 @@ shinyApp(
           ),
           Check = colDef(
             cell = checkbox_extra("check"),
-            align = 'left'
+            align = "left"
           ),
           Date = colDef(
             cell = date_extra("date")
@@ -66,4 +68,3 @@ shinyApp(
     })
   }
 )
-

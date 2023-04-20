@@ -5,10 +5,16 @@
 \title{htmlDependency of reactable server including script and styles}
 \usage{
 reactable_extras_dependency()
+
+reactable_extras_dependency()
 }
 \value{
 An htmlDependency object
+
+HTML dependency object.
 }
 \description{
 htmlDependency of reactable server including script and styles
+
+Shiny Fluent JS dependency
 }
