@@ -14,7 +14,9 @@ Depends:
 Imports: 
     checkmate,
     dplyr,
+    glue,
     htmltools,
+    htmlwidgets,
     purrr (>= 1.0.0),
     reactable,
     shiny
