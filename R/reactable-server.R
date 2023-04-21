@@ -1,5 +1,5 @@
 toggle_navigation_buttons <- function(disable, session = shiny::getDefaultReactiveDomain()) {
-  ns <- session$ns
+  ns <- session$ns # nolint: object_usage_linter
 
   purrr::walk(
     paste0(c("first", "previous", "next", "last"), "_page"),

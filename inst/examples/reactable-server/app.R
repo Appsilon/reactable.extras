@@ -3,7 +3,7 @@ library(reactable.extras)
 
 shinyApp(
   reactableExtrasUi("test"),
-  function(input, output, server){
+  function(input, output, server) {
     reactableExtrasServer(
       "test",
       data = tibble::rownames_to_column(mtcars, var = "make"),
