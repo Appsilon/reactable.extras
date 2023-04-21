@@ -33,7 +33,7 @@ reactableExtrasUi <- function(id, width = "auto", height = "auto") {
       purrr::map2(
         c("first_page", "previous_page", "next_page", "last_page"),
         c("angles-left", "angle-left", "angle-right", "angles-right"),
-        ~ tagAppendAttributes(
+        ~ shiny::tagAppendAttributes(
           class = "pagination-button",
           shiny::actionButton(
             inputId = ns(.x),
@@ -155,7 +155,7 @@ reactableExtrasServer <- function(id, data, rows_per_page = 10, sortable = TRUE,
           dplyr::select(-page)
       }
 
-      updateReactable("reactable", data = sorted_data)
+      reactable::updateReactable("reactable", data = sorted_data)
     })
   })
 }
