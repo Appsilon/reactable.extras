@@ -1,3 +1,15 @@
+toggle_navigation_buttons <- function(disable, session = shiny::getDefaultReactiveDomain()) {
+  ns <- session$ns
+
+  purrr::walk(
+    paste0(c("first", "previous", "next", "last"), "_page"),
+    ~ session$sendCustomMessage(
+      "toggleDisable",
+      list(id = paste0("#", ns(.x)), disable = disable[[.x]])
+    )
+  )
+}
+
 reactableExtrasUi <- function(inputId, width = "auto", height = "auto", inline = FALSE) {
   ns <- shiny::NS(id)
 
