@@ -59,8 +59,8 @@ reactableExtrasUi <- function(id, width = "auto", height = "auto") {
 #' @rdname reactable-extras-server
 #' @export
 reactableExtrasServer <- function(id, data, rows_per_page = 10, sortable = TRUE, ...) {
-  moduleServer(id, function(input, output, session) {
-    page_number <- reactiveVal(1)
+  shiny::moduleServer(id, function(input, output, session) {
+    page_number <- shiny::reactiveVal(1)
 
     total_pages <- nrow(data) %/% rows_per_page + 1
 
@@ -89,8 +89,11 @@ reactableExtrasServer <- function(id, data, rows_per_page = 10, sortable = TRUE,
     output$reactable <- reactable::renderReactable({
       reactable::reactable(
         paged_data |>
-          dplyr::filter(page == 1) |>
-          dplyr::select(-page),
+          # Using page here will trigger a fail in R CMD CHECK
+          # because there is no global variable binding
+          # for page. This is a common problem using dplyr.
+          dplyr::filter(dplyr::if_any("page", ~ .x == 1)) |>
+          dplyr::select(!"page"),
         pagination = FALSE,
         sortable = sortable,
         ...
@@ -136,8 +139,8 @@ reactableExtrasServer <- function(id, data, rows_per_page = 10, sortable = TRUE,
       })
 
       selected_data <- paged_data |>
-        dplyr::filter(page == page_number()) |>
-        dplyr::select(-page)
+        dplyr::filter(dplyr::if_any("page", ~ .x == page_number())) |>
+        dplyr::select(!"page")
 
       if (is.null(column_sort())) {
         sorted_data <- selected_data
@@ -151,8 +154,8 @@ reactableExtrasServer <- function(id, data, rows_per_page = 10, sortable = TRUE,
         sorted_data <-
           sorted_data |>
           dplyr::mutate(page = ceiling(dplyr::row_number() / rows_per_page)) |>
-          dplyr::filter(page == page_number()) |>
-          dplyr::select(-page)
+          dplyr::filter(dplyr::if_any("page", ~ .x == page_number())) |>
+          dplyr::select(!"page")
       }
 
       reactable::updateReactable("reactable", data = sorted_data)
