@@ -14,10 +14,14 @@ toggle_navigation_buttons <- function(disable, session = shiny::getDefaultReacti
 #'
 #' @param id element id
 #' @param width,height CSS unit (`"100%"`, `"400px"`, or `"auto"`), numeric for number of pixels
+#' @param data passed to [reactable::reactable()]
+#' @param rows_per_page number of pages to show
+#' @param sortable allow sorting by columns
+#' @param ... other arguments to be passed to [reactable::reactable()]
 #'
 #' @name reactable-extras-server
 #'
-#' @return
+#' @return `reactableExtrasUi()` returns a custom UI for a server-side processed reactable
 #' @export
 reactableExtrasUi <- function(id, width = "auto", height = "auto") {
   ns <- shiny::NS(id)
