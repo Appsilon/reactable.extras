@@ -1,0 +1,25 @@
+.pagination-controls {
+  display: flex;
+  flex-direction: row;
+  background-color: transparent;
+}
+
+.pagination-button {
+  border: none;
+  background-color: transparent;
+  transition: all 0.25s esae-in-out;
+
+  &:not(:disabled):hover {
+    color: #0099f9;
+    transform: scale(1.5);
+  }
+
+  &:disabled {
+    cursor: not-allowed;;
+  }
+}
+
+.pagination-text {
+  margin-left: 1rem;
+  font-weight: bold;
+}
