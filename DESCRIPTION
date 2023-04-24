@@ -1,7 +1,7 @@
 Type: Package
 Package: reactable.extras
 Title: What the Package Does (Title Case)
-Version: 0.1.0.9001
+Version: 0.0.0.9001
 Author: Who wrote it
 Maintainer: The package maintainer <yourself@somewhere.net>
 Description: More about what it does (maybe more than one line) Use four
@@ -10,6 +10,7 @@ License: LGPL-3
 URL: https://github.com/Appsilon/reactable.extras
 BugReports: https://github.com/Appsilon/reactable.extras/issues
 Imports: 
+    checkmate,
     dplyr,
     htmltools,
     purrr,

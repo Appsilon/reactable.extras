@@ -29,3 +29,7 @@ reactableExtrasServer(id, data, rows_per_page = 10, sortable = TRUE, ...)
 \description{
 Create reactable UI with server-side processing
 }
+\details{
+Arguments passed to \code{\link[reactable:reactable]{reactable::reactable()}} must not contain \code{pagination} or \code{showPagination}.
+These are set to \code{FALSE}. Pagination will be handled on the server-side.
+}
