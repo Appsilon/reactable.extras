@@ -1,4 +1,4 @@
-#' Disable or reenable navigation buttons
+#' Utility function to disable or re-enable navigation buttons
 #'
 #' @param disable a named logical vector
 #' @param session Shiny session object; default to current Shiny session
@@ -8,10 +8,32 @@
 #'   enabled or disabled.
 #'
 toggle_navigation_buttons <- function(disable, session = shiny::getDefaultReactiveDomain()) {
+  button_ids <- paste0(c("first", "previous", "next", "last"), "_page")
+
+  checkmate::assert(
+    checkmate::check_logical(
+      disable,
+      any.missing = FALSE,
+      all.missing = FALSE,
+      len = 4L
+    ),
+    checkmate::check_subset(
+      names(disable),
+      choices = button_ids,
+      empty.ok = FALSE
+
+    )
+  )
+
+  checkmate::assert(
+    checkmate::check_r6(session, "ShinySession"),
+    checkmate::check_class(session, "session_proxy"),
+    .combine = "or"
+  )
   ns <- session$ns # nolint: object_usage_linter
 
   purrr::walk(
-    paste0(c("first", "previous", "next", "last"), "_page"),
+    button_ids,
     ~ session$sendCustomMessage(
       "toggleDisable",
       list(id = paste0("#", ns(.x)), disable = disable[[.x]])
@@ -27,6 +49,11 @@ toggle_navigation_buttons <- function(disable, session = shiny::getDefaultReacti
 #' @param rows_per_page number of pages to show
 #' @param sortable allow sorting by columns
 #' @param ... other arguments to be passed to [reactable::reactable()]
+#'
+#' @details
+#' Arguments passed to [reactable::reactable()] must not contain `pagination` or `showPagination`.
+#' These are set to `FALSE`. Pagination will be handled on the server-side.
+#'
 #'
 #' @name reactable-extras-server
 #'
@@ -56,6 +83,8 @@ toggle_navigation_buttons <- function(disable, session = shiny::getDefaultReacti
 #'   )
 #' }
 reactableExtrasUi <- function(id, width = "auto", height = "auto") {
+  checkmate::assert_character(id, len = 1)
+
   ns <- shiny::NS(id)
 
   shiny::tagList(
@@ -91,6 +120,13 @@ reactableExtrasUi <- function(id, width = "auto", height = "auto") {
 #' @rdname reactable-extras-server
 #' @export
 reactableExtrasServer <- function(id, data, rows_per_page = 10, sortable = TRUE, ...) {
+  checkmate::assert(
+    checkmate::check_character(id, len = 1),
+    checkmate::check_data_frame(data),
+    checkmate::check_integerish(rows_per_page, len = 1),
+    combine = "and"
+  )
+
   shiny::moduleServer(id, function(input, output, session) {
     # Create and clean-up reactable arguments
     reactable_args <- list(...)
