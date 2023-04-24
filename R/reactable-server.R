@@ -62,7 +62,7 @@ reactableExtrasServer <- function(id, data, rows_per_page = 10, sortable = TRUE,
   shiny::moduleServer(id, function(input, output, session) {
     page_number <- shiny::reactiveVal(1)
 
-    total_pages <- nrow(data) %/% rows_per_page + 1
+    total_pages <- ceiling(nrow(data) / rows_per_page)
 
     paged_data <-
       data |>
