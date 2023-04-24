@@ -1,3 +1,12 @@
+#' Disable or reenable navigation buttons
+#'
+#' @param disable a named logical vector
+#' @param session Shiny session object; default to current Shiny session
+#'
+#' @details `disable` should a logical vector with these exact names: `first_page`, `previous_page`,
+#'   `next_page`, and `last_page`. The logical vectors indicate if the corresponding button will be
+#'   enabled or disabled.
+#'
 toggle_navigation_buttons <- function(disable, session = shiny::getDefaultReactiveDomain()) {
   ns <- session$ns # nolint: object_usage_linter
 
@@ -60,6 +69,13 @@ reactableExtrasUi <- function(id, width = "auto", height = "auto") {
 #' @export
 reactableExtrasServer <- function(id, data, rows_per_page = 10, sortable = TRUE, ...) {
   shiny::moduleServer(id, function(input, output, session) {
+    # Create and clean-up reactable arguments
+    reactable_args <- list(...)
+    # Server-side processing handles pagination, so reactable should not show it
+    reactable_args$pagination <- FALSE
+    reactable_args$showPagination <- FALSE
+    reactable_args$sortable <- sortable
+
     page_number <- shiny::reactiveVal(1)
 
     total_pages <- ceiling(nrow(data) / rows_per_page)
@@ -86,18 +102,16 @@ reactableExtrasServer <- function(id, data, rows_per_page = 10, sortable = TRUE,
       page_number(page_number() - 1)
     })
 
+    reactable_args$data <-
+      paged_data |>
+      # Using page here will trigger a fail in R CMD CHECK
+      # because there is no global variable binding
+      # for page. This is a common problem using dplyr.
+      dplyr::filter(dplyr::if_any("page", ~ .x == 1)) |>
+      dplyr::select(!"page")
+
     output$reactable <- reactable::renderReactable({
-      reactable::reactable(
-        paged_data |>
-          # Using page here will trigger a fail in R CMD CHECK
-          # because there is no global variable binding
-          # for page. This is a common problem using dplyr.
-          dplyr::filter(dplyr::if_any("page", ~ .x == 1)) |>
-          dplyr::select(!"page"),
-        pagination = FALSE,
-        sortable = sortable,
-        ...
-      )
+      do.call(reactable::reactable, args = reactable_args)
     })
 
     shiny::observe({
