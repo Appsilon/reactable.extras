@@ -32,6 +32,29 @@ toggle_navigation_buttons <- function(disable, session = shiny::getDefaultReacti
 #'
 #' @return `reactableExtrasUi()` returns a custom UI for a server-side processed reactable
 #' @export
+#'
+#' @example
+#' if (interactive()) {
+#'   library(shiny)
+#'   library(reactable)
+#'   library(reactable.extras)
+#'
+#'   shinyApp(
+#'     reactableExtrasUi("big_data"),
+#'     function(input, output, server) {
+#'       reactableExtrasServer(
+#'         "big_data",
+#'         data = mtcars,
+#'         columns = list(
+#'           mpg = reactable::colDef(name = "Miles per Gallon"),
+#'           cyl = reactable::colDef(name = "Cylinders"),
+#'           disp = reactable::colDef(name = "Displacement")
+#'         ),
+#'         rows_per_page = 7
+#'       )
+#'     }
+#'   )
+#' }
 reactableExtrasUi <- function(id, width = "auto", height = "auto") {
   ns <- shiny::NS(id)
 
