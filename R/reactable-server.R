@@ -30,6 +30,7 @@ toggle_navigation_buttons <- function(disable, session = shiny::getDefaultReacti
     checkmate::check_class(session, "session_proxy"),
     .combine = "or"
   )
+
   ns <- session$ns # nolint: object_usage_linter
 
   purrr::walk(
@@ -243,7 +244,8 @@ reactableExtrasServer <- function(id, data, rows_per_page = 10, sortable = TRUE,
       reactable::getReactableState("reactable", "sorted")
     })
 
-    page_number <- return_reactable_page(id = "page_controls", total_pages = total_pages)
+    page_number <- # nolint: object_usage_linter
+      return_reactable_page(id = "page_controls", total_pages = total_pages)
 
     shiny::observe({
       selected_data <-
