@@ -36,7 +36,7 @@ shinyApp(
             cell = button_extra("button", className = "extra-button")
           ),
           Check = colDef(
-            cell = checkbox_extra("check"),
+            cell = checkbox_extra("check", className = "extra-check"),
             align = "left"
           ),
           Date = colDef(

@@ -4,12 +4,14 @@
 \alias{dropdown_extra}
 \title{Select input for reactable}
 \usage{
-dropdown_extra(id, choices)
+dropdown_extra(id, choices, ...)
 }
 \arguments{
 \item{id}{id of the select input}
 
 \item{choices}{vector of choices}
+
+\item{...}{parameters of date input}
 }
 \description{
 Select input for reactable

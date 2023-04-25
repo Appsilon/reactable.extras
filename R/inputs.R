@@ -80,9 +80,10 @@ date_extra <- function(id, ...) {
 #'
 #' @param id id of the select input
 #' @param choices vector of choices
+#' @param ... parameters of date input
 #'
 #' @export
-dropdown_extra <- function(id, choices) {
+dropdown_extra <- function(id, choices, ...) {
   if (length(choices) == 0) {
     choices_js <- ""
   } else {
@@ -93,11 +94,11 @@ dropdown_extra <- function(id, choices) {
       htmltools::htmlTemplate(
         text_ = "function(cellInfo) {
               return React.createElement(dropdownExtras,
-              {id: '{{id}}', value: cellInfo.value, selectClass: 'selecting',
-               optionClass: 'qwerty' {{choices}}}, cellInfo.id)
+              {id: '{{id}}', value: cellInfo.value, {{args}} {{choices}}}, cellInfo.id)
       }",
       id = id,
-      choices = choices_js
+      choices = choices_js,
+      args = args_js(...)
     )
   ))
 }
