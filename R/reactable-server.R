@@ -41,6 +41,112 @@ toggle_navigation_buttons <- function(disable, session = shiny::getDefaultReacti
   )
 }
 
+#' Module for reactable page navigation
+#'
+#' @param id element id
+#' @param total_pages total number of pages
+#'
+#' @name reactable-extras-server
+#'
+#' @return `reactable_page_controls()` returns a UI for page navigation of a server-side processed
+#'   [reactable::reactable()] data
+reactable_page_controls <- function(id) {
+  checkmate::assert_character(id, len = 1)
+
+  ns <- shiny::NS(id)
+
+  shiny::div(
+    class = "pagination-controls",
+    purrr::map2(
+      c("first_page", "previous_page", "next_page", "last_page"),
+      c("angles-left", "angle-left", "angle-right", "angles-right"),
+      ~ shiny::tagAppendAttributes(
+        class = "pagination-button",
+        shiny::actionButton(
+          inputId = ns(.x),
+          icon = shiny::icon(.y), label = ""
+        )
+      )
+    ),
+    shiny::div(
+      class = "pagination-text",
+      shiny::textOutput(
+        outputId = ns("page_text"),
+        inline = TRUE
+      )
+    )
+  )
+}
+
+#' @rdname reactable-page-controls
+return_reactable_page <- function(id, total_pages) {
+  checkmate::assert(
+    checkmate::check_character(id, len = 1),
+    checkmate::check_integerish(total_pages, len = 1),
+    combine = "and"
+  )
+
+  shiny::moduleServer(id, function(input, output, session) {
+    page_number <- shiny::reactiveVal(1)
+
+    shiny::observeEvent(input$first_page, {
+      page_number(1)
+    })
+
+    shiny::observeEvent(input$last_page, {
+      page_number(total_pages)
+    })
+
+    shiny::observeEvent(input$next_page, {
+      shiny::req(page_number() < total_pages)
+      page_number(page_number() + 1)
+    })
+
+    shiny::observeEvent(input$previous_page, {
+      shiny::req(page_number() > 1)
+      page_number(page_number() - 1)
+    })
+
+    shiny::observe({
+      output$page_text <- shiny::renderText({
+        if (page_number() == 1) {
+          toggle_navigation_buttons(
+            c(
+              first_page = TRUE,
+              previous_page = TRUE,
+              next_page = FALSE,
+              last_page = FALSE
+            )
+          )
+        } else if (page_number() > 1 && page_number() < total_pages) {
+          toggle_navigation_buttons(
+            c(
+              first_page = FALSE,
+              previous_page = FALSE,
+              next_page = FALSE,
+              last_page = FALSE
+            )
+          )
+        } else if (page_number() == total_pages) {
+          toggle_navigation_buttons(
+            c(
+              first_page = FALSE,
+              previous_page = FALSE,
+              next_page = TRUE,
+              last_page = TRUE
+            )
+          )
+        }
+
+        paste0(page_number(), " of ", total_pages)
+      })
+    })
+
+    return(page_number)
+  })
+}
+
+
 #' Create reactable UI with server-side processing
 #'
 #' @param id element id
@@ -89,27 +195,7 @@ reactableExtrasUi <- function(id, width = "auto", height = "auto") {
 
   shiny::tagList(
     reactableExtrasDependency(),
-    shiny::div(
-      class = "pagination-controls",
-      purrr::map2(
-        c("first_page", "previous_page", "next_page", "last_page"),
-        c("angles-left", "angle-left", "angle-right", "angles-right"),
-        ~ shiny::tagAppendAttributes(
-          class = "pagination-button",
-          shiny::actionButton(
-            inputId = ns(.x),
-            icon = shiny::icon(.y), label = ""
-          )
-        )
-      ),
-      shiny::div(
-        class = "pagination-text",
-        shiny::textOutput(
-          outputId = ns("page_text"),
-          inline = TRUE
-        )
-      )
-    ),
+    reactable_page_controls(ns("page_controls")),
     reactable::reactableOutput(
       outputId = ns("reactable"),
       width = width, height = height, inline = FALSE
@@ -135,31 +221,11 @@ reactableExtrasServer <- function(id, data, rows_per_page = 10, sortable = TRUE,
     reactable_args$showPagination <- FALSE
     reactable_args$sortable <- sortable
 
-    page_number <- shiny::reactiveVal(1)
-
     total_pages <- ceiling(nrow(data) / rows_per_page)
 
     paged_data <-
       data |>
       dplyr::mutate(page = ceiling(dplyr::row_number() / rows_per_page))
-
-    shiny::observeEvent(input$first_page, {
-      page_number(1)
-    })
-
-    shiny::observeEvent(input$last_page, {
-      page_number(total_pages)
-    })
-
-    shiny::observeEvent(input$next_page, {
-      shiny::req(page_number() < total_pages)
-      page_number(page_number() + 1)
-    })
-
-    shiny::observeEvent(input$previous_page, {
-      shiny::req(page_number() > min(paged_data$page))
-      page_number(page_number() - 1)
-    })
 
     reactable_args$data <-
       paged_data |>
@@ -173,45 +239,15 @@ reactableExtrasServer <- function(id, data, rows_per_page = 10, sortable = TRUE,
       do.call(reactable::reactable, args = reactable_args)
     })
 
+    column_sort <- shiny::reactive({
+      reactable::getReactableState("reactable", "sorted")
+    })
+
+    page_number <- return_reactable_page(id = "page_controls", total_pages = total_pages)
+
     shiny::observe({
-      output$page_text <- shiny::renderText({
-        if (page_number() == 1) {
-          toggle_navigation_buttons(
-            c(
-              first_page = TRUE,
-              previous_page = TRUE,
-              next_page = FALSE,
-              last_page = FALSE
-            )
-          )
-        } else if (page_number() > 1 && page_number() < total_pages) {
-          toggle_navigation_buttons(
-            c(
-              first_page = FALSE,
-              previous_page = FALSE,
-              next_page = FALSE,
-              last_page = FALSE
-            )
-          )
-        } else if (page_number() == total_pages) {
-          toggle_navigation_buttons(
-            c(
-              first_page = FALSE,
-              previous_page = FALSE,
-              next_page = TRUE,
-              last_page = TRUE
-            )
-          )
-        }
-
-        paste0(page_number(), " of ", total_pages)
-      })
-
-      column_sort <- shiny::reactive({
-        reactable::getReactableState("reactable", "sorted")
-      })
-
-      selected_data <- paged_data |>
+      selected_data <-
+        paged_data |>
         dplyr::filter(dplyr::if_any("page", ~ .x == page_number())) |>
         dplyr::select(!"page")
 
