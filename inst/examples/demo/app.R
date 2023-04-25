@@ -15,22 +15,25 @@ shinyApp(
     hr(),
     textOutput("date_text"),
     textOutput("button_text"),
-    textOutput("check_text")
+    textOutput("check_text"),
+    textOutput("dropdown_text")
   ),
   server = function(input, output) {
     output$react <- renderReactable({
+      # preparing the test data
       df <- MASS::Cars93[1:8, 1:4]
       df$Date <- sample(seq(as.Date("2020/01/01"),
                             as.Date("2023/01/01"),
                             by = "day"),
                         8)
       df$Check <- sample(c(TRUE, FALSE), 8, TRUE)
+
       reactable(
         df,
         searchable = TRUE,
         columns = list(
           Manufacturer = colDef(
-            cell = button_extra("button")
+            cell = button_extra("button", className = "extra-button")
           ),
           Check = colDef(
             cell = checkbox_extra("check"),
@@ -38,6 +41,9 @@ shinyApp(
           ),
           Date = colDef(
             cell = date_extra("date")
+          ),
+          Type = colDef(
+            cell = dropdown_extra("dropdown", c("qwe", "rty", "yui"))
           )
         )
       )
@@ -63,6 +69,15 @@ shinyApp(
       values <- input$button
       paste0(
         "Button: ",
+        string_list(values)
+      )
+    })
+
+    output$dropdown_text <- renderText({
+      req(input$dropdown)
+      values <- input$dropdown
+      paste0(
+        "Dropdown: ",
         string_list(values)
       )
     })

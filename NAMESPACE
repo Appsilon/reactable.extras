@@ -3,6 +3,7 @@
 export(button_extra)
 export(checkbox_extra)
 export(date_extra)
+export(dropdown_extra)
 export(reactable_extras_dependency)
 export(reactable_extras_server)
 export(reactable_extras_ui)

@@ -1,34 +1,42 @@
-function ButtonExtras({ id, label, children }) {
-    const onClick = event => {
-      console.log("button")
-      console.log(event.target.value)
-      Shiny.setInputValue(id, { row: children}, { priority: "event" })
-    }
-    return React.createElement("button", { onClick }, label)
-  };
+function ButtonExtras ({ id, label, className, children }) {
+  const onClick = event => {
+    Shiny.setInputValue(id, { row: children }, { priority: 'event' })
+  }
 
-function checkboxExtras({ id, value, children }) {
-    const onChange = event => {
-      console.log("check")
-      console.log(event.target.checked)
-      Shiny.setInputValue(id, { row: children, value: event.target.checked}, { priority: "event" })
-    }
-    return React.createElement(
-    "input",
-    { type: "checkbox", onChange: onChange, defaultChecked: value}
-  );
+  return React.createElement('button', { onClick, className }, label)
 };
 
-function dateExtras({ id, value, children }) {
-    console.log(value)
-    console.log(typeof value)
-    const onChange = event => {
-      Shiny.setInputValue(id, { row: children, value:  event.target.value}, { priority: "event" })
-    }
+function checkboxExtras ({ id, value, children }) {
+  const onChange = event => {
+    Shiny.setInputValue(id, { row: children, value: event.target.checked }, { priority: 'event' })
+  }
 
-    return React.createElement(
-    "input",
-    { type: "date", onChange: onChange, defaultValue: value}
-  );
+  return React.createElement('input', { type: 'checkbox', onChange, defaultChecked: value })
 };
 
+function dateExtras ({ id, value, children }) {
+  const onChange = event => {
+    Shiny.setInputValue(id, { row: children, value: event.target.value }, { priority: 'event' })
+  }
+
+  return React.createElement(
+    'input',
+    { type: 'date', onChange, defaultValue: value }
+  )
+};
+
+function dropdownExtras ({ id, value, choices, selectClass, optionClass, children }) {
+  const onChange = event => {
+    Shiny.setInputValue(id, { row: children, value: event.target.value }, { priority: 'event' })
+  }
+
+  const items = choices.map((name) => {
+    return React.createElement('option', { value: name, className: optionClass }, name)
+  })
+
+  return React.createElement(
+    'select',
+    { onChange, className: selectClass },
+    items
+  )
+};

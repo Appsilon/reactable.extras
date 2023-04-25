@@ -4,10 +4,12 @@
 \alias{date_extra}
 \title{Date for reactable}
 \usage{
-date_extra(id)
+date_extra(id, ...)
 }
 \arguments{
 \item{id}{id of the date input}
+
+\item{...}{parameters of date input}
 }
 \description{
 Date for reactable

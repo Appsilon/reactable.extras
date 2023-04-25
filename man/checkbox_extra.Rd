@@ -4,10 +4,12 @@
 \alias{checkbox_extra}
 \title{Checkbox for reactable}
 \usage{
-checkbox_extra(id)
+checkbox_extra(id, ...)
 }
 \arguments{
 \item{id}{id of the checkbox input}
+
+\item{...}{parameters of checkbox}
 }
 \description{
 Checkbox for reactable

@@ -25,6 +25,8 @@ Suggests:
     lintr,
     mockery,
     rcmdcheck,
+    rjson,
+    rlang,
     shinytest2,
     spelling,
     testthat (>= 3.0.0)

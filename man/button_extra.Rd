@@ -4,10 +4,12 @@
 \alias{button_extra}
 \title{Button for reactable}
 \usage{
-button_extra(id)
+button_extra(id, ...)
 }
 \arguments{
 \item{id}{id of the button input}
+
+\item{...}{parameters of button}
 }
 \description{
 Button for reactable
