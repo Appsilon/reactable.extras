@@ -2,7 +2,7 @@
 #' @keywords internal
 args_js <- function(...) {
   args <- rlang::list2(...)
-  if (length(args) == 0){
+  if (length(args) == 0) {
     return("")
   }
   paste0(
