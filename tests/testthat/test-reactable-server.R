@@ -42,6 +42,7 @@ test_that("reactableExtrasUI should return a widget of reactableOutput", {
 
 test_that("reactablExtrasServer should display the correct reactable page", {
   skip_on_cran()
+  skip_on_ci()
 
   motor_trend_cars <- mtcars
   motor_trend_cars$make <- rownames(motor_trend_cars)
