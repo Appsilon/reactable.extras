@@ -4,7 +4,7 @@ args_js <- function(...) {
   args <- rlang::list2(...)
 
   if (!is.null(args$class))
-    args$className = args$class
+    args$className <- args$class
 
   if (length(args) == 0) {
     return("")
