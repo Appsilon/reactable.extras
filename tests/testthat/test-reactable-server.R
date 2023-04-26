@@ -7,6 +7,7 @@ test_that("toggle_navigation_buttons should send the correct message to JS", {
   mock_session <- MockShinySession$new()
   class(mock_session) <- c("ShinySession", class(mock_session))
 
+  # Mock sendCustomMessage to test inputs are handled properly
   mock_session$sendCustomMessage <- function(type, message) {
     (
       assign(
@@ -21,12 +22,38 @@ test_that("toggle_navigation_buttons should send the correct message to JS", {
     )
   }
 
+  # Mock purrr::walk to return the message as a vector of strings
   stub(
     toggle_navigation_buttons,
     "purrr::walk",
     function(.x, .f) {
       map_chr(.x, .f)
     }
+  )
+
+  expect_error(toggle_navigation_buttons(1, session = mock_session))
+  expect_error(toggle_navigation_buttons("test", session = mock_session))
+  expect_error(
+    toggle_navigation_buttons(
+      c(
+        first_page = FALSE,
+        previous_page = FALSE,
+        next_page = FALSE,
+        last_page = FALSE
+      ),
+      session = data.frame()
+    )
+  )
+  expect_error(
+    toggle_navigation_buttons(
+      c(
+        first_page = FALSE,
+        previous_page = FALSE,
+        next_page = FALSE,
+        last_page = FALSE
+      ),
+      session = "session"
+    )
   )
 
   expect_equal(
@@ -46,13 +73,53 @@ test_that("toggle_navigation_buttons should send the correct message to JS", {
       "type: toggleDisable; id: #mock-session-last_page; disable: FALSE"
     )
   )
+  expect_equal(
+    toggle_navigation_buttons(
+      c(
+        first_page = FALSE,
+        previous_page = FALSE,
+        next_page = TRUE,
+        last_page = TRUE
+      ),
+      session = mock_session
+    ),
+    c(
+      "type: toggleDisable; id: #mock-session-first_page; disable: FALSE",
+      "type: toggleDisable; id: #mock-session-previous_page; disable: FALSE",
+      "type: toggleDisable; id: #mock-session-next_page; disable: TRUE",
+      "type: toggleDisable; id: #mock-session-last_page; disable: TRUE"
+    )
+  )
+  expect_equal(
+    toggle_navigation_buttons(
+      c(
+        first_page = TRUE,
+        previous_page = TRUE,
+        next_page = FALSE,
+        last_page = FALSE
+      ),
+      session = mock_session
+    ),
+    c(
+      "type: toggleDisable; id: #mock-session-first_page; disable: TRUE",
+      "type: toggleDisable; id: #mock-session-previous_page; disable: TRUE",
+      "type: toggleDisable; id: #mock-session-next_page; disable: FALSE",
+      "type: toggleDisable; id: #mock-session-last_page; disable: FALSE"
+    )
+  )
 })
 
 test_that("reactable_page_controls should return UI for page navigation and display", {
+  expect_error(reactable_page_controls(1))
+  expect_error(reactable_page_controls(c("test1", "test2")))
   expect_snapshot(reactable_page_controls("test"))
 })
 
 test_that("return_reactable_page should return a reactive page value", {
+  expect_error(return_reactable_page(1, 10))
+  expect_error(return_reactable_page(c("test1", "test2"), 10))
+  expect_error(return_reactable_page("test", "10"))
+  expect_error(return_reactable_page("test", c(10, 20)))
   testServer(
     return_reactable_page, args = list(total_pages = 10), {
       session$setInputs(first_page = 0)
@@ -84,6 +151,8 @@ test_that("return_reactable_page should return a reactive page value", {
 })
 
 test_that("reactable_extras_ui should return a widget of reactableOutput", {
+  expect_error(reactable_extras_ui(1))
+  expect_error(reactable_extras_ui(c("test1", "test2")))
   expect_snapshot(reactable_extras_ui("test"))
 })
 
