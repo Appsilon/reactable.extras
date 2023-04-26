@@ -149,6 +149,34 @@ return_reactable_page <- function(id, total_pages) {
   })
 }
 
+#' Get the data on the page
+#'
+#' @param data data.frame, an unpaged data; pagination will be inferred
+#' @param page_number page of data to retrieve
+#' @param total_pages number of pages of the data; determines pages of the data when the data has no
+#'   pages
+#'
+#' @return a data.frame
+#' @keywords internal
+#'
+#' @examples get_data_on_page(mtcars, 2, 3)
+get_data_on_page <- function(data, page_number, total_pages) {
+  checkmate::assert(
+    checkmate::check_data_frame(data),
+    checkmate::check_integerish(page_number, len = 1),
+    checkmate::check_integerish(total_pages, len = 1),
+    combine = "and"
+  )
+  rows_per_page <- ceiling(nrow(data) / total_pages)
+
+  data |>
+    dplyr::mutate(reactable_data_page = ceiling(dplyr::row_number() / rows_per_page)) |>
+    # Using page here will trigger a fail in R CMD CHECK
+    # because there is no global variable binding
+    # for page. This is a common problem using dplyr.
+    dplyr::filter(dplyr::if_any("reactable_data_page", ~ .x == page_number)) |>
+    dplyr::select(!"reactable_data_page")
+}
 
 #' Create reactable UI with server-side processing
 #'
@@ -169,7 +197,7 @@ return_reactable_page <- function(id, total_pages) {
 #' @return `reactable_extras_ui()` returns a custom UI for a server-side processed reactable
 #' @export
 #'
-#' @example
+#' @examples
 #' if (interactive()) {
 #'   library(shiny)
 #'   library(reactable)
@@ -239,12 +267,7 @@ reactable_extras_server <- function(id, data, total_pages = 4, sortable = TRUE, 
       dplyr::mutate(page = ceiling(dplyr::row_number() / rows_per_page))
 
     reactable_args$data <-
-      paged_data |>
-      # Using page here will trigger a fail in R CMD CHECK
-      # because there is no global variable binding
-      # for page. This is a common problem using dplyr.
-      dplyr::filter(dplyr::if_any("page", ~ .x == 1)) |>
-      dplyr::select(!"page")
+      get_data_on_page(data, 1, total_pages = total_pages)
 
     output$reactable <- reactable::renderReactable({
       do.call(reactable::reactable, args = reactable_args)
@@ -259,9 +282,7 @@ reactable_extras_server <- function(id, data, total_pages = 4, sortable = TRUE, 
 
     shiny::observe({
       selected_data <-
-        paged_data |>
-        dplyr::filter(dplyr::if_any("page", ~ .x == page_number())) |>
-        dplyr::select(!"page")
+        get_data_on_page(data, page_number = page_number(), total_pages = total_pages)
 
       if (is.null(column_sort())) {
         sorted_data <- selected_data
@@ -274,9 +295,7 @@ reactable_extras_server <- function(id, data, total_pages = 4, sortable = TRUE, 
 
         sorted_data <-
           sorted_data |>
-          dplyr::mutate(page = ceiling(dplyr::row_number() / rows_per_page)) |>
-          dplyr::filter(dplyr::if_any("page", ~ .x == page_number())) |>
-          dplyr::select(!"page")
+          get_data_on_page(page_number = page_number(), total_pages = total_pages)
       }
 
       reactable::updateReactable("reactable", data = sorted_data)
