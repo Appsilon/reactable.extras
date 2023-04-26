@@ -20,6 +20,7 @@ Suggests:
     covr,
     lintr,
     rcmdcheck,
+    shinytest2,
     spelling,
     testthat (>= 3.0.0)
 Encoding: UTF-8
