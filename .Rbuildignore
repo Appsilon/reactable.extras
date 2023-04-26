@@ -4,4 +4,6 @@
 vignettes
 .lintr
 pkgdown
+<<<<<<< HEAD
 _\.new\.png$
+^js$
