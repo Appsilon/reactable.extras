@@ -8,7 +8,7 @@
 \usage{
 reactable_extras_ui(id, width = "auto", height = "auto")
 
-reactable_extras_server(id, data, rows_per_page = 10, sortable = TRUE, ...)
+reactable_extras_server(id, data, total_pages = 4, sortable = TRUE, ...)
 }
 \arguments{
 \item{id}{element id}
@@ -17,11 +17,11 @@ reactable_extras_server(id, data, rows_per_page = 10, sortable = TRUE, ...)
 
 \item{data}{passed to \code{\link[reactable:reactable]{reactable::reactable()}}}
 
-\item{rows_per_page}{number of pages to show}
-
 \item{sortable}{allow sorting by columns}
 
 \item{...}{other arguments to be passed to \code{\link[reactable:reactable]{reactable::reactable()}}}
+
+\item{rows_per_page}{number of pages to show}
 }
 \value{
 \code{reactable_extras_ui()} returns a custom UI for a server-side processed reactable
@@ -32,4 +32,27 @@ Create reactable UI with server-side processing
 \details{
 Arguments passed to \code{\link[reactable:reactable]{reactable::reactable()}} must not contain \code{pagination} or \code{showPagination}.
 These are set to \code{FALSE}. Pagination will be handled on the server-side.
+}
+\examples{
+if (interactive()) {
+  library(shiny)
+  library(reactable)
+  library(reactable.extras)
+
+  shinyApp(
+    reactable_extras_ui("big_data"),
+    function(input, output, server) {
+      reactable_extras_server(
+        "big_data",
+        data = mtcars,
+        columns = list(
+          mpg = reactable::colDef(name = "Miles per Gallon"),
+          cyl = reactable::colDef(name = "Cylinders"),
+          disp = reactable::colDef(name = "Displacement")
+        ),
+        rows_per_page = 7
+      )
+    }
+  )
+}
 }
