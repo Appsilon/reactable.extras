@@ -168,7 +168,6 @@ test_that("reactable_extras_server should only accept valid arguments", {
 
 test_that("reactable_extras_server should display the correct reactable page", {
   skip_on_cran()
-  skip_on_ci()
 
   motor_trend_cars <- mtcars
   motor_trend_cars$make <- rownames(motor_trend_cars)
