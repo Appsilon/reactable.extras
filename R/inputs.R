@@ -18,7 +18,7 @@ args_js <- function(...) {
 }
 
 
-#' Button input for reactable's column cell
+#' Button input for reactable column cell
 #'
 #' @param id id of the button input
 #' @param ... parameters of button, only `class` is supported for now
@@ -43,7 +43,7 @@ button_extra <- function(id, ...) {
   )
 }
 
-#' Checkbox input for reactable's column cell
+#' Checkbox input for reactable column cell
 #'
 #' @param id id of the checkbox input
 #' @param ... parameters of checkbox, only `class` is supported for now
@@ -67,7 +67,7 @@ checkbox_extra <- function(id, ...) {
   )
 }
 
-#' Date input for reactable's column cell
+#' Date input for reactable column cell
 #'
 #' @param id id of the date input
 #' @param ... parameters of date input, only `class` is supported for now
@@ -90,7 +90,7 @@ date_extra <- function(id, ...) {
   )
 }
 
-#' Select input for reactable's column cell
+#' Select input for reactable column cell
 #'
 #' @param id id of the select input
 #' @param choices vector of choices
@@ -120,7 +120,7 @@ dropdown_extra <- function(id, choices, ...) {
   ))
 }
 
-#' Text input for reactable's column cell
+#' Text input for reactable column cell
 #'
 #' @param id id of the text input
 #' @param ... parameters of text input, only `class` is supported for now
