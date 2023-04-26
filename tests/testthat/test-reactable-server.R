@@ -1,5 +1,46 @@
 library(shiny)
 library(shinytest2)
+library(mockery)
+library(purrr)
+
+test_that("toggle_navigation_buttons should send the correct message to JS", {
+  mock_session <- MockShinySession$new()
+  class(mock_session) <- c("ShinySession", class(mock_session))
+
+  mock_session$sendCustomMessage <- function(type, message) {
+    (
+      assign(
+        message$id,
+        sprintf(
+          "type: %s; id: %s; disable: %s",
+          type,
+          message$id,
+          message$disable
+        )
+      )
+    )
+  }
+
+  stub(toggle_navigation_buttons, "purrr::walk", function(.x, .f) {map_chr(.x, .f)})
+
+  expect_equal(
+    toggle_navigation_buttons(
+      c(
+        first_page = FALSE,
+        previous_page = FALSE,
+        next_page = FALSE,
+        last_page = FALSE
+      ),
+      session = mock_session
+    ),
+    c(
+      "type: toggleDisable; id: #mock-session-first_page; disable: FALSE",
+      "type: toggleDisable; id: #mock-session-previous_page; disable: FALSE",
+      "type: toggleDisable; id: #mock-session-next_page; disable: FALSE",
+      "type: toggleDisable; id: #mock-session-last_page; disable: FALSE"
+    )
+  )
+})
 
 test_that("reactable_page_controls should return UI for page navigation and display", {
   expect_snapshot(reactable_page_controls("test"))
