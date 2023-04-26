@@ -2,7 +2,7 @@
 % Please edit documentation in R/inputs.R
 \name{checkbox_extra}
 \alias{checkbox_extra}
-\title{Checkbox input for reactable's column cell}
+\title{Checkbox input for reactable column cell}
 \usage{
 checkbox_extra(id, ...)
 }
@@ -12,7 +12,7 @@ checkbox_extra(id, ...)
 \item{...}{parameters of checkbox, only `class` is supported for now}
 }
 \description{
-Checkbox input for reactable's column cell
+Checkbox input for reactable column cell
 }
 \examples{
 colDef(cell = checkbox_extra("check", class = "table-check"))

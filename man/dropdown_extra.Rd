@@ -2,7 +2,7 @@
 % Please edit documentation in R/inputs.R
 \name{dropdown_extra}
 \alias{dropdown_extra}
-\title{Select input for reactable's column cell}
+\title{Select input for reactable column cell}
 \usage{
 dropdown_extra(id, choices, ...)
 }
@@ -14,7 +14,7 @@ dropdown_extra(id, choices, ...)
 \item{...}{parameters of date input, only `class` is supported for now}
 }
 \description{
-Select input for reactable's column cell
+Select input for reactable column cell
 }
 \examples{
 colDef(cell = dropdown_extra("dropdown", class = "table-dropdown"))

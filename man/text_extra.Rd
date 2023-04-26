@@ -2,7 +2,7 @@
 % Please edit documentation in R/inputs.R
 \name{text_extra}
 \alias{text_extra}
-\title{Text input for reactable's column cell}
+\title{Text input for reactable column cell}
 \usage{
 text_extra(id, ...)
 }
@@ -12,7 +12,7 @@ text_extra(id, ...)
 \item{...}{parameters of text input, only `class` is supported for now}
 }
 \description{
-Text input for reactable's column cell
+Text input for reactable column cell
 }
 \examples{
 colDef(cell = text_extra("text", class = "table-text"))
