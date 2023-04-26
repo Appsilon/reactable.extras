@@ -21,7 +21,13 @@ test_that("toggle_navigation_buttons should send the correct message to JS", {
     )
   }
 
-  stub(toggle_navigation_buttons, "purrr::walk", function(.x, .f) {map_chr(.x, .f)})
+  stub(
+    toggle_navigation_buttons,
+    "purrr::walk",
+    function(.x, .f) {
+      map_chr(.x, .f)
+    }
+  )
 
   expect_equal(
     toggle_navigation_buttons(
