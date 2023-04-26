@@ -1,0 +1,15 @@
+{
+  "name": "js",
+  "version": "0.0.1",
+  "description": "For running cypress tests",
+  "scripts": {
+    "start-test-app": "cd ../inst/examples/demo && Rscript -e 'shiny::runApp(port=8888)'",
+    "e2e-test": "start-server-and-test start-test-app http://localhost:8888 'cypress run'"
+  },
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "cypress": "^12.10.0",
+    "start-server-and-test": "^2.0.0"
+  }
+}
