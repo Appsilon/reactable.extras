@@ -3,6 +3,36 @@ library(shinytest2)
 library(mockery)
 library(purrr)
 
+test_that("get_data_on_page should return the correct subset of the data", {
+  test_data <- data.frame(
+    month_name = month.name,
+    month_abbrev = month.abb
+  )
+
+  page_1 <- head(test_data, 4)
+  page_3 <- tail(test_data, 4)
+
+  expect_error(get_data_on_page("test", 1, 3))
+  expect_error(get_data_on_page(2, 1, 3))
+  expect_error(get_data_on_page(test_data, "a", 3))
+  expect_error(get_data_on_page(test_data, "1", 3))
+  expect_error(get_data_on_page(test_data, 1.618, 3))
+  expect_error(get_data_on_page(test_data, 4, 3))
+  expect_error(get_data_on_page(test_data, 1, "a"))
+  expect_error(get_data_on_page(test_data, 1, "3"))
+  expect_error(get_data_on_page(test_data, 1, 3.141593))
+  expect_equal(
+    get_data_on_page(test_data, 1, 3),
+    page_1
+  )
+  expect_equal(
+    get_data_on_page(test_data, 3, 3),
+    page_3,
+    # expected data returned with tail had rownames 9 to 12, but retrieved data had 1 to 4
+    ignore_attr = TRUE
+  )
+})
+
 test_that("toggle_navigation_buttons should send the correct message to JS", {
   mock_session <- MockShinySession$new()
   class(mock_session) <- c("ShinySession", class(mock_session))
