@@ -22,12 +22,12 @@ shinyApp(
   server = function(input, output) {
     output$react <- renderReactable({
       # preparing the test data
-      df <- MASS::Cars93[1:8, 1:4]
+      df <- MASS::Cars93[, 1:4]
       df$Date <- sample(seq(as.Date("2020/01/01"),
                             as.Date("2023/01/01"),
                             by = "day"),
-                        8)
-      df$Check <- sample(c(TRUE, FALSE), 8, TRUE)
+                        nrow(df))
+      df$Check <- sample(c(TRUE, FALSE), nrow(df), TRUE)
       df$Check[2] <- FALSE
 
       reactable(
@@ -54,7 +54,7 @@ shinyApp(
           Type = colDef(
             cell = dropdown_extra(
               "dropdown",
-              c("qwe", "rty", "yui"),
+              unique(df$Type),
               class = "dropdown-extra"
             )
           ),

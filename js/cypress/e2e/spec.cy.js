@@ -2,8 +2,8 @@
 describe('Dropdown in reactable passes values to the shiny', () => {
   it('Dropdown', () => {
     cy.visit('http://localhost:8888');
-    cy.get('.dropdown-extra').eq(1).select("yui").should('have.value', 'yui');
-    cy.contains('Dropdown: {row : 1, value : yui}');
+    cy.get('.dropdown-extra').eq(1).select("Large").should('have.value', 'Large');
+    cy.contains('Dropdown: {row : 1, value : Large}');
   });
 })
 
@@ -24,3 +24,4 @@ describe('Date in reactable passes values to the shiny', () => {
     cy.contains('Date: {row : 1, value : 2020-01-01}');
   });
 })
+
