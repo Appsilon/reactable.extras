@@ -4,7 +4,7 @@
 
 ## Server-Side Processing
 
-* `reactableExtrasUI()` and `reactableExtrasServer()` now allows for server-side processing of data.
+* `reactable_extras_ui()` and `reactable_extras_server()` now allows for server-side processing of data.
 
 ## Miscellaneous
 

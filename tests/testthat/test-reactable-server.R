@@ -36,11 +36,11 @@ test_that("return_reactable_page should return a reactive page value", {
   )
 })
 
-test_that("reactableExtrasUI should return a widget of reactableOutput", {
-  expect_snapshot(reactableExtrasUi("test"))
+test_that("reactable_extras_ui should return a widget of reactableOutput", {
+  expect_snapshot(reactable_extras_ui("test"))
 })
 
-test_that("reactablExtrasServer should display the correct reactable page", {
+test_that("reactable_extras_server should display the correct reactable page", {
   skip_on_cran()
   skip_on_ci()
 
@@ -49,9 +49,9 @@ test_that("reactablExtrasServer should display the correct reactable page", {
   rownames(motor_trend_cars) <- NULL
 
   test_app <- shinyApp(
-    reactableExtrasUi("test"),
+    reactable_extras_ui("test"),
     function(input, output, server) {
-      reactableExtrasServer(
+      reactable_extras_server(
         "test",
         data = motor_trend_cars,
         columns = list(

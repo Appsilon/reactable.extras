@@ -19,3 +19,4 @@ Utility function to disable or re-enable navigation buttons
 \code{next_page}, and \code{last_page}. The logical vectors indicate if the corresponding button will be
 enabled or disabled.
 }
+\keyword{internal}

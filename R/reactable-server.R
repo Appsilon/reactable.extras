@@ -6,6 +6,7 @@
 #' @details `disable` should a logical vector with these exact names: `first_page`, `previous_page`,
 #'   `next_page`, and `last_page`. The logical vectors indicate if the corresponding button will be
 #'   enabled or disabled.
+#' @keywords internal
 #'
 toggle_navigation_buttons <- function(disable, session = shiny::getDefaultReactiveDomain()) {
   button_ids <- paste0(c("first", "previous", "next", "last"), "_page")
@@ -47,10 +48,11 @@ toggle_navigation_buttons <- function(disable, session = shiny::getDefaultReacti
 #' @param id element id
 #' @param total_pages total number of pages
 #'
-#' @name reactable-extras-server
+#' @name reactable-page-controls
 #'
 #' @return `reactable_page_controls()` returns a UI for page navigation of a server-side processed
 #'   [reactable::reactable()] data
+#' @keywords internal
 reactable_page_controls <- function(id) {
   checkmate::assert_character(id, len = 1)
 
@@ -164,7 +166,7 @@ return_reactable_page <- function(id, total_pages) {
 #'
 #' @name reactable-extras-server
 #'
-#' @return `reactableExtrasUi()` returns a custom UI for a server-side processed reactable
+#' @return `reactable_extras_ui()` returns a custom UI for a server-side processed reactable
 #' @export
 #'
 #' @example
@@ -174,9 +176,9 @@ return_reactable_page <- function(id, total_pages) {
 #'   library(reactable.extras)
 #'
 #'   shinyApp(
-#'     reactableExtrasUi("big_data"),
+#'     reactable_extras_ui("big_data"),
 #'     function(input, output, server) {
-#'       reactableExtrasServer(
+#'       reactable_extras_server(
 #'         "big_data",
 #'         data = mtcars,
 #'         columns = list(
@@ -189,7 +191,7 @@ return_reactable_page <- function(id, total_pages) {
 #'     }
 #'   )
 #' }
-reactableExtrasUi <- function(id, width = "auto", height = "auto") {
+reactable_extras_ui <- function(id, width = "auto", height = "auto") {
   checkmate::assert_character(id, len = 1)
 
   ns <- shiny::NS(id)
@@ -206,7 +208,7 @@ reactableExtrasUi <- function(id, width = "auto", height = "auto") {
 
 #' @rdname reactable-extras-server
 #' @export
-reactableExtrasServer <- function(id, data, rows_per_page = 10, sortable = TRUE, ...) {
+reactable_extras_server <- function(id, data, rows_per_page = 10, sortable = TRUE, ...) {
   checkmate::assert(
     checkmate::check_character(id, len = 1),
     checkmate::check_data_frame(data),

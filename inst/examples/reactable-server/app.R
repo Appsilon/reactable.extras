@@ -9,9 +9,9 @@ mtcars_ultra <- purrr::map_dfr(
 )
 
 shinyApp(
-  reactableExtrasUi("test"),
+  reactable_extras_ui("test"),
   function(input, output, server) {
-    reactableExtrasServer(
+    reactable_extras_server(
       "test",
       data = mtcars_ultra,
       columns = list(

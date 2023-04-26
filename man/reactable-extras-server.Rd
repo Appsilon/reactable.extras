@@ -2,13 +2,13 @@
 % Please edit documentation in R/reactable-server.R
 \name{reactable-extras-server}
 \alias{reactable-extras-server}
-\alias{reactableExtrasUi}
-\alias{reactableExtrasServer}
+\alias{reactable_extras_ui}
+\alias{reactable_extras_server}
 \title{Create reactable UI with server-side processing}
 \usage{
-reactableExtrasUi(id, width = "auto", height = "auto")
+reactable_extras_ui(id, width = "auto", height = "auto")
 
-reactableExtrasServer(id, data, rows_per_page = 10, sortable = TRUE, ...)
+reactable_extras_server(id, data, rows_per_page = 10, sortable = TRUE, ...)
 }
 \arguments{
 \item{id}{element id}
@@ -24,7 +24,7 @@ reactableExtrasServer(id, data, rows_per_page = 10, sortable = TRUE, ...)
 \item{...}{other arguments to be passed to \code{\link[reactable:reactable]{reactable::reactable()}}}
 }
 \value{
-\code{reactableExtrasUi()} returns a custom UI for a server-side processed reactable
+\code{reactable_extras_ui()} returns a custom UI for a server-side processed reactable
 }
 \description{
 Create reactable UI with server-side processing
