@@ -25,10 +25,10 @@
         </div>
       </div>
 
-# reactableExtrasUI should return a widget of reactableOutput
+# reactable_extras_ui should return a widget of reactableOutput
 
     Code
-      reactableExtrasUi("test")
+      reactable_extras_ui("test")
     Output
       <div class="pagination-controls">
         <button class="btn btn-default action-button pagination-button" id="test-page_controls-first_page" type="button">

@@ -59,7 +59,7 @@ test_that("reactable_extras_server should display the correct reactable page", {
           cyl = reactable::colDef(name = "Cylinders"),
           disp = reactable::colDef(name = "Displacement")
         ),
-        rows_per_page = 17
+        rows_per_page = 10
       )
     }
   )
