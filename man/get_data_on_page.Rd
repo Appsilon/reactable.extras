@@ -11,16 +11,12 @@ get_data_on_page(data, page_number, total_pages)
 
 \item{page_number}{page of data to retrieve}
 
-\item{total_pages}{number of pages of the data; determines pages of the data when the data has no
-pages}
+\item{total_pages}{number of pages in \code{data}; determines pagination when the data has no pages}
 }
 \value{
 a data.frame
 }
 \description{
 Get the data on the page
-}
-\examples{
-get_data_on_page(mtcars, 2, 3)
 }
 \keyword{internal}

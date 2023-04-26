@@ -153,13 +153,10 @@ return_reactable_page <- function(id, total_pages) {
 #'
 #' @param data data.frame, an unpaged data; pagination will be inferred
 #' @param page_number page of data to retrieve
-#' @param total_pages number of pages of the data; determines pages of the data when the data has no
-#'   pages
+#' @param total_pages number of pages in `data`; determines pagination when the data has no pages
 #'
 #' @return a data.frame
 #' @keywords internal
-#'
-#' @examples get_data_on_page(mtcars, 2, 3)
 get_data_on_page <- function(data, page_number, total_pages) {
   checkmate::assert(
     checkmate::check_data_frame(data),
@@ -187,7 +184,7 @@ get_data_on_page <- function(data, page_number, total_pages) {
 #' @param id element id
 #' @param width,height CSS unit (`"100%"`, `"400px"`, or `"auto"`), numeric for number of pixels
 #' @param data passed to [reactable::reactable()]
-#' @param rows_per_page number of pages to show
+#' @param total_pages number of pages
 #' @param sortable allow sorting by columns
 #' @param ... other arguments to be passed to [reactable::reactable()]
 #'

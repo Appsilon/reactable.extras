@@ -17,11 +17,11 @@ reactable_extras_server(id, data, total_pages = 4, sortable = TRUE, ...)
 
 \item{data}{passed to \code{\link[reactable:reactable]{reactable::reactable()}}}
 
+\item{total_pages}{number of pages}
+
 \item{sortable}{allow sorting by columns}
 
 \item{...}{other arguments to be passed to \code{\link[reactable:reactable]{reactable::reactable()}}}
-
-\item{rows_per_page}{number of pages to show}
 }
 \value{
 \code{reactable_extras_ui()} returns a custom UI for a server-side processed reactable
