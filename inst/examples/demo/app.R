@@ -16,7 +16,8 @@ shinyApp(
     textOutput("date_text"),
     textOutput("button_text"),
     textOutput("check_text"),
-    textOutput("dropdown_text")
+    textOutput("dropdown_text"),
+    textOutput("text")
   ),
   server = function(input, output) {
     output$react <- renderReactable({
@@ -27,23 +28,40 @@ shinyApp(
                             by = "day"),
                         8)
       df$Check <- sample(c(TRUE, FALSE), 8, TRUE)
+      df$Check[2] <- FALSE
 
       reactable(
         df,
         searchable = TRUE,
+        onClick = JS("(row, column) => {
+                     if (!['Manufacturer','Check','Type'].includes(column.id)) {
+                        console.log(column.id)
+                        row.toggleRowSelected()
+                     }
+        }"),
+        selection = "multiple",
         columns = list(
           Manufacturer = colDef(
-            cell = button_extra("button", className = "extra-button")
+            cell = button_extra("button", class = "button-extra")
           ),
           Check = colDef(
-            cell = checkbox_extra("check", className = "extra-check"),
+            cell = checkbox_extra("check", class = "checkbox-extra"),
             align = "left"
           ),
           Date = colDef(
-            cell = date_extra("date")
+            cell = date_extra("date", class = "date-extra")
           ),
           Type = colDef(
-            cell = dropdown_extra("dropdown", c("qwe", "rty", "yui"))
+            cell = dropdown_extra(
+              "dropdown",
+              c("qwe", "rty", "yui"),
+              class = "dropdown-extra"
+            )
+          ),
+          Model = colDef(
+            cell = text_extra(
+              "text"
+            )
           )
         )
       )
@@ -76,6 +94,15 @@ shinyApp(
     output$dropdown_text <- renderText({
       req(input$dropdown)
       values <- input$dropdown
+      paste0(
+        "Dropdown: ",
+        string_list(values)
+      )
+    })
+
+    output$text <- renderText({
+      req(input$text)
+      values <- input$text
       paste0(
         "Dropdown: ",
         string_list(values)

@@ -2,6 +2,10 @@
 #' @keywords internal
 args_js <- function(...) {
   args <- rlang::list2(...)
+
+  if (!is.null(args$class))
+    args$className = args$class
+
   if (length(args) == 0) {
     return("")
   }
@@ -94,11 +98,31 @@ dropdown_extra <- function(id, choices, ...) {
       htmltools::htmlTemplate(
         text_ = "function(cellInfo) {
               return React.createElement(dropdownExtras,
-              {id: '{{id}}', value: cellInfo.value, {{args}} {{choices}}}, cellInfo.id)
+              {id: '{{id}}', value: cellInfo.value {{args}} {{choices}}}, cellInfo.id)
       }",
       id = id,
       choices = choices_js,
       args = args_js(...)
     )
   ))
+}
+
+#' Text input for reactable
+#'
+#' @param id id of the text input
+#' @param ... parameters of text input
+#'
+#' @export
+text_extra <- function(id, ...) {
+  htmlwidgets::JS(
+    htmltools::doRenderTags(
+      htmltools::htmlTemplate(
+        text_ = "function(cellInfo) {
+              return React.createElement(textExtras,
+              {id: '{{id}}', value: cellInfo.value {{args}}}, cellInfo.id)
+      }",
+      id = id,
+      args = args_js(...))
+    )
+  )
 }

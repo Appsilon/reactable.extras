@@ -11,7 +11,7 @@ function checkboxExtras ({ id, value, className, children }) {
     Shiny.setInputValue(id, { row: children, value: event.target.checked }, { priority: 'event' })
   }
 
-  return React.createElement('input', { type: 'checkbox', className, onChange, defaultChecked: value })
+  return React.createElement('input', { type: 'checkbox', defaultChecked: value,  className, onChange })
 };
 
 function dateExtras ({ id, value, className, children }) {
@@ -21,7 +21,7 @@ function dateExtras ({ id, value, className, children }) {
 
   return React.createElement(
     'input',
-    { type: 'date', onChange, className, defaultValue: value }
+    { type: 'date', defaultValue: value, onChange, className}
   )
 };
 
@@ -38,5 +38,16 @@ function dropdownExtras ({ id, value, choices, className, children }) {
     'select',
     { onChange, className },
     items
+  )
+};
+
+function textExtras ({ id, value, className, children }) {
+  const onChange = event => {
+    Shiny.setInputValue(id, { row: children, value: event.target.value }, { priority: 'event' })
+  }
+
+  return React.createElement(
+    'input',
+    { onChange, className, defaultValue: value }
   )
 };
