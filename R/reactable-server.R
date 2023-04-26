@@ -167,6 +167,10 @@ get_data_on_page <- function(data, page_number, total_pages) {
     checkmate::check_integerish(total_pages, len = 1),
     combine = "and"
   )
+
+  if (page_number > total_pages)
+    stop("page_number must be less than or equal to total_pages")
+
   rows_per_page <- ceiling(nrow(data) / total_pages)
 
   data |>
