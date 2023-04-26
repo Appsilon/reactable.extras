@@ -24,12 +24,12 @@ args_js <- function(...) {
 #' @param ... parameters of button, only `class` is supported for now
 #'
 #' @examples
-#' colDef(cell = button_extra("click", class = "table-button"))
+#' reactable::colDef(cell = button_extra("click", class = "table-button"))
 #'
 #'
 #' @export
 button_extra <- function(id, ...) {
-  htmlwidgets::JS(
+  reactable::JS(
     htmltools::doRenderTags(
       htmltools::htmlTemplate(
         text_ = "function(cellInfo) {
@@ -49,11 +49,11 @@ button_extra <- function(id, ...) {
 #' @param ... parameters of checkbox, only `class` is supported for now
 #'
 #' @examples
-#' colDef(cell = checkbox_extra("check", class = "table-check"))
+#' reactable::colDef(cell = checkbox_extra("check", class = "table-check"))
 #'
 #' @export
 checkbox_extra <- function(id, ...) {
-  htmlwidgets::JS(
+  reactable::JS(
     htmltools::doRenderTags(
       htmltools::htmlTemplate(
         text_ = "function(cellInfo) {
@@ -73,11 +73,11 @@ checkbox_extra <- function(id, ...) {
 #' @param ... parameters of date input, only `class` is supported for now
 #'
 #' @examples
-#' colDef(cell = date_extra("date", class = "table-date"))
+#' reactable::colDef(cell = date_extra("date", class = "table-date"))
 #'
 #' @export
 date_extra <- function(id, ...) {
-  htmlwidgets::JS(
+  reactable::JS(
     htmltools::doRenderTags(
       htmltools::htmlTemplate(
         text_ = "function(cellInfo) {
@@ -97,7 +97,12 @@ date_extra <- function(id, ...) {
 #' @param ... parameters of date input, only `class` is supported for now
 #'
 #' @examples
-#' colDef(cell = dropdown_extra("dropdown", class = "table-dropdown"))
+#' reactable::colDef(
+#'   cell = dropdown_extra("dropdown",
+#'   choices = letters[1:5],
+#'   class = "table-dropdown"
+#'   )
+#'  )
 #'
 #' @export
 dropdown_extra <- function(id, choices, ...) {
@@ -106,7 +111,7 @@ dropdown_extra <- function(id, choices, ...) {
   } else {
     choices_js <- paste0(", choices: ", rjson::toJSON(choices))
   }
-  htmlwidgets::JS(
+  reactable::JS(
     htmltools::doRenderTags(
       htmltools::htmlTemplate(
         text_ = "function(cellInfo) {
@@ -126,11 +131,11 @@ dropdown_extra <- function(id, choices, ...) {
 #' @param ... parameters of text input, only `class` is supported for now
 #'
 #' @examples
-#' colDef(cell = text_extra("text", class = "table-text"))
+#' reactable::colDef(cell = text_extra("text", class = "table-text"))
 #'
 #' @export
 text_extra <- function(id, ...) {
-  htmlwidgets::JS(
+  reactable::JS(
     htmltools::doRenderTags(
       htmltools::htmlTemplate(
         text_ = "function(cellInfo) {

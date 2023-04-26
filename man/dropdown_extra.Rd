@@ -17,6 +17,11 @@ dropdown_extra(id, choices, ...)
 Select input for reactable column cell
 }
 \examples{
-colDef(cell = dropdown_extra("dropdown", class = "table-dropdown"))
+reactable::colDef(
+  cell = dropdown_extra("dropdown",
+  choices = letters[1:5],
+  class = "table-dropdown"
+  )
+ )
 
 }

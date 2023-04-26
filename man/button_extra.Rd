@@ -15,7 +15,7 @@ button_extra(id, ...)
 Button input for reactable column cell
 }
 \examples{
-colDef(cell = button_extra("click", class = "table-button"))
+reactable::colDef(cell = button_extra("click", class = "table-button"))
 
 
 }

@@ -15,6 +15,6 @@ text_extra(id, ...)
 Text input for reactable column cell
 }
 \examples{
-colDef(cell = text_extra("text", class = "table-text"))
+reactable::colDef(cell = text_extra("text", class = "table-text"))
 
 }

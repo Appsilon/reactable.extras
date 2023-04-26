@@ -25,6 +25,7 @@ Suggests:
     lintr,
     mockery,
     rcmdcheck,
+    reactable,
     rjson,
     rlang,
     shinytest2,

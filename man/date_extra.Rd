@@ -15,6 +15,6 @@ date_extra(id, ...)
 Date input for reactable column cell
 }
 \examples{
-colDef(cell = date_extra("date", class = "table-date"))
+reactable::colDef(cell = date_extra("date", class = "table-date"))
 
 }

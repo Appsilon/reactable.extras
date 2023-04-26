@@ -15,6 +15,6 @@ checkbox_extra(id, ...)
 Checkbox input for reactable column cell
 }
 \examples{
-colDef(cell = checkbox_extra("check", class = "table-check"))
+reactable::colDef(cell = checkbox_extra("check", class = "table-check"))
 
 }
