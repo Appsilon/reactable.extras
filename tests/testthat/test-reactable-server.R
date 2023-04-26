@@ -183,14 +183,26 @@ test_that("reactable_extras_server should display the correct reactable page", {
         columns = list(
           mpg = reactable::colDef(name = "Miles per Gallon"),
           cyl = reactable::colDef(name = "Cylinders"),
-          disp = reactable::colDef(name = "Displacement")
+          disp = reactable::colDef(name = "Displacement"),
+          hp = reactable::colDef(name = "Horsepower"),
+          wt = reactable::colDef(name = "Weight"),
+          gear = reactable::colDef(name = "Number of forward gears"),
+          vs = reactable::colDef(name = "Engine"),
+          am = reactable::colDef(name = "Transmission")
         ),
+        striped = TRUE,
+        compact = TRUE,
         rows_per_page = 10
       )
     }
   )
 
-  app <- AppDriver$new(test_app, name = "test", screenshot_args = FALSE)
+  app <- AppDriver$new(
+    test_app,
+    name = "test",
+    screenshot_args = FALSE,
+    expect_values_screenshot_args = FALSE
+  )
 
   app$set_window_size(width = 1619, height = 1049)
   app$expect_values()
@@ -213,6 +225,8 @@ test_that("reactable_extras_server should display the correct reactable page", {
   app$set_inputs(`test-reactable__reactable__sorted` = "desc", allow_no_input_binding_ = TRUE)
   app$expect_values()
   app$set_inputs(`test-reactable__reactable__sorted` = "asc", allow_no_input_binding_ = TRUE)
+  app$expect_values()
+  app$set_inputs(`test-reactable__reactable__sorted` = character(0), allow_no_input_binding_ = TRUE)
   app$expect_values()
 
 })
