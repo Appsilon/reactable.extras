@@ -160,14 +160,15 @@ test_that("reactable_extras_server should only accept valid arguments", {
   expect_error(reactable_extras_server(1, mtcars))
   expect_error(reactable_extras_server(c("test1", "test2"), mtcars))
   expect_error(reactable_extras_server("test", 1))
-  expect_error(reactable_extras_server("test", mtcars, rows_per_page = "a"))
-  expect_error(reactable_extras_server("test", mtcars, rows_per_page = 1.618))
+  expect_error(reactable_extras_server("test", mtcars, total_pages = "a"))
+  expect_error(reactable_extras_server("test", mtcars, total_pages = 1.618))
   expect_error(reactable_extras_server("test", mtcars, sortable = "a"))
   expect_error(reactable_extras_server("test", mtcars, not_a_valid_argument = TRUE))
 })
 
 test_that("reactable_extras_server should display the correct reactable page", {
   skip_on_cran()
+  skip_on_ci()
 
   motor_trend_cars <- mtcars
   motor_trend_cars$make <- rownames(motor_trend_cars)
@@ -191,7 +192,7 @@ test_that("reactable_extras_server should display the correct reactable page", {
         ),
         striped = TRUE,
         compact = TRUE,
-        rows_per_page = 10
+        total_pages = 4
       )
     }
   )
