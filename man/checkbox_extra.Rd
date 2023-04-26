@@ -2,15 +2,19 @@
 % Please edit documentation in R/inputs.R
 \name{checkbox_extra}
 \alias{checkbox_extra}
-\title{Checkbox for reactable}
+\title{Checkbox input for reactable's column cell}
 \usage{
 checkbox_extra(id, ...)
 }
 \arguments{
 \item{id}{id of the checkbox input}
 
-\item{...}{parameters of checkbox}
+\item{...}{parameters of checkbox, only `class` is supported for now}
 }
 \description{
-Checkbox for reactable
+Checkbox input for reactable's column cell
+}
+\examples{
+colDef(cell = checkbox_extra("check", class = "table-check"))
+
 }

@@ -2,15 +2,20 @@
 % Please edit documentation in R/inputs.R
 \name{button_extra}
 \alias{button_extra}
-\title{Button for reactable}
+\title{Button input for reactable's column cell}
 \usage{
 button_extra(id, ...)
 }
 \arguments{
 \item{id}{id of the button input}
 
-\item{...}{parameters of button}
+\item{...}{parameters of button, only `class` is supported for now}
 }
 \description{
-Button for reactable
+Button input for reactable's column cell
+}
+\examples{
+colDef(cell = button_extra("click", class = "table-button"))
+
+
 }

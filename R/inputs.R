@@ -18,10 +18,14 @@ args_js <- function(...) {
 }
 
 
-#' Button for reactable
+#' Button input for reactable's column cell
 #'
 #' @param id id of the button input
-#' @param ... parameters of button
+#' @param ... parameters of button, only `class` is supported for now
+#'
+#' @examples
+#' colDef(cell = button_extra("click", class = "table-button"))
+#'
 #'
 #' @export
 button_extra <- function(id, ...) {
@@ -39,10 +43,13 @@ button_extra <- function(id, ...) {
   )
 }
 
-#' Checkbox for reactable
+#' Checkbox input for reactable's column cell
 #'
 #' @param id id of the checkbox input
-#' @param ... parameters of checkbox
+#' @param ... parameters of checkbox, only `class` is supported for now
+#'
+#' @examples
+#' colDef(cell = checkbox_extra("check", class = "table-check"))
 #'
 #' @export
 checkbox_extra <- function(id, ...) {
@@ -60,10 +67,13 @@ checkbox_extra <- function(id, ...) {
   )
 }
 
-#' Date for reactable
+#' Date input for reactable's column cell
 #'
 #' @param id id of the date input
-#' @param ... parameters of date input
+#' @param ... parameters of date input, only `class` is supported for now
+#'
+#' @examples
+#' colDef(cell = date_extra("date", class = "table-date"))
 #'
 #' @export
 date_extra <- function(id, ...) {
@@ -80,11 +90,14 @@ date_extra <- function(id, ...) {
   )
 }
 
-#' Select input for reactable
+#' Select input for reactable's column cell
 #'
 #' @param id id of the select input
 #' @param choices vector of choices
-#' @param ... parameters of date input
+#' @param ... parameters of date input, only `class` is supported for now
+#'
+#' @examples
+#' colDef(cell = dropdown_extra("dropdown", class = "table-dropdown"))
 #'
 #' @export
 dropdown_extra <- function(id, choices, ...) {
@@ -107,10 +120,13 @@ dropdown_extra <- function(id, choices, ...) {
   ))
 }
 
-#' Text input for reactable
+#' Text input for reactable's column cell
 #'
 #' @param id id of the text input
-#' @param ... parameters of text input
+#' @param ... parameters of text input, only `class` is supported for now
+#'
+#' @examples
+#' colDef(cell = text_extra("text", class = "table-text"))
 #'
 #' @export
 text_extra <- function(id, ...) {

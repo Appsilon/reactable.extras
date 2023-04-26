@@ -2,15 +2,19 @@
 % Please edit documentation in R/inputs.R
 \name{text_extra}
 \alias{text_extra}
-\title{Text input for reactable}
+\title{Text input for reactable's column cell}
 \usage{
 text_extra(id, ...)
 }
 \arguments{
 \item{id}{id of the text input}
 
-\item{...}{parameters of text input}
+\item{...}{parameters of text input, only `class` is supported for now}
 }
 \description{
-Text input for reactable
+Text input for reactable's column cell
+}
+\examples{
+colDef(cell = text_extra("text", class = "table-text"))
+
 }

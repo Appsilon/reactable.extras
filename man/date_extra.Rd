@@ -2,15 +2,19 @@
 % Please edit documentation in R/inputs.R
 \name{date_extra}
 \alias{date_extra}
-\title{Date for reactable}
+\title{Date input for reactable's column cell}
 \usage{
 date_extra(id, ...)
 }
 \arguments{
 \item{id}{id of the date input}
 
-\item{...}{parameters of date input}
+\item{...}{parameters of date input, only `class` is supported for now}
 }
 \description{
-Date for reactable
+Date input for reactable's column cell
+}
+\examples{
+colDef(cell = date_extra("date", class = "table-date"))
+
 }
