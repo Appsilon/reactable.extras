@@ -7,7 +7,7 @@
 get_data_on_page(data, page_number, total_pages)
 }
 \arguments{
-\item{data}{data.frame, an unpaged data; pagination will be inferred}
+\item{data}{data.frame without pages; pagination will be inferred}
 
 \item{page_number}{page of data to retrieve}
 

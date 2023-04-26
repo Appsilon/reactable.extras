@@ -151,7 +151,7 @@ return_reactable_page <- function(id, total_pages) {
 
 #' Get the data on the page
 #'
-#' @param data data.frame, an unpaged data; pagination will be inferred
+#' @param data data.frame without pages; pagination will be inferred
 #' @param page_number page of data to retrieve
 #' @param total_pages number of pages in `data`; determines pagination when the data has no pages
 #'
@@ -260,13 +260,6 @@ reactable_extras_server <- function(id, data, total_pages = 4, sortable = TRUE, 
   reactable_args$sortable <- sortable
 
   shiny::moduleServer(id, function(input, output, session) {
-
-    rows_per_page <- ceiling(nrow(data) / total_pages)
-
-    paged_data <-
-      data |>
-      dplyr::mutate(page = ceiling(dplyr::row_number() / rows_per_page))
-
     reactable_args$data <-
       get_data_on_page(data, 1, total_pages = total_pages)
 
