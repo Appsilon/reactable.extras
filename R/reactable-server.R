@@ -208,14 +208,14 @@ reactable_extras_ui <- function(id, width = "auto", height = "auto") {
 
 #' @rdname reactable-extras-server
 #' @export
-reactable_extras_server <- function(id, data, rows_per_page = 10, sortable = TRUE, ...) {
+reactable_extras_server <- function(id, data, total_pages = 4, sortable = TRUE, ...) {
   # Create and clean-up reactable arguments
   reactable_args <- list(...)
 
   checkmate::assert(
     checkmate::check_character(id, len = 1),
     checkmate::check_data_frame(data),
-    checkmate::check_integerish(rows_per_page, len = 1),
+    checkmate::check_integerish(total_pages, len = 1),
     # Check if arguments can be passed to reactable
     checkmate::check_subset(
       names(reactable_args),
@@ -232,7 +232,7 @@ reactable_extras_server <- function(id, data, rows_per_page = 10, sortable = TRU
 
   shiny::moduleServer(id, function(input, output, session) {
 
-    total_pages <- ceiling(nrow(data) / rows_per_page)
+    rows_per_page <- ceiling(nrow(data) / total_pages)
 
     paged_data <-
       data |>
