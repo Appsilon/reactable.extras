@@ -209,20 +209,28 @@ reactable_extras_ui <- function(id, width = "auto", height = "auto") {
 #' @rdname reactable-extras-server
 #' @export
 reactable_extras_server <- function(id, data, rows_per_page = 10, sortable = TRUE, ...) {
+  # Create and clean-up reactable arguments
+  reactable_args <- list(...)
+
   checkmate::assert(
     checkmate::check_character(id, len = 1),
     checkmate::check_data_frame(data),
     checkmate::check_integerish(rows_per_page, len = 1),
+    # Check if arguments can be passed to reactable
+    checkmate::check_subset(
+      names(reactable_args),
+      names(formals(reactable::reactable)),
+      empty.ok = TRUE
+    ),
     combine = "and"
   )
 
+  # Server-side processing handles pagination, so reactable should not show it
+  reactable_args$pagination <- FALSE
+  reactable_args$showPagination <- FALSE
+  reactable_args$sortable <- sortable
+
   shiny::moduleServer(id, function(input, output, session) {
-    # Create and clean-up reactable arguments
-    reactable_args <- list(...)
-    # Server-side processing handles pagination, so reactable should not show it
-    reactable_args$pagination <- FALSE
-    reactable_args$showPagination <- FALSE
-    reactable_args$sortable <- sortable
 
     total_pages <- ceiling(nrow(data) / rows_per_page)
 
