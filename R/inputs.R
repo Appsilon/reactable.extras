@@ -3,7 +3,7 @@
 args_js <- function(...) {
   args <- rlang::list2(...)
 
-  quoute_type <- ifelse(Sys.info()[['sysname']] == "Windows", "cmd", "sh")
+  quoute_type <- ifelse(Sys.info()[["sysname"]] == "Windows", "cmd", "sh")
 
   if (!is.null(args$class))
     args$className <- args$class
