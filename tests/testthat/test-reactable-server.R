@@ -237,7 +237,6 @@ test_that("reactable_extras_server should return the correct data subset", {
 
 test_that("reactable_extras_server should display the correct reactable page", {
   skip_on_cran()
-  skip_on_ci()
 
   test_app <- shinyApp(
     reactable_extras_ui("test"),
