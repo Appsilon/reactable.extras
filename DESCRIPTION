@@ -17,6 +17,7 @@ Imports:
     htmltools,
     purrr (>= 1.0.0),
     reactable,
+    rjson,
     shiny
 Suggests: 
     covr,
