@@ -14,9 +14,7 @@ Depends:
 Imports: 
     checkmate,
     dplyr,
-    glue,
     htmltools,
-    htmlwidgets,
     purrr (>= 1.0.0),
     reactable,
     shiny
@@ -25,9 +23,6 @@ Suggests:
     lintr,
     mockery,
     rcmdcheck,
-    reactable,
-    rjson,
-    rlang,
     shinytest2,
     spelling,
     testthat (>= 3.0.0)
