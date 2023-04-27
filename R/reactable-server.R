@@ -259,6 +259,8 @@ reactable_extras_server <- function(id, data, total_pages = 4, sortable = TRUE, 
   reactable_args$showPagination <- FALSE
   reactable_args$sortable <- sortable
 
+  reactable_data <- shiny::reactiveVal(NULL)
+
   shiny::moduleServer(id, function(input, output, session) {
     reactable_args$data <-
       get_data_on_page(data, 1, total_pages = total_pages)
@@ -275,24 +277,25 @@ reactable_extras_server <- function(id, data, total_pages = 4, sortable = TRUE, 
       return_reactable_page(id = "page_controls", total_pages = total_pages)
 
     shiny::observe({
-      selected_data <-
-        get_data_on_page(data, page_number = page_number(), total_pages = total_pages)
-
       if (is.null(column_sort())) {
-        sorted_data <- selected_data
+        data |>
+          get_data_on_page(page_number = page_number(), total_pages = total_pages) |>
+          reactable_data()
       } else {
         if (column_sort()[[1]] == "asc") {
-          sorted_data <- dplyr::arrange(data, dplyr::across(names(column_sort())))
+          data |>
+            dplyr::arrange(dplyr::across(names(column_sort()))) |>
+            get_data_on_page(page_number = page_number(), total_pages = total_pages) |>
+            reactable_data()
         } else if (column_sort()[[1]] == "desc") {
-          sorted_data <- dplyr::arrange(data, dplyr::across(names(column_sort()), dplyr::desc))
+          data |>
+            dplyr::arrange(dplyr::across(names(column_sort()), dplyr::desc)) |>
+            get_data_on_page(page_number = page_number(), total_pages = total_pages) |>
+            reactable_data()
         }
-
-        sorted_data <-
-          sorted_data |>
-          get_data_on_page(page_number = page_number(), total_pages = total_pages)
       }
 
-      reactable::updateReactable("reactable", data = sorted_data)
+      reactable::updateReactable("reactable", data = reactable_data())
     })
   })
 }
