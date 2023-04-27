@@ -268,6 +268,8 @@ test_that("reactable_extras_server should display the correct reactable page", {
     expect_values_screenshot_args = FALSE
   )
 
+  withr::defer(app$stop())
+
   app$set_window_size(width = 1619, height = 1049)
   app$expect_values()
   app$click("test-page_controls-next_page")
