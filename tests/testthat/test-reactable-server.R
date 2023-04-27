@@ -3,6 +3,10 @@ library(shinytest2)
 library(mockery)
 library(purrr)
 
+motor_trend_cars <- mtcars
+motor_trend_cars$make <- rownames(motor_trend_cars)
+rownames(motor_trend_cars) <- NULL
+
 test_that("get_data_on_page should return the correct subset of the data", {
   test_data <- data.frame(
     month_name = month.name,
@@ -186,7 +190,8 @@ test_that("reactable_extras_ui should return a widget of reactableOutput", {
   expect_snapshot(reactable_extras_ui("test"))
 })
 
-test_that("reactable_extras_server should only accept valid arguments", {
+test_that("reactable_extras_server should return the correct data subset", {
+  # Function should throw errors with invalid inputs
   expect_error(reactable_extras_server(1, mtcars))
   expect_error(reactable_extras_server(c("test1", "test2"), mtcars))
   expect_error(reactable_extras_server("test", 1))
@@ -194,15 +199,44 @@ test_that("reactable_extras_server should only accept valid arguments", {
   expect_error(reactable_extras_server("test", mtcars, total_pages = 1.618))
   expect_error(reactable_extras_server("test", mtcars, sortable = "a"))
   expect_error(reactable_extras_server("test", mtcars, not_a_valid_argument = TRUE))
+  testServer(
+    reactable_extras_server,
+    args = list(
+      data = motor_trend_cars,
+      columns = list(
+        mpg = reactable::colDef(name = "Miles per Gallon"),
+        cyl = reactable::colDef(name = "Cylinders"),
+        disp = reactable::colDef(name = "Displacement"),
+        hp = reactable::colDef(name = "Horsepower"),
+        wt = reactable::colDef(name = "Weight"),
+        gear = reactable::colDef(name = "Number of forward gears"),
+        vs = reactable::colDef(name = "Engine"),
+        am = reactable::colDef(name = "Transmission")
+      ),
+      striped = TRUE,
+      compact = TRUE,
+      total_pages = 4
+    ), {
+      # Pagination should return the correct data subsets
+      session$setInputs("page_controls-first_page" = 0)
+      expect_equal(reactable_data(), head(motor_trend_cars, 8))
+      session$setInputs("page_controls-last_page" = 1)
+      expect_equal(reactable_data(), tail(motor_trend_cars, 8), ignore_attr = TRUE)
+      session$setInputs("page_controls-previous_page" = 1)
+      expect_equal(reactable_data(), motor_trend_cars[seq(17, 24, by = 1), ], ignore_attr = TRUE)
+      session$setInputs("page_controls-first_page" = 1)
+      expect_equal(reactable_data(), head(motor_trend_cars, 8))
+      session$setInputs("page_controls-next_page" = 1)
+      expect_equal(reactable_data(), motor_trend_cars[seq(9, 16, by = 1), ], ignore_attr = TRUE)
+
+      # Reactable should be returned without error
+      output$reactable
+  })
 })
 
 test_that("reactable_extras_server should display the correct reactable page", {
   skip_on_cran()
   skip_on_ci()
-
-  motor_trend_cars <- mtcars
-  motor_trend_cars$make <- rownames(motor_trend_cars)
-  rownames(motor_trend_cars) <- NULL
 
   test_app <- shinyApp(
     reactable_extras_ui("test"),
