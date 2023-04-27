@@ -51,3 +51,4 @@ function textExtras ({ id, value, page, className, children }) {
     { onChange, className, defaultValue: value, key: children }
   )
 };
+

@@ -1,17 +1,5 @@
 
-#' htmlDependency of reactable server including script and styles
-#'
-#' @importFrom htmltools htmlDependency
-#' @return An htmlDependency object
-reactable_extras_dependency <- function() {
-  htmltools::htmlDependency(
-    "reactable-server", "0.0.1",
-    src = list(file = "assets"), package = "reactable.extras",
-    script = "js/reactable-server.js",
-    stylesheet = "css/reactable-server.css"
-  )
-}
-#' Shiny Fluent JS dependency
+#' Reactable.extras JS and CSS dependencies
 #'
 #' @return HTML dependency object.
 #'
@@ -20,8 +8,9 @@ reactable_extras_dependency <- function() {
   htmltools::htmlDependency(
     name = "reactable.extras",
     version = "0.0.1",
+    src = list(file = "assets"),
     package = "reactable.extras",
-    src = "www",
-    script = "reactable-extras.js"
+    script = c("js/reactable-extras.js", "js/reactable-server.js"),
+    stylesheet = "reactable-server.css"
   )
 }
