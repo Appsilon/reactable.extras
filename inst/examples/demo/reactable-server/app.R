@@ -2,7 +2,7 @@ library(shiny)
 library(reactable)
 library(reactable.extras)
 
-mtcars_ultra <- purrr::map_dfr(
+mtcars_ultra <- purrr::map(
   seq(1L, 20000L, by = 1L),
   ~ {
     temp_df <- mtcars
@@ -12,8 +12,10 @@ mtcars_ultra <- purrr::map_dfr(
       dplyr::mutate(temp_df, id_row = paste0("id_", dplyr::row_number(), "_", .x))
 
     temp_df
-  }
-)
+  },
+  .progress = TRUE
+) |>
+  purrr::list_rbind()
 
 shinyApp(
   reactable_extras_ui("test"),

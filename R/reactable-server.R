@@ -175,7 +175,7 @@ get_data_on_page <- function(data, page_number, total_pages) {
     # because there is no global variable binding
     # for page. This is a common problem using dplyr.
     dplyr::filter(dplyr::if_any("reactable_data_page", ~ .x == page_number)) |>
-    dplyr::select(!"reactable_data_page")
+    dplyr::select(!dplyr::any_of("reactable_data_page"))
 }
 
 #' Create reactable UI with server-side processing
