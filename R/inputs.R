@@ -3,6 +3,8 @@
 args_js <- function(...) {
   args <- rlang::list2(...)
 
+  quoute_type <- ifelse(Sys.info()[['sysname']] == "Windows", "cmd", "sh")
+
   if (!is.null(args$class))
     args$className <- args$class
 
@@ -12,7 +14,7 @@ args_js <- function(...) {
   paste0(
     ", ",
     paste0(
-      names(args), ": ", shQuote(as.character(args)), collapse = ", "
+      names(args), ": ", shQuote(as.character(args), type = quoute_type), collapse = ", "
     )
   )
 }
