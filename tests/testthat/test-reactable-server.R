@@ -1,4 +1,5 @@
 library(shiny)
+library(reactable)
 library(shinytest2)
 library(mockery)
 library(purrr)
@@ -204,14 +205,14 @@ test_that("reactable_extras_server should return the correct data subset", {
     args = list(
       data = motor_trend_cars,
       columns = list(
-        mpg = reactable::colDef(name = "Miles per Gallon"),
-        cyl = reactable::colDef(name = "Cylinders"),
-        disp = reactable::colDef(name = "Displacement"),
-        hp = reactable::colDef(name = "Horsepower"),
-        wt = reactable::colDef(name = "Weight"),
-        gear = reactable::colDef(name = "Number of forward gears"),
-        vs = reactable::colDef(name = "Engine"),
-        am = reactable::colDef(name = "Transmission")
+        mpg = colDef(name = "Miles per Gallon"),
+        cyl = colDef(name = "Cylinders"),
+        disp = colDef(name = "Displacement"),
+        hp = colDef(name = "Horsepower"),
+        wt = colDef(name = "Weight"),
+        gear = colDef(name = "Number of forward gears"),
+        vs = colDef(name = "Engine"),
+        am = colDef(name = "Transmission")
       ),
       striped = TRUE,
       compact = TRUE,
@@ -245,14 +246,14 @@ test_that("reactable_extras_server should display the correct reactable page", {
         "test",
         data = motor_trend_cars,
         columns = list(
-          mpg = reactable::colDef(name = "Miles per Gallon"),
-          cyl = reactable::colDef(name = "Cylinders"),
-          disp = reactable::colDef(name = "Displacement"),
-          hp = reactable::colDef(name = "Horsepower"),
-          wt = reactable::colDef(name = "Weight"),
-          gear = reactable::colDef(name = "Number of forward gears"),
-          vs = reactable::colDef(name = "Engine"),
-          am = reactable::colDef(name = "Transmission")
+          mpg = colDef(name = "Miles per Gallon"),
+          cyl = colDef(name = "Cylinders"),
+          disp = colDef(name = "Displacement"),
+          hp = colDef(name = "Horsepower"),
+          wt = colDef(name = "Weight"),
+          gear = colDef(name = "Number of forward gears"),
+          vs = colDef(name = "Engine"),
+          am = colDef(name = "Transmission")
         ),
         striped = TRUE,
         compact = TRUE,
