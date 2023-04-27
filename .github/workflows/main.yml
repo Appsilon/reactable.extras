@@ -58,7 +58,23 @@ jobs:
           }
           quit(status = nrow(spell_check) > 0)
 
-      # - name: Test coverage
-      #   if: matrix.config.os == 'ubuntu-22.04' && matrix.config.r == 'release'
-      #   run: |
-      #     Rscript -e 'covr::codecov(token = "${{secrets.CODECOV_TOKEN}}")'
+      - name: Install Node.js and Yarn
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: yarn
+          cache-dependency-path: js
+
+      - name: Install Node.js dependencies
+        run: yarn install
+        working-directory: js
+
+      - name: Run Cypress
+        if: always()
+        uses: cypress-io/github-action@v5
+        with:
+          start: yarn e2e-test
+          working-directory: js
+          record: true
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
