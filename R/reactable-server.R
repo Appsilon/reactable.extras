@@ -226,7 +226,7 @@ reactable_extras_ui <- function(id, width = "auto", height = "auto") {
   ns <- shiny::NS(id)
 
   shiny::tagList(
-    reactableExtrasDependency(),
+    reactable_extras_dependency(),
     reactable_page_controls(ns("page_controls")),
     reactable::reactableOutput(
       outputId = ns("reactable"),
