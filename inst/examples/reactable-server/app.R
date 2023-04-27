@@ -1,11 +1,18 @@
 library(shiny)
+library(reactable)
 library(reactable.extras)
 
 mtcars_ultra <- purrr::map_dfr(
   seq(1L, 20000L, by = 1L),
-  ~ mtcars |>
-    tibble::rownames_to_column("make") |>
-    dplyr::mutate(id_row = paste0("id_", dplyr::row_number(), "_", .x))
+  ~ {
+    temp_df <- mtcars
+    temp_df$make <- rownames(temp_df)
+    rownames(temp_df) <- NULL
+    temp_df <-
+      dplyr::mutate(temp_df, id_row = paste0("id_", dplyr::row_number(), "_", .x))
+
+    temp_df
+  }
 )
 
 shinyApp(
@@ -15,11 +22,11 @@ shinyApp(
       "test",
       data = mtcars_ultra,
       columns = list(
-        mpg = reactable::colDef(name = "Miles per Gallon"),
-        cyl = reactable::colDef(name = "Cylinders"),
-        disp = reactable::colDef(name = "Displacement")
+        mpg = colDef(name = "Miles per Gallon"),
+        cyl = colDef(name = "Cylinders"),
+        disp = colDef(name = "Displacement")
       ),
-      rows_per_page = 17
+      total_pages = 4e4
     )
   }
 )
