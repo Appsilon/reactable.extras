@@ -43,7 +43,7 @@ jobs:
         if: always()
         uses: cypress-io/github-action@v5
         with:
-          start: yarn start-e2e-test-app
+          start: yarn e2e-test
           working-directory: js
           record: true
         env:
