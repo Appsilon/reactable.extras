@@ -4,7 +4,7 @@
   "description": "For running cypress tests",
   "scripts": {
     "start-test-app": "cd ../inst/examples/demo && Rscript -e 'shiny::runApp(port=8888)'",
-    "e2e-test": "start-server-and-test start-test-app http://localhost:8888 'cypress run'"
+    "e2e-test": "start-server-and-test start-test-app http://localhost:8888 'cypress run --record false'"
   },
   "main": "index.js",
   "license": "MIT",
