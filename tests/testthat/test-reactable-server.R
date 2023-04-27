@@ -258,7 +258,8 @@ test_that("reactable_extras_server should display the correct reactable page", {
         compact = TRUE,
         total_pages = 4
       )
-    }
+    },
+    options = list(test.mode = TRUE)
   )
 
   app <- AppDriver$new(
@@ -267,8 +268,6 @@ test_that("reactable_extras_server should display the correct reactable page", {
     screenshot_args = FALSE,
     expect_values_screenshot_args = FALSE
   )
-
-  withr::defer(app$stop())
 
   app$set_window_size(width = 1619, height = 1049)
   app$expect_values()
