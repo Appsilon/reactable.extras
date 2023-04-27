@@ -22,7 +22,6 @@ toggle_navigation_buttons <- function(disable, session = shiny::getDefaultReacti
       names(disable),
       choices = button_ids,
       empty.ok = FALSE
-
     )
   )
 
