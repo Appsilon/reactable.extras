@@ -1,0 +1,231 @@
+{
+  "input": {
+    "test-page_controls-first_page": 0,
+    "test-page_controls-last_page": 1,
+    "test-page_controls-next_page": 1,
+    "test-page_controls-previous_page": 1,
+    "test-reactable__reactable__page": 1,
+    "test-reactable__reactable__pageSize": 10,
+    "test-reactable__reactable__pages": 1,
+    "test-reactable__reactable__selected": null,
+    "test-reactable__reactable__sorted": null
+  },
+  "output": {
+    "test-page_controls-page_text": "3 of 4",
+    "test-reactable": {
+      "x": {
+        "tag": {
+          "name": "Reactable",
+          "attribs": {
+            "data": {
+              "mpg": [
+                21,
+                21,
+                22.8,
+                21.4,
+                18.7,
+                18.1,
+                14.3,
+                24.4
+              ],
+              "cyl": [
+                6,
+                6,
+                4,
+                6,
+                8,
+                6,
+                8,
+                4
+              ],
+              "disp": [
+                160,
+                160,
+                108,
+                258,
+                360,
+                225,
+                360,
+                146.7
+              ],
+              "hp": [
+                110,
+                110,
+                93,
+                110,
+                175,
+                105,
+                245,
+                62
+              ],
+              "drat": [
+                3.9,
+                3.9,
+                3.85,
+                3.08,
+                3.15,
+                2.76,
+                3.21,
+                3.69
+              ],
+              "wt": [
+                2.62,
+                2.875,
+                2.32,
+                3.215,
+                3.44,
+                3.46,
+                3.57,
+                3.19
+              ],
+              "qsec": [
+                16.46,
+                17.02,
+                18.61,
+                19.44,
+                17.02,
+                20.22,
+                15.84,
+                20
+              ],
+              "vs": [
+                0,
+                0,
+                1,
+                1,
+                0,
+                1,
+                0,
+                1
+              ],
+              "am": [
+                1,
+                1,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "gear": [
+                4,
+                4,
+                4,
+                3,
+                3,
+                3,
+                3,
+                4
+              ],
+              "carb": [
+                4,
+                4,
+                1,
+                1,
+                2,
+                1,
+                4,
+                2
+              ],
+              "make": [
+                "Mazda RX4",
+                "Mazda RX4 Wag",
+                "Datsun 710",
+                "Hornet 4 Drive",
+                "Hornet Sportabout",
+                "Valiant",
+                "Duster 360",
+                "Merc 240D"
+              ]
+            },
+            "columns": [
+              {
+                "id": "mpg",
+                "name": "Miles per Gallon",
+                "type": "numeric"
+              },
+              {
+                "id": "cyl",
+                "name": "Cylinders",
+                "type": "numeric"
+              },
+              {
+                "id": "disp",
+                "name": "Displacement",
+                "type": "numeric"
+              },
+              {
+                "id": "hp",
+                "name": "Horsepower",
+                "type": "numeric"
+              },
+              {
+                "id": "drat",
+                "name": "drat",
+                "type": "numeric"
+              },
+              {
+                "id": "wt",
+                "name": "Weight",
+                "type": "numeric"
+              },
+              {
+                "id": "qsec",
+                "name": "qsec",
+                "type": "numeric"
+              },
+              {
+                "id": "vs",
+                "name": "Engine",
+                "type": "numeric"
+              },
+              {
+                "id": "am",
+                "name": "Transmission",
+                "type": "numeric"
+              },
+              {
+                "id": "gear",
+                "name": "Number of forward gears",
+                "type": "numeric"
+              },
+              {
+                "id": "carb",
+                "name": "carb",
+                "type": "numeric"
+              },
+              {
+                "id": "make",
+                "name": "make",
+                "type": "character"
+              }
+            ],
+            "pagination": false,
+            "showPagination": false,
+            "striped": true,
+            "compact": true,
+            "dataKey": "1d1d17e96a838c7aff2069c7f502468e",
+            "static": false
+          },
+          "children": [
+
+          ]
+        },
+        "class": "reactR_markup"
+      },
+      "evals": [
+
+      ],
+      "jsHooks": [
+
+      ],
+      "deps": [
+
+      ]
+    }
+  },
+  "export": {
+
+  }
+}

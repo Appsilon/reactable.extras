@@ -1,21 +1,34 @@
-Package: reactable.extras
 Type: Package
+Package: reactable.extras
 Title: What the Package Does (Title Case)
-Version: 0.1.0
+Version: 0.1.0.9000
 Author: Who wrote it
 Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Description: More about what it does (maybe more than one line) Use four
+    spaces when indenting paragraphs within the Description.
+License: LGPL-3
 URL: https://github.com/Appsilon/reactable.extras
 BugReports: https://github.com/Appsilon/reactable.extras/issues
-License: LGPL-3
-Encoding: UTF-8
-LazyData: true
-Suggests:
+Depends: 
+    R (>= 4.1.0)
+Imports: 
+    checkmate,
+    dplyr,
+    htmltools,
+    purrr (>= 1.0.0),
+    reactable,
+    shiny
+Suggests: 
     covr,
     lintr,
+    mockery,
     rcmdcheck,
+    shinytest2,
     spelling,
-    testthat
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+Encoding: UTF-8
 Language: en-US
+LazyData: true
+Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
