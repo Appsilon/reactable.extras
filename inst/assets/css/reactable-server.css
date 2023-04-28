@@ -1,31 +1,32 @@
 .pagination-controls {
-  display: flex !important;
-  flex-direction: row !important;
-  background-color: transparent !important;
+  display: flex;
+  flex-direction: row;
+  background-color: transparent;
+  align-items: center;
 }
 
-.pagination-button {
-  border: none !important;
-  background-color: transparent !important;
-  transition: all 0.25s esae-in-out !important;
+.btn.btn-default.action-button.pagination-button {
+  border: none;
+  background-color: transparent;
+  transition: all 0.25s esae-in-out;
 
   &:focus {
-    outline: none !important;
-    border-color: initial !important;
-    box-shadow: none !important;
+    outline: none;
+    border-color: initial;
+    box-shadow: none;
   }
 
   &:not(:disabled):hover {
-    color: #0099f9 !important;
-    transform: scale(1.5) !important;
+    color: #0099f9;
+    transform: scale(1.5);
   }
 
   &:disabled {
-    cursor: not-allowed !important;
+    cursor: not-allowed;
   }
 }
 
-.pagination-text {
-  margin-left: 1rem !important;
-  font-weight: bold !important;
+.pagination-text .shiny-text-output {
+  margin-left: 1rem;
+  font-weight: bold;
 }
