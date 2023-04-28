@@ -104,7 +104,7 @@ shinyApp(
       req(input$text)
       values <- input$text
       paste0(
-        "Dropdown: ",
+        "Text: ",
         string_list(values)
       )
     })
