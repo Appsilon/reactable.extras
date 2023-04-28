@@ -6,3 +6,4 @@ vignettes
 pkgdown
 _\.new\.png$
 ^js$
+^^gifs$$
