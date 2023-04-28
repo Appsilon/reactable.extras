@@ -11,6 +11,6 @@ reactable_extras_dependency <- function() {
     src = list(file = "assets"),
     package = "reactable.extras",
     script = c("js/reactable-extras.js", "js/reactable-server.js"),
-    stylesheet = "reactable-server.css"
+    stylesheet = "css/reactable-server.css"
   )
 }
