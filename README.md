@@ -16,7 +16,11 @@ remotes::install_github("Appsilon/reactable.extras")
 
 ## How to use it?
 
-TODO
+### Server-Side Processing
+
+Server-Side Processing                  |  Rendering All Data At Once
+:--------------------------------------:|:-----------------------------------:
+![](./gifs/server-side-processing.gif)  |  ![](./gifs/full-data-rendered.gif)
 
 ## How to contribute?
 
