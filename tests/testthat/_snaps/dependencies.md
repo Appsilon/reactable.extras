@@ -10,7 +10,7 @@
         ..$ file: chr "assets"
        $ meta      : NULL
        $ script    : chr [1:2] "js/reactable-extras.js" "js/reactable-server.js"
-       $ stylesheet: chr "reactable-server.css"
+       $ stylesheet: chr "css/reactable-server.css"
        $ head      : NULL
        $ attachment: NULL
        $ package   : chr "reactable.extras"
