@@ -4,12 +4,14 @@
 \alias{button_extra}
 \title{Button input for reactable column cell}
 \usage{
-button_extra(id, ...)
+button_extra(id, key = NULL, ...)
 }
 \arguments{
 \item{id}{id of the button input}
 
-\item{...}{parameters of button, only `class` is supported for now}
+\item{key}{alternative unique id for server side processing}
+
+\item{...}{parameters of button, only \code{class} is supported for now}
 }
 \description{
 Button input for reactable column cell

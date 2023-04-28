@@ -4,14 +4,16 @@
 \alias{dropdown_extra}
 \title{Select input for reactable column cell}
 \usage{
-dropdown_extra(id, choices, ...)
+dropdown_extra(id, choices, key = NULL, ...)
 }
 \arguments{
 \item{id}{id of the select input}
 
 \item{choices}{vector of choices}
 
-\item{...}{parameters of date input, only `class` is supported for now}
+\item{key}{alternative unique id for server side processing}
+
+\item{...}{parameters of date input, only \code{class} is supported for now}
 }
 \description{
 Select input for reactable column cell

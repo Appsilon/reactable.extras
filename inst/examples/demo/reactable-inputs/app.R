@@ -22,7 +22,8 @@ shinyApp(
   server = function(input, output) {
     output$react <- renderReactable({
       # preparing the test data
-      df <- MASS::Cars93[, 1:4]
+      df <- MASS::Cars93[, 1:4] |>
+        dplyr::mutate(id_row = paste0("id_", dplyr::row_number()))
       df$Date <- sample(seq(as.Date("2020/01/01"),
                             as.Date("2023/01/01"),
                             by = "day"),
@@ -60,7 +61,8 @@ shinyApp(
           ),
           Model = colDef(
             cell = text_extra(
-              "text"
+              "text",
+              key = "id_row"
             )
           )
         )

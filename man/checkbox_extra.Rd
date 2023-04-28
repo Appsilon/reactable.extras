@@ -4,12 +4,14 @@
 \alias{checkbox_extra}
 \title{Checkbox input for reactable column cell}
 \usage{
-checkbox_extra(id, ...)
+checkbox_extra(id, key = NULL, ...)
 }
 \arguments{
 \item{id}{id of the checkbox input}
 
-\item{...}{parameters of checkbox, only `class` is supported for now}
+\item{key}{alternative unique id for server side processing}
+
+\item{...}{parameters of checkbox, only \code{class} is supported for now}
 }
 \description{
 Checkbox input for reactable column cell

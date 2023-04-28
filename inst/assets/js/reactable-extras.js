@@ -1,22 +1,22 @@
-function ButtonExtras ({ id, label, className, children }) {
+function ButtonExtras ({ id, label, uuid, column, className, children }) {
   const onClick = event => {
-    Shiny.setInputValue(id, { row: children }, { priority: 'event' })
+    Shiny.setInputValue(id, { row: uuid, column: column}, { priority: 'event' })
   }
 
   return React.createElement('button', { onClick, className, key: children }, label)
 };
 
-function checkboxExtras ({ id, value, className, children }) {
+function checkboxExtras ({ id, value, uuid, column, className, children }) {
   const onChange = event => {
-    Shiny.setInputValue(id, { row: children, value: event.target.checked }, { priority: 'event' })
+    Shiny.setInputValue(id, { row: uuid, value: event.target.checked, column: column }, { priority: 'event' })
   }
 
   return React.createElement('input', { type: 'checkbox', key: children, defaultChecked: value, className, onChange })
 };
 
-function dateExtras ({ id, value, className, children }) {
+function dateExtras ({ id, value, uuid, column, className, children }) {
   const onChange = event => {
-    Shiny.setInputValue(id, { row: children, value: event.target.value }, { priority: 'event' })
+    Shiny.setInputValue(id, { row: uuid, value: event.target.value, column: column }, { priority: 'event' })
   }
 
   return React.createElement(
@@ -25,9 +25,9 @@ function dateExtras ({ id, value, className, children }) {
   )
 };
 
-function dropdownExtras ({ id, value, choices, className, children }) {
+function dropdownExtras ({ id, value, uuid, column, choices, className, children }) {
   const onChange = event => {
-    Shiny.setInputValue(id, { row: children, value: event.target.value }, { priority: 'event' })
+    Shiny.setInputValue(id, { row: uuid, value: event.target.value, column: column }, { priority: 'event' })
   }
 
   const items = choices.map((name) => {
@@ -41,14 +41,14 @@ function dropdownExtras ({ id, value, choices, className, children }) {
   )
 };
 
-function textExtras ({ id, value, page, className, children }) {
-  const onChange = event => {
-    Shiny.setInputValue(id, { row: children, value: event.target.value }, { priority: 'event' })
+function textExtras ({ id, value, uuid, column, page, className, children }) {
+  const onInput = event => {
+    Shiny.setInputValue(id, { row: uuid, value: event.target.value, column: column }, { priority: 'event' })
   }
 
   return React.createElement(
     'input',
-    { onChange, className, defaultValue: value, key: children }
+    { onInput, className, defaultValue: value, key: uuid }
   )
 };
 

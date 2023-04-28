@@ -2,19 +2,13 @@
 % Please edit documentation in R/dependencies.R
 \name{reactable_extras_dependency}
 \alias{reactable_extras_dependency}
-\title{htmlDependency of reactable server including script and styles}
+\title{Reactable.extras JS and CSS dependencies}
 \usage{
-reactable_extras_dependency()
-
 reactable_extras_dependency()
 }
 \value{
-An htmlDependency object
-
 HTML dependency object.
 }
 \description{
-htmlDependency of reactable server including script and styles
-
-Shiny Fluent JS dependency
+Reactable.extras JS and CSS dependencies
 }

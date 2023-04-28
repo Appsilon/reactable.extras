@@ -21,6 +21,7 @@ args_js <- function(...) {
 #' Button input for reactable column cell
 #'
 #' @param id id of the button input
+#' @param key alternative unique id for server side processing
 #' @param ... parameters of button, only `class` is supported for now
 #'
 #' @examples
@@ -28,15 +29,22 @@ args_js <- function(...) {
 #'
 #'
 #' @export
-button_extra <- function(id, ...) {
+button_extra <- function(id, key = NULL, ...) {
+  if (!is.null(key)) {
+    key <- paste0("cellInfo.row.", key)
+  } else {
+    key <- "(Number(cellInfo.id) + 1)"
+  }
   reactable::JS(
     htmltools::doRenderTags(
       htmltools::htmlTemplate(
         text_ = "function(cellInfo) {
                  return React.createElement(ButtonExtras,
-                 {id: '{{id}}', label: cellInfo.value {{args}}}, cellInfo.id)
+                 {id: '{{id}}', label: cellInfo.value,
+                  uuid: {{key}}, column: cellInfo.column.id {{args}}}, cellInfo.id)
       }",
       id = id,
+      key = key,
       args = args_js(...)
       )
     )
@@ -46,21 +54,29 @@ button_extra <- function(id, ...) {
 #' Checkbox input for reactable column cell
 #'
 #' @param id id of the checkbox input
+#' @param key alternative unique id for server side processing
 #' @param ... parameters of checkbox, only `class` is supported for now
 #'
 #' @examples
 #' reactable::colDef(cell = checkbox_extra("check", class = "table-check"))
 #'
 #' @export
-checkbox_extra <- function(id, ...) {
+checkbox_extra <- function(id, key = NULL, ...) {
+  if (!is.null(key)) {
+    key <- paste0("cellInfo.row.", key)
+  } else {
+    key <- "(Number(cellInfo.id) + 1)"
+  }
   reactable::JS(
     htmltools::doRenderTags(
       htmltools::htmlTemplate(
         text_ = "function(cellInfo) {
               return React.createElement(checkboxExtras,
-              {id: '{{id}}', value: cellInfo.value {{args}}}, cellInfo.id)
+              {id: '{{id}}', value: cellInfo.value, uuid: {{key}},
+               column: cellInfo.column.id {{args}}}, cellInfo.id)
       }",
       id = id,
+      key = key,
       args = args_js(...)
       )
     )
@@ -70,21 +86,29 @@ checkbox_extra <- function(id, ...) {
 #' Date input for reactable column cell
 #'
 #' @param id id of the date input
+#' @param key alternative unique id for server side processing
 #' @param ... parameters of date input, only `class` is supported for now
 #'
 #' @examples
 #' reactable::colDef(cell = date_extra("date", class = "table-date"))
 #'
 #' @export
-date_extra <- function(id, ...) {
+date_extra <- function(id, key = NULL, ...) {
+  if (!is.null(key)) {
+    key <- paste0("cellInfo.row.", key)
+  } else {
+    key <- "(Number(cellInfo.id) + 1)"
+  }
   reactable::JS(
     htmltools::doRenderTags(
       htmltools::htmlTemplate(
         text_ = "function(cellInfo) {
               return React.createElement(dateExtras,
-              {id: '{{id}}', value: cellInfo.value {{args}}}, cellInfo.id)
+              {id: '{{id}}', value: cellInfo.value, uuid: {{key}},
+               column: cellInfo.column.id {{args}}}, cellInfo.id)
       }",
       id = id,
+      key = key,
       args = args_js(...))
     )
   )
@@ -94,6 +118,7 @@ date_extra <- function(id, ...) {
 #'
 #' @param id id of the select input
 #' @param choices vector of choices
+#' @param key alternative unique id for server side processing
 #' @param ... parameters of date input, only `class` is supported for now
 #'
 #' @examples
@@ -105,20 +130,29 @@ date_extra <- function(id, ...) {
 #'  )
 #'
 #' @export
-dropdown_extra <- function(id, choices, ...) {
+dropdown_extra <- function(id, choices, key = NULL, ...) {
   if (length(choices) == 0) {
     choices_js <- ""
   } else {
     choices_js <- paste0(", choices: ", rjson::toJSON(choices))
   }
+
+  if (!is.null(key)) {
+    key <- paste0("cellInfo.row.", key)
+  } else {
+    key <- "(Number(cellInfo.id) + 1)"
+  }
+
   reactable::JS(
     htmltools::doRenderTags(
       htmltools::htmlTemplate(
         text_ = "function(cellInfo) {
               return React.createElement(dropdownExtras,
-              {id: '{{id}}', value: cellInfo.value {{args}} {{choices}}}, cellInfo.id)
+              {id: '{{id}}', value: cellInfo.value,
+               uuid: {{key}}, column: cellInfo.column.id {{args}} {{choices}}}, cellInfo.id)
       }",
       id = id,
+      key = key,
       choices = choices_js,
       args = args_js(...)
     )
@@ -129,20 +163,29 @@ dropdown_extra <- function(id, choices, ...) {
 #'
 #' @param id id of the text input
 #' @param ... parameters of text input, only `class` is supported for now
+#' @param key alternative unique id for server side processing
 #'
 #' @examples
 #' reactable::colDef(cell = text_extra("text", class = "table-text"))
 #'
 #' @export
-text_extra <- function(id, ...) {
+text_extra <- function(id, key = NULL, ...) {
+  if (!is.null(key)) {
+    key <- paste0("cellInfo.row.", key)
+  } else {
+    key <- "(Number(cellInfo.id) + 1)"
+  }
+
   reactable::JS(
     htmltools::doRenderTags(
       htmltools::htmlTemplate(
         text_ = "function(cellInfo) {
               return React.createElement(textExtras,
-              {id: '{{id}}', value: cellInfo.value {{args}}}, cellInfo.id)
+              {id: '{{id}}', value: cellInfo.value, uuid: {{key}},
+               column: cellInfo.column.id {{args}}}, cellInfo.id)
       }",
       id = id,
+      key = key,
       args = args_js(...))
     )
   )
