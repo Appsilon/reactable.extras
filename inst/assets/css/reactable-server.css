@@ -1,25 +1,31 @@
 .pagination-controls {
-  display: flex;
-  flex-direction: row;
-  background-color: transparent;
+  display: flex !important;
+  flex-direction: row !important;
+  background-color: transparent !important;
 }
 
 .pagination-button {
-  border: none;
-  background-color: transparent;
-  transition: all 0.25s esae-in-out;
+  border: none !important;
+  background-color: transparent !important;
+  transition: all 0.25s esae-in-out !important;
+
+  &:focus {
+    outline: none !important;
+    border-color: initial !important;
+    box-shadow: none !important;
+  }
 
   &:not(:disabled):hover {
-    color: #0099f9;
-    transform: scale(1.5);
+    color: #0099f9 !important;
+    transform: scale(1.5) !important;
   }
 
   &:disabled {
-    cursor: not-allowed;;
+    cursor: not-allowed !important;
   }
 }
 
 .pagination-text {
-  margin-left: 1rem;
-  font-weight: bold;
+  margin-left: 1rem !important;
+  font-weight: bold !important;
 }
