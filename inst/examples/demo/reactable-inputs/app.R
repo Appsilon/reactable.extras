@@ -8,6 +8,15 @@ string_list <- function(values) {
   )
 }
 
+update_table <- function(data, id, column, value, key_column = NULL) {
+  if (!is.null(key_column)) {
+    data[data[[key_column]] == id, column] <- value
+  } else {
+    data[id, column] <- value
+  }
+  return(data)
+}
+
 shinyApp(
   ui = fluidPage(
     reactable.extras::reactable_extras_dependency(),
@@ -20,17 +29,19 @@ shinyApp(
     textOutput("text")
   ),
   server = function(input, output) {
+    df <- MASS::Cars93[, 1:4] |>
+      dplyr::mutate(dplyr::across(where(is.factor), as.character)) |>
+      dplyr::mutate(id_row = paste0("id_", dplyr::row_number()))
+    df$Date <- sample(seq(as.Date("2020/01/01"),
+                          as.Date("2023/01/01"),
+                          by = "day"),
+                      nrow(df))
+    df$Check <- sample(c(TRUE, FALSE), nrow(df), TRUE)
+    df$Check[2] <- FALSE
+
+
     output$react <- renderReactable({
       # preparing the test data
-      df <- MASS::Cars93[, 1:4] |>
-        dplyr::mutate(id_row = paste0("id_", dplyr::row_number()))
-      df$Date <- sample(seq(as.Date("2020/01/01"),
-                            as.Date("2023/01/01"),
-                            by = "day"),
-                        nrow(df))
-      df$Check <- sample(c(TRUE, FALSE), nrow(df), TRUE)
-      df$Check[2] <- FALSE
-
       reactable(
         df,
         searchable = TRUE,
@@ -96,6 +107,17 @@ shinyApp(
     output$dropdown_text <- renderText({
       req(input$dropdown)
       values <- input$dropdown
+
+      updateReactable(
+        "react",
+        data = update_table(
+          df,
+          values$row,
+          values$column,
+          values$value
+        )
+      )
+
       paste0(
         "Dropdown: ",
         string_list(values)
@@ -105,6 +127,16 @@ shinyApp(
     output$text <- renderText({
       req(input$text)
       values <- input$text
+      updateReactable(
+        "react",
+        data = update_table(
+          df,
+          values$row,
+          values$column,
+          values$value,
+          key_column = "id_row"
+        )
+      )
       paste0(
         "Text: ",
         string_list(values)
