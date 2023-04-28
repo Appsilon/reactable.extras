@@ -3,7 +3,7 @@ library(reactable)
 library(reactable.extras)
 
 mtcars_ultra <- purrr::map(
-  seq(1L, 2000L, by = 1L),
+  seq(1L, 20000L, by = 1L),
   ~ {
     temp_df <- mtcars
     temp_df$make <- rownames(temp_df)
