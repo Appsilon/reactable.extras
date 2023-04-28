@@ -2,12 +2,19 @@
   display: flex;
   flex-direction: row;
   background-color: transparent;
+  align-items: center;
 }
 
-.pagination-button {
+.btn.btn-default.action-button.pagination-button {
   border: none;
   background-color: transparent;
   transition: all 0.25s esae-in-out;
+
+  &:focus {
+    outline: none;
+    border-color: initial;
+    box-shadow: none;
+  }
 
   &:not(:disabled):hover {
     color: #0099f9;
@@ -15,11 +22,11 @@
   }
 
   &:disabled {
-    cursor: not-allowed;;
+    cursor: not-allowed;
   }
 }
 
-.pagination-text {
+.pagination-text .shiny-text-output {
   margin-left: 1rem;
   font-weight: bold;
 }
