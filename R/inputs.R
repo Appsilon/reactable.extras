@@ -17,6 +17,19 @@ args_js <- function(...) {
   )
 }
 
+#' Define the unique id to use when passing values to shiny
+#'
+#' @keywords internal
+define_key <- function(key) {
+  if (!is.null(key)) {
+    key <- paste0("cellInfo.row.", key)
+  } else {
+    key <- "(Number(cellInfo.id) + 1)"
+  }
+
+  return(key)
+}
+
 
 #' Button input for reactable column cell
 #'
@@ -30,11 +43,7 @@ args_js <- function(...) {
 #'
 #' @export
 button_extra <- function(id, key = NULL, ...) {
-  if (!is.null(key)) {
-    key <- paste0("cellInfo.row.", key)
-  } else {
-    key <- "(Number(cellInfo.id) + 1)"
-  }
+  key <- define_key(key)
   reactable::JS(
     htmltools::doRenderTags(
       htmltools::htmlTemplate(
@@ -62,11 +71,7 @@ button_extra <- function(id, key = NULL, ...) {
 #'
 #' @export
 checkbox_extra <- function(id, key = NULL, ...) {
-  if (!is.null(key)) {
-    key <- paste0("cellInfo.row.", key)
-  } else {
-    key <- "(Number(cellInfo.id) + 1)"
-  }
+  key <- define_key(key)
   reactable::JS(
     htmltools::doRenderTags(
       htmltools::htmlTemplate(
@@ -94,11 +99,7 @@ checkbox_extra <- function(id, key = NULL, ...) {
 #'
 #' @export
 date_extra <- function(id, key = NULL, ...) {
-  if (!is.null(key)) {
-    key <- paste0("cellInfo.row.", key)
-  } else {
-    key <- "(Number(cellInfo.id) + 1)"
-  }
+  key <- define_key(key)
   reactable::JS(
     htmltools::doRenderTags(
       htmltools::htmlTemplate(
@@ -137,11 +138,7 @@ dropdown_extra <- function(id, choices, key = NULL, ...) {
     choices_js <- paste0(", choices: ", rjson::toJSON(choices))
   }
 
-  if (!is.null(key)) {
-    key <- paste0("cellInfo.row.", key)
-  } else {
-    key <- "(Number(cellInfo.id) + 1)"
-  }
+  key <- define_key(key)
 
   reactable::JS(
     htmltools::doRenderTags(
@@ -170,11 +167,7 @@ dropdown_extra <- function(id, choices, key = NULL, ...) {
 #'
 #' @export
 text_extra <- function(id, key = NULL, ...) {
-  if (!is.null(key)) {
-    key <- paste0("cellInfo.row.", key)
-  } else {
-    key <- "(Number(cellInfo.id) + 1)"
-  }
+  key <- define_key(key)
 
   reactable::JS(
     htmltools::doRenderTags(
