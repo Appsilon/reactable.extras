@@ -4,12 +4,14 @@
 \alias{date_extra}
 \title{Date input for reactable column cell}
 \usage{
-date_extra(id, ...)
+date_extra(id, key = NULL, ...)
 }
 \arguments{
 \item{id}{id of the date input}
 
-\item{...}{parameters of date input, only `class` is supported for now}
+\item{key}{alternative unique id for server side processing}
+
+\item{...}{parameters of date input, only \code{class} is supported for now}
 }
 \description{
 Date input for reactable column cell

@@ -223,6 +223,32 @@ shinyApp(
 
 ![](./gifs/custom-inputs.gif)
 
+Example of saving the state when changing the page:
+
+```R
+# helper function
+update_table <- function(data, id, column, value, key_column = NULL) {
+  if (!is.null(key_column)) {
+    data[data[[key_column]] == id, column] <- value
+  } else {
+    data[id, column] <- value
+  }
+  return(data)
+}
+
+# in server.R
+values <- input$text
+updateReactable(
+  "react",
+  data = update_table(
+    df,
+    values$row,
+    values$column,
+    values$value
+  )
+)
+```
+
 ## How to contribute?
 
 If you want to contribute to this project please submit a regular PR, once you're done with new feature or bug fix.

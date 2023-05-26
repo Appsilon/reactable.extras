@@ -4,12 +4,14 @@
 \alias{text_extra}
 \title{Text input for reactable column cell}
 \usage{
-text_extra(id, ...)
+text_extra(id, key = NULL, ...)
 }
 \arguments{
 \item{id}{id of the text input}
 
-\item{...}{parameters of text input, only `class` is supported for now}
+\item{key}{alternative unique id for server side processing}
+
+\item{...}{parameters of text input, only \code{class} is supported for now}
 }
 \description{
 Text input for reactable column cell
