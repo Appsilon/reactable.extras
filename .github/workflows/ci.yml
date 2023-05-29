@@ -27,11 +27,11 @@ jobs:
         with:
           node-version: 18
           cache: yarn
-          cache-dependency-path: js
+          cache-dependency-path: e2e_tests
 
       - name: Install Node.js dependencies
         run: yarn install
-        working-directory: js
+        working-directory: e2e_tests
 
       - name: R CMD check
         if: always()
