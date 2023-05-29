@@ -90,7 +90,7 @@ shinyApp(
 
 Server-Side Processing                  |  Rendering All Data At Once
 :--------------------------------------:|:-----------------------------------:
-![](./gifs/server-side-processing.gif)  |  ![](./gifs/full-data-rendered.gif)
+![](man/figures/server-side-processing.gif)  |  ![](man/figures/full-data-rendered.gif)
 
 ### Custom inputs
 
@@ -221,7 +221,7 @@ shinyApp(
 
 ```
 
-![](./gifs/custom-inputs.gif)
+![](man/figures/custom-inputs.gif)
 
 Example of saving the state when changing the page:
 
