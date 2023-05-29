@@ -44,6 +44,6 @@ jobs:
         uses: cypress-io/github-action@v5
         with:
           start: yarn e2e-test
-          working-directory: js
+          working-directory: e2e_tests
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
