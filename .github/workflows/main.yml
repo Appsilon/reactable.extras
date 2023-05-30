@@ -58,7 +58,7 @@ jobs:
           }
           quit(status = nrow(spell_check) > 0)
 
-      # - name: Test coverage
-      #   if: matrix.config.os == 'ubuntu-22.04' && matrix.config.r == 'release'
-      #   run: |
-      #     Rscript -e 'covr::codecov(token = "${{secrets.CODECOV_TOKEN}}")'
+      - name: Test coverage
+        if: matrix.config.os == 'ubuntu-22.04' && matrix.config.r == 'release'
+        run: |
+          Rscript -e 'covr::codecov(token = "${{secrets.CODECOV_TOKEN}}")'

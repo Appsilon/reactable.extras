@@ -1,9 +1,10 @@
 # reactable.extras
 
-> _TODO_
+> _Extra features for reactable package_
 
 <!-- badges: start -->
-![R-CMD-check](https://github.com/Appsilon/reactable.extras/workflows/R-CMD-check/badge.svg)
+[![CRAN status](https://www.r-pkg.org/badges/version/reactable.extras)](https://cran.r-project.org/package=reactable.extras)
+[![R-CMD-check](https://github.com/Appsilon/reactable.extras/workflows/R-CMD-check/badge.svg)](https://github.com/Appsilon/reactable.extras/actions/workflows/main.yml)
 <!-- badges: end -->
 
 ## How to install?
@@ -90,19 +91,19 @@ shinyApp(
 
 Server-Side Processing                  |  Rendering All Data At Once
 :--------------------------------------:|:-----------------------------------:
-![](./gifs/server-side-processing.gif)  |  ![](./gifs/full-data-rendered.gif)
+![](man/figures/server-side-processing.gif)  |  ![](man/figures/full-data-rendered.gif)
 
 ### Custom inputs
 
-You can use custom inputs inside your reactable column. 
+You can use custom inputs inside your reactable column.
 
-Supported types for now: 
+Supported types for now:
 
-  - text input: `text_extra`
-  - button: `button_extra`
-  - dropdown: `dropdown_extra`
-  - date: `date_extra`
-  - checkbox: `checkbox_extra`
+- text input: `text_extra`
+- button: `button_extra`
+- dropdown: `dropdown_extra`
+- date: `date_extra`
+- checkbox: `checkbox_extra`
 
 It's possible to apply additional styling to your inputs by passing `class` argument:
 
@@ -221,7 +222,7 @@ shinyApp(
 
 ```
 
-![](./gifs/custom-inputs.gif)
+![](man/figures/custom-inputs.gif)
 
 Example of saving the state when changing the page:
 
@@ -259,11 +260,11 @@ Reporting a bug is also helpful - please use [GitHub issues](https://github.com/
 
 <img src="https://avatars0.githubusercontent.com/u/6096772" align="right" alt="" width="6%" />
 
-Appsilon is a **Posit (formerly RStudio) Full Service Certified Partner**. Learn more
-at [appsilon.com](https://appsilon.com).
+Appsilon is a **Posit (formerly RStudio) Full Service Certified Partner**.<br/>
+Learn more at [appsilon.com](https://appsilon.com).
 
 Get in touch [opensource@appsilon.com](mailto:opensource@appsilon.com)
 
-Check the [Rhinoverse](https://rhinoverse.dev).
+Explore the [Rhinoverse](https://rhinoverse.dev) - a family of R packages built around [Rhino](https://appsilon.github.io/rhino/)!
 
 <a href = "https://appsilon.com/careers/" target="_blank"><img src="https://raw.githubusercontent.com/Appsilon/website-cdn/gh-pages/WeAreHiring1.png" alt="We are hiring!"/></a>

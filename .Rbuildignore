@@ -5,5 +5,4 @@ vignettes
 .lintr
 pkgdown
 _\.new\.png$
-^js$
-^^gifs$$
+^e2e_tests$

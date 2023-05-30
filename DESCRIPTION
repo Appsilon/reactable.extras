@@ -1,17 +1,21 @@
 Type: Package
 Package: reactable.extras
-Title: What the Package Does (Title Case)
+Title: Extra Features for 'Reactable' Package
 Version: 0.1.0.9000
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line) Use four
-    spaces when indenting paragraphs within the Description.
+Authors@R:
+  c(
+    person("Recle", "Vibal", role = c("aut", "cre"), email = "opensource+recle@appsilon.com"),
+    person("Ivan", "Hrychaniuk", role = c("aut"), email = "ivan.hrychaniuk@appsilon.com"),
+    person("Pedro", "Silva", role = c("aut"), email = "pedro@appsilon.com"),
+    person("Appsilon Sp. z o.o.", role = "cph", email = "opensource@appsilon.com")
+  )
+Description: A set of extensions for 'reactable' package.
 License: LGPL-3
-URL: https://github.com/Appsilon/reactable.extras
+URL: https://appsilon.github.io/reactable.extras/, https://github.com/Appsilon/reactable.extras
 BugReports: https://github.com/Appsilon/reactable.extras/issues
-Depends: 
+Depends:
     R (>= 4.1.0)
-Imports: 
+Imports:
     checkmate,
     dplyr,
     htmltools,
@@ -20,7 +24,7 @@ Imports:
     rjson,
     rlang,
     shiny
-Suggests: 
+Suggests:
     covr,
     lintr,
     mockery,
