@@ -7,12 +7,12 @@ template:
   includes:
     in_header: |
       <!-- Google tag (gtag.js) -->
-      <script async src="https://www.googletagmanager.com/gtag/js?id=G-D33PHDKY5M"></script>
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-HY4YPXG5W0"></script>
       <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-        gtag('config', 'G-D33PHDKY5M');
+        gtag('config', 'G-HY4YPXG5W0');
       </script>
       <!-- Google tag (gtag.js) -->
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-FQQZL5V93G"></script>
