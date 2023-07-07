@@ -25,6 +25,17 @@ function dateExtras ({ id, value, uuid, column, className, children }) {
   )
 };
 
+function numberExtras ({ id, value, uuid, column, className, children }) {
+  const onChange = event => {
+    Shiny.setInputValue(id, { row: uuid, value: event.target.value, column: column }, { priority: 'event' })
+  }
+
+  return React.createElement(
+    'input',
+    { type: 'number', key: uuid, defaultValue: value, onChange, className }
+  )
+};
+
 function dropdownExtras ({ id, value, uuid, column, choices, className, children }) {
   const onChange = event => {
     Shiny.setInputValue(id, { row: uuid, value: event.target.value, column: column }, { priority: 'event' })
