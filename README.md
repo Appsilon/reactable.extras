@@ -136,7 +136,8 @@ shinyApp(
     textOutput("button_text"),
     textOutput("check_text"),
     textOutput("dropdown_text"),
-    textOutput("text")
+    textOutput("text_text"),
+    textOutput("text_on_blur")
   ),
   server = function(input, output) {
     output$react <- renderReactable({
@@ -209,11 +210,20 @@ shinyApp(
       )
     })
 
-    output$text <- renderText({
+    output$text_text <- renderText({
       req(input$text)
       values <- input$text
       paste0(
-        "Dropdown: ",
+        "Text: ",
+        string_list(values)
+      )
+    })
+
+    output$text_on_blur <- renderText({
+      req(input$text_blur)
+      values <- input$text_blur
+      paste0(
+        "Text on blur: ",
         string_list(values)
       )
     })
