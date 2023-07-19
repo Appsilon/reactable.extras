@@ -25,3 +25,16 @@ describe('Date in reactable passes values to the shiny', () => {
   });
 })
 
+// test for checking text input on blur event
+describe('Text Extra passes values to the Shiny App', () => {
+    it('TextExtra', () => {
+      cy.visit('http://localhost:8888');
+      cy.get('.text-extra').eq(1).clear().type('new_value').should('have.value', 'new_value');
+      cy.contains('Text: {row : id_2, value : new_value, column : Model}');
+      // Click on body to trigger onBlur event
+      cy.get('body').click();
+      cy.contains('Text OnBlur: {row : id_2, value : new_value, column : Model}');
+    });
+  })
+  
+  
