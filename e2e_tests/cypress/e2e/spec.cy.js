@@ -37,4 +37,3 @@ describe('Text Extra passes values to the Shiny App', () => {
     });
   })
   
-  
