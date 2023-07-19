@@ -26,7 +26,8 @@ shinyApp(
     textOutput("button_text"),
     textOutput("check_text"),
     textOutput("dropdown_text"),
-    textOutput("text")
+    textOutput("text"),
+    textOutput("text_on_blur")
   ),
   server = function(input, output) {
     df <- MASS::Cars93[, 1:4] |>
@@ -73,7 +74,8 @@ shinyApp(
           Model = colDef(
             cell = text_extra(
               "text",
-              key = "id_row"
+              key = "id_row",
+              class = "text-extra"
             )
           )
         )
@@ -141,6 +143,25 @@ shinyApp(
         "Text: ",
         string_list(values)
       )
+    })
+
+    output$text_on_blur <- renderText({
+      req(input$text_blur)
+      values <- input$text_blur
+      updateReactable(
+        "react",
+        data = update_table(
+          df,
+          values$row,
+          values$column,
+          values$value,
+          key_column = "id_row"
+        )
+      )
+      paste0(
+        "Text OnBlur: ",
+        string_list(values)
+      ) 
     })
   }
 )
