@@ -25,7 +25,7 @@ describe('Date in reactable passes values to the shiny', () => {
   });
 })
 
-// test for checking text input on blur event
+// test for checking text input inside the reactable
 describe('Text Extra passes values to the Shiny App', () => {
     it('TextExtra', () => {
       cy.visit('http://localhost:8888');
