@@ -237,6 +237,9 @@ reactable_extras_ui <- function(id, width = "auto", height = "auto") {
 #' @rdname reactable-extras-server
 #' @export
 reactable_extras_server <- function(id, data, total_pages = 4, sortable = TRUE, ...) {
+
+  data <- as.data.frame(data, stringsAsFactors = TRUE)
+
   # Create and clean-up reactable arguments
   reactable_args <- list(...)
 
@@ -281,14 +284,15 @@ reactable_extras_server <- function(id, data, total_pages = 4, sortable = TRUE, 
           get_data_on_page(page_number = page_number(), total_pages = total_pages) |>
           reactable_data()
       } else {
-        if (column_sort()[[1]] == "asc") {
+        column_name <- rlang::sym(names(column_sort()))
+        data <- if (column_sort()[[1]] == "asc") {
           data |>
-            dplyr::arrange(dplyr::across(names(column_sort()))) |>
+            dplyr::arrange(!!column_name) |>
             get_data_on_page(page_number = page_number(), total_pages = total_pages) |>
             reactable_data()
         } else if (column_sort()[[1]] == "desc") {
           data |>
-            dplyr::arrange(dplyr::across(names(column_sort()), dplyr::desc)) |>
+            dplyr::arrange(dplyr::desc(!!column_name)) |>
             get_data_on_page(page_number = page_number(), total_pages = total_pages) |>
             reactable_data()
         }
