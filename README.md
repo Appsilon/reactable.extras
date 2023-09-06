@@ -40,15 +40,15 @@ library(reactable)
 library(reactable.extras)
 
 data <- data.frame(
-  ID = 1:5,
-  Name = rep("user", 5),
-  Actions = TRUE
+  ID = 1:1000,
+  SKU_Number = paste0("SKU ", 1:1000),
+  Actions = rep(c("Updated", "Initialized"), times = 20),
+  Registered = as.Date("2023/1/1")
 )
 
 ui <- fluidPage(
   # Include reactable.extras in your UI
   reactable_extras_dependency(),
-  
   reactableOutput("my_table")
 )
 
@@ -58,15 +58,26 @@ server <- function(input, output, session) {
     reactable(
       data,
       columns = list(
-        colDef(name = "ID"),
-        colDef(name = "Name"),
-        colDef(
+        ID = colDef(name = "ID"),
+        SKU_Number = colDef(name = "SKU_Number"),
+        Actions = colDef(
           name = "Actions",
-          cell = button_extra("edit", class = "btn btn-primary")
+          cell = button_extra("button", class = "btn btn-primary")
+        ),
+        Registered = colDef(
+          cell = date_extra("Registered", class = "date-extra")
         )
       )
     )
   })
+  
+  observeEvent(input$button, {
+    showModal(modalDialog(
+      title = "Selected row data",
+      reactable(data[input$button$row, ])
+    ))
+  })
+  
 }
 
 shinyApp(ui, server)
