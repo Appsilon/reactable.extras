@@ -45,6 +45,8 @@ navbar:
           href: articles/tutorial/server-side-processing.html
         - text: Custom inputs
           href: articles/tutorial/custom-inputs.html
+        - text: Combine reactables features
+          href: articles/tutorial/combine-reactable-features.html
     reference:
       icon: fa-file-code-o
       text: "Reference"
