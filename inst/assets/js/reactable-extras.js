@@ -73,9 +73,13 @@ function textExtras ({ id, value, uuid, column, page, className, children }) {
     Shiny.setInputValue(id, { row: uuid, value: event.target.value, column: column }, { priority: 'event' })
   }
 
+  const onBlur = event => {
+    Shiny.setInputValue(`${id}_blur`, { row: uuid, value: event.target.value, column: column }, { priority: 'event' })
+  }
+  
   return React.createElement(
     'input',
-    { onInput, className, defaultValue: value, key: uuid }
+    { onInput, onBlur, className, defaultValue: value, key: uuid }
   )
 };
 
