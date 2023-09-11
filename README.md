@@ -30,10 +30,11 @@ remotes::install_github("Appsilon/reactable.extras")
 
 Getting started with `reactable.extras` is straightforward:
 
-1. Include the necessary functions and components in your Shiny UI definition.
-2. Use the provided functions to enhance your reactable tables. You can add custom buttons, checkboxes, date pickers, dropdowns, and text inputs to your table cells.
-3. Customize the behavior and appearance of these input components based on your application's requirements.
-4. Implement server-side processing and pagination controls for large datasets.
+1. Make sure you have latest version of `{reactable}`. It's required to be at least on version 0.4.0
+2. Include the necessary functions and components in your Shiny UI definition.
+3. Use the provided functions to enhance your reactable tables. You can add custom buttons, checkboxes, date pickers, dropdowns, and text inputs to your table cells.
+4. Customize the behavior and appearance of these input components based on your application's requirements.
+5. Implement server-side processing and pagination controls for large datasets.
 
 ```r
 library(shiny)
