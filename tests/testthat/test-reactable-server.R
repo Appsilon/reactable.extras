@@ -156,7 +156,9 @@ test_that("return_reactable_page should return a reactive page value", {
   expect_error(return_reactable_page("test", "10"))
   expect_error(return_reactable_page("test", c(10, 20)))
   testServer(
-    return_reactable_page, args = list(total_pages = 10), {
+    return_reactable_page,
+    args = list(total_pages = 10),
+    {
       session$setInputs(first_page = 0)
       expect_equal(page_number(), 1)
       expect_equal(output$page_text, "1 of 10")
@@ -217,7 +219,8 @@ test_that("reactable_extras_server should return the correct data subset", {
       striped = TRUE,
       compact = TRUE,
       total_pages = 4
-    ), {
+    ),
+    {
       # Pagination should return the correct data subsets
       session$setInputs("page_controls-first_page" = 0)
       expect_equal(reactable_data(), head(motor_trend_cars, 8))
@@ -232,7 +235,8 @@ test_that("reactable_extras_server should return the correct data subset", {
 
       # Reactable should be returned without error
       output$reactable
-  })
+    }
+  )
 })
 
 test_that("reactable_extras_server should display the correct reactable page", {
@@ -299,5 +303,4 @@ test_that("reactable_extras_server should display the correct reactable page", {
   app$expect_values()
   app$set_inputs(`test-reactable__reactable__sorted` = character(0), allow_no_input_binding_ = TRUE)
   app$expect_values()
-
 })
