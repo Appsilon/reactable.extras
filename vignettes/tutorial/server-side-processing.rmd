@@ -11,12 +11,11 @@ Rendering a `reactable` with a lot of data can be inefficient. The initial loadi
 
 A more efficient approach is to render only the data that is needed to be displayed.
 
-`reactable_extras_ui()` and `reactalbe_extras_server()` is a wrapper for `reactable::reactableOutput()` and `reactable::renderReactable({reactable(...)})`.
-It renders only a subset of a large data in the server memory. This almost instantly renders the desired page and keeps the amount of memory used in the browser minimal.
+`reactable_extras_ui()` and `reactalbe_extras_server()` is a wrapper for `reactable::reactableOutput()` and `reactable::renderReactable({reactable(...)})`. It renders only a subset of a large data in the server memory. This almost instantly renders the desired page and keeps the amount of memory used in the browser minimal.
 
 Consider this example data:
 
-```r
+``` r
 library(shiny)
 library(reactable)
 library(reactable.extras)
@@ -39,7 +38,7 @@ mtcars_ultra <- purrr::map(
 
 And compare the difference in initial load time and amount of memory used in the browser when loading all the data at once vs loading only the data needed for the page.
 
-```r
+``` r
 # All of the data rendered all at once
 shinyApp(
   reactableOutput("test"),
@@ -74,19 +73,15 @@ shinyApp(
     )
   }
 )
-
 ```
 
-Server-Side Processing                  |  Rendering All Data At Once
-:--------------------------------------:|:-----------------------------------:
-![](images/server-side-processing.gif)  |  ![](images/full-data-rendered.gif)
-
-
-
+|         Server-Side Processing         |     Rendering All Data At Once     |
+|:--------------------------------------:|:----------------------------------:|
+| ![](images/server-side-processing.gif) | ![](images/full-data-rendered.gif) |
 
 You can Also use server side processing with custom inputs
 
-```r
+``` r
 shinyApp(
   reactable_extras_ui("test"),
   function(input, output, server) {
@@ -109,4 +104,5 @@ shinyApp(
   }
 )
 ```
-[](images/server-side-processing.gif) 
+
+![](images/ssr_custom_inputs.JPG)
