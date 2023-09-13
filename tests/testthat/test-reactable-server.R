@@ -3,6 +3,7 @@ library(reactable)
 library(shinytest2)
 library(mockery)
 library(purrr)
+library(dplyr)
 
 motor_trend_cars <- mtcars
 motor_trend_cars$make <- rownames(motor_trend_cars)
@@ -221,17 +222,28 @@ test_that("reactable_extras_server should return the correct data subset", {
       total_pages = 4
     ),
     {
+      reactable_data_no_uuid <- reactive({
+        select(reactable_data(), -.internal_uuid)
+      })
       # Pagination should return the correct data subsets
       session$setInputs("page_controls-first_page" = 0)
-      expect_equal(reactable_data(), head(motor_trend_cars, 8))
+      expect_equal(reactable_data_no_uuid(), head(motor_trend_cars, 8))
       session$setInputs("page_controls-last_page" = 1)
-      expect_equal(reactable_data(), tail(motor_trend_cars, 8), ignore_attr = TRUE)
+      expect_equal(reactable_data_no_uuid(), tail(motor_trend_cars, 8), ignore_attr = TRUE)
       session$setInputs("page_controls-previous_page" = 1)
-      expect_equal(reactable_data(), motor_trend_cars[seq(17, 24, by = 1), ], ignore_attr = TRUE)
+      expect_equal(
+        reactable_data_no_uuid(),
+        motor_trend_cars[seq(17, 24, by = 1), ],
+        ignore_attr = TRUE
+      )
       session$setInputs("page_controls-first_page" = 1)
-      expect_equal(reactable_data(), head(motor_trend_cars, 8))
+      expect_equal(reactable_data_no_uuid(), head(motor_trend_cars, 8))
       session$setInputs("page_controls-next_page" = 1)
-      expect_equal(reactable_data(), motor_trend_cars[seq(9, 16, by = 1), ], ignore_attr = TRUE)
+      expect_equal(
+        reactable_data_no_uuid(),
+        motor_trend_cars[seq(9, 16, by = 1), ],
+        ignore_attr = TRUE
+      )
 
       # Reactable should be returned without error
       output$reactable
