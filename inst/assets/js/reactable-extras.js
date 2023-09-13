@@ -9,6 +9,24 @@ function updateMemory (id, uuid, column, value) {
   memory[[id, uuid, column]] = value;
 }
 
+let ReRenderCount = 0;
+
+function GenerateTooltipId () {
+  return "tooltip-" + ReRenderCount++;
+}
+
+function TooltipExtras ({ column, tooltip, theme }) {
+  const tooltip_id = GenerateTooltipId();
+  React.useEffect(() => {
+    tippy("#" + tooltip_id, { content: tooltip, theme: theme });
+  }, []);
+  return React.createElement(
+    'span',
+    { id: tooltip_id },
+    column
+  )
+}
+
 function ButtonExtras ({ id, label, uuid, column, className, children }) {
   const onClick = event => {
     Shiny.setInputValue(id, { row: uuid, column: column}, { priority: 'event' })
