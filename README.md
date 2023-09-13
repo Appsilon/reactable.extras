@@ -5,7 +5,7 @@
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/reactable.extras)](https://cran.r-project.org/package=reactable.extras)
 [![R-CMD-check](https://github.com/Appsilon/reactable.extras/workflows/R-CMD-check/badge.svg)](https://github.com/Appsilon/reactable.extras/actions/workflows/main.yml)
-[![Codecov test coverage](https://codecov.io/gh/Appsilon/reactable.extras/branch/main/graph/badge.svg)
+![Codecov test coverage](https://codecov.io/gh/Appsilon/reactable.extras/branch/main/graph/badge.svg)
 <!-- badges: end -->
 
 `reactable.extras` is an R package that enhances the functionality of the `reactable` package in Shiny applications. Reactable tables are interactive customizable, and `reactable.extras` extend their capabilities, allowing you to create dynamic and interactive data tables with ease.

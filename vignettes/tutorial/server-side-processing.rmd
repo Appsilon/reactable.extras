@@ -80,3 +80,33 @@ shinyApp(
 Server-Side Processing                  |  Rendering All Data At Once
 :--------------------------------------:|:-----------------------------------:
 ![](images/server-side-processing.gif)  |  ![](images/full-data-rendered.gif)
+
+
+
+
+You can Also use server side processing with custom inputs
+
+```r
+shinyApp(
+  reactable_extras_ui("test"),
+  function(input, output, server) {
+    reactable_extras_server(
+      "test",
+      filterable = TRUE,
+      searchable = TRUE,
+      selection = "multiple",
+      data = mtcars_ultra,
+      columns = list(
+        mpg = colDef(name = "Miles per Gallon"),
+        cyl = colDef(name = "Cylinders"),
+        disp = colDef(
+          name = "Displacement",
+          cell = button_extra("button")
+        )
+      ),
+      total_pages = 4e4
+    )
+  }
+)
+```
+[](images/server-side-processing.gif) 
