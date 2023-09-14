@@ -120,6 +120,33 @@ date_extra <- function(id, key = NULL, ...) {
   )
 }
 
+#' Numeric input for reactable column cell
+#'
+#' @param id id of the input
+#' @param key alternative unique id for server side processing
+#' @param ... parameters of numeric input, only `class` is supported for now
+#'
+#' @examples
+#' reactable::colDef(cell = number_extra("date", class = "table-number"))
+#'
+#' @export
+number_extra <- function(id, key = NULL, ...) {
+  key <- define_key(key)
+  reactable::JS(
+    htmltools::doRenderTags(
+      htmltools::htmlTemplate(
+        text_ = "function(cellInfo) {
+              return React.createElement(numberExtras,
+              {id: '{{id}}', value: cellInfo.value, uuid: {{key}},
+               column: cellInfo.column.id {{args}}}, cellInfo.id)
+      }",
+      id = id,
+      key = key,
+      args = args_js(...))
+    )
+  )
+}
+
 #' Select input for reactable column cell
 #'
 #' @param id id of the select input
