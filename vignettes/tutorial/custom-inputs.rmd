@@ -16,6 +16,7 @@ Supported types for now:
 - dropdown: `dropdown_extra`
 - date: `date_extra`
 - checkbox: `checkbox_extra`
+- tooltips: `tooltip_extra`
 
 It's possible to apply additional styling to your inputs by passing `class` argument:
 
@@ -161,3 +162,75 @@ updateReactable(
   )
 )
 ```
+
+
+You can also use `{tippy}` to add tooltips to your reactable columns:
+
+```R
+library(shiny)
+library(reactable)
+library(reactable.extras)
+string_list <- function(values) {
+  paste0(
+    "{", paste0(names(values), " : ", unlist(values), collapse = ", "), "}"
+  )
+}
+
+df <- MASS::Cars93[, 1:4]
+df$Date <- sample(seq(as.Date("2020/01/01"),
+                      as.Date("2023/01/01"),
+                      by = "day"),
+                  nrow(df))
+df$Check <- sample(c(TRUE, FALSE), nrow(df), TRUE)
+
+shinyApp(
+  ui = fluidPage(
+    reactable.extras::reactable_extras_dependency(),
+    reactable_extras_ui("table"),
+    hr(),
+    textOutput("date_text"),
+    textOutput("button_text"),
+    textOutput("check_text"),
+    textOutput("dropdown_text"),
+    textOutput("text")
+  ),
+  server = function(input, output) {
+    reactable_extras_server(
+      "table",
+      data = df,
+      columns = list(
+        Manufacturer = colDef(
+          header = tooltip_extra("tooltip", content = "Manufacturer type"), #tooltip
+          cell = button_extra("button", class = "button-extra")
+        ),
+        Check = colDef(
+          header = tooltip_extra("tooltip", content = "Checkbox"),
+          cell = checkbox_extra("check", class = "checkbox-extra"),
+          align = "left"
+        ),
+        Date = colDef(
+          header = tooltip_extra("tooltip", content = "Date input"),
+          cell = date_extra("date", class = "date-extra")
+        ),
+        Type = colDef(
+          header = tooltip_extra("tooltip", content = "Type dropdown"),
+          cell = dropdown_extra(
+            "dropdown",
+            unique(df$Type),
+            class = "dropdown-extra"
+          )
+        ),
+        Model = colDef(
+          header = tooltip_extra("tooltip", content = "Model input"),
+          cell = text_extra(
+            "text"
+          )
+        )
+      )
+    )
+})
+
+```
+
+![](images/tooltips.gif)
+
