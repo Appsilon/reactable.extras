@@ -1,8 +1,11 @@
 pandoc: 2.19.2
 pkgdown: 2.0.7
 pkgdown_sha: ~
-articles: {}
-last_built: 2023-09-14T12:50Z
+articles:
+  combine-reactable-features: tutorial/combine-reactable-features.html
+  custom-inputs: tutorial/custom-inputs.html
+  server-side-processing: tutorial/server-side-processing.html
+last_built: 2023-09-14T14:04Z
 urls:
   reference: https://appsilon.github.io/reactable.extras/reference
   article: https://appsilon.github.io/reactable.extras/articles

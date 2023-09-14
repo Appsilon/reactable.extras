@@ -54,6 +54,14 @@
     Start
   </a>
 </li>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-tutorials">Tutorials</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-tutorials">
+    <a class="dropdown-item" href="articles/tutorial/server-side-processing.html">Server-Side Processing</a>
+    <a class="dropdown-item" href="articles/tutorial/custom-inputs.html">Custom inputs</a>
+    <a class="dropdown-item" href="articles/tutorial/combine-reactable-features.html">Combine reactables features</a>
+  </div>
+</li>
 <li class="nav-item">
   <a class="nav-link" href="reference/index.html">
     <span class="fa fa-file-code-o"></span>
@@ -100,243 +108,76 @@
 </blockquote>
 <!-- badges: start -->
 
+<p><code>reactable.extras</code> is an R package that enhances the functionality of the <a href="https://glin.github.io/reactable/" class="external-link">reactable</a> package in Shiny applications. Reactable tables are interactive customizable, and <code>reactable.extras</code> extend their capabilities, allowing you to create dynamic and interactive data tables with ease.</p>
+<p>In the context of web apps, you often need to provide users with additional tools and interactivity for data exploration. <code>reactable.extras</code> address this need by offering a set of functions and components that can be seamlessly integrated into your Shiny apps.</p>
 <div class="section level2">
 <h2 id="how-to-install">How to install?<a class="anchor" aria-label="anchor" href="#how-to-install"></a>
 </h2>
-<p>Development version:</p>
+<p>Stable version:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"reactable.extras"</span><span class="op">)</span></span></code></pre></div>
+<p>Development version:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"Appsilon/reactable.extras"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="how-to-use-it">How to use it?<a class="anchor" aria-label="anchor" href="#how-to-use-it"></a>
 </h2>
-<div class="section level3">
-<h3 id="server-side-processing">Server-Side Processing<a class="anchor" aria-label="anchor" href="#server-side-processing"></a>
-</h3>
-<p>Rendering a <code>reactable</code> with a lot of data can be inefficient. The initial loading will take some time, and a lot of memory will be thrown to the browser.</p>
-<p>A more efficient approach is to render only the data that is needed to be displayed.</p>
-<p><code><a href="reference/reactable-extras-server.html">reactable_extras_ui()</a></code> and <code>reactalbe_extras_server()</code> is a wrapper for <code><a href="https://glin.github.io/reactable/reference/reactable-shiny.html" class="external-link">reactable::reactableOutput()</a></code> and <code>reactable::renderReactable({reactable(...)})</code>. It renders only a subset of a large data in the server memory. This almost instantly renders the desired page and keeps the amount of memory used in the browser minimal.</p>
-<p>Consider this example data:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<p>Getting started with <code>reactable.extras</code> is straightforward:</p>
+<ol style="list-style-type: decimal">
+<li>Make sure you have latest version of <a href="https://glin.github.io/reactable/" class="external-link">reactable</a>. It’s required to be at least on version 0.4.0</li>
+<li>Include the necessary functions and components in your Shiny UI definition.</li>
+<li>Use the provided functions to enhance your reactable tables. You can add custom buttons, checkboxes, date pickers, dropdowns, and text inputs to your table cells.</li>
+<li>Customize the behavior and appearance of these input components based on your application’s requirements.</li>
+<li>Implement server-side processing and pagination controls for large datasets.</li>
+</ol>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.posit.co/" class="external-link">shiny</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://glin.github.io/reactable/" class="external-link">reactable</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://appsilon.github.io/reactable.extras/">reactable.extras</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">mtcars_ultra</span> <span class="op">&lt;-</span> <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1L</span>, <span class="fl">20000L</span>, by <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span>,</span>
-<span>  <span class="op">~</span> <span class="op">{</span></span>
-<span>    <span class="va">temp_df</span> <span class="op">&lt;-</span> <span class="va">mtcars</span></span>
-<span>    <span class="va">temp_df</span><span class="op">$</span><span class="va">make</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">temp_df</span><span class="op">)</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">temp_df</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span>
-<span>    <span class="va">temp_df</span> <span class="op">&lt;-</span></span>
-<span>      <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span><span class="va">temp_df</span>, id_row <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"id_"</span>, <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/row_number.html" class="external-link">row_number</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"_"</span>, <span class="va">.x</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span>    <span class="va">temp_df</span></span>
-<span>  <span class="op">}</span>,</span>
-<span>  .progress <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/list_c.html" class="external-link">list_rbind</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>And compare the difference in initial load time and amount of memory used in the browser when loading all the data at once vs loading only the data needed for the page.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># All of the data rendered all at once</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://glin.github.io/reactable/reference/reactable-shiny.html" class="external-link">reactableOutput</a></span><span class="op">(</span><span class="st">"test"</span><span class="op">)</span>,</span>
-<span>  <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">server</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="va">output</span><span class="op">$</span><span class="va">test</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://glin.github.io/reactable/reference/reactable-shiny.html" class="external-link">renderReactable</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="https://glin.github.io/reactable/reference/reactable.html" class="external-link">reactable</a></span><span class="op">(</span></span>
-<span>        data <span class="op">=</span> <span class="va">mtcars_ultra</span>,</span>
-<span>        columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>          mpg <span class="op">=</span> <span class="fu"><a href="https://glin.github.io/reactable/reference/colDef.html" class="external-link">colDef</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Miles per Gallon"</span><span class="op">)</span>,</span>
-<span>          cyl <span class="op">=</span> <span class="fu"><a href="https://glin.github.io/reactable/reference/colDef.html" class="external-link">colDef</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Cylinders"</span><span class="op">)</span>,</span>
-<span>          disp <span class="op">=</span> <span class="fu"><a href="https://glin.github.io/reactable/reference/colDef.html" class="external-link">colDef</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Displacement"</span><span class="op">)</span></span>
-<span>        <span class="op">)</span>,</span>
-<span>        defaultPageSize <span class="op">=</span> <span class="fl">16</span></span>
-<span>      <span class="op">)</span></span>
-<span>    <span class="op">)</span></span>
-<span>  <span class="op">}</span></span>
+<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>  ID <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">1000</span>,</span>
+<span>  SKU_Number <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"SKU "</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">1000</span><span class="op">)</span>,</span>
+<span>  Actions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Updated"</span>, <span class="st">"Initialized"</span><span class="op">)</span>, times <span class="op">=</span> <span class="fl">20</span><span class="op">)</span>,</span>
+<span>  Registered <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2023/1/1"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Only the subset of the data needed for the page is rendered</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="reference/reactable-extras-server.html">reactable_extras_ui</a></span><span class="op">(</span><span class="st">"test"</span><span class="op">)</span>,</span>
-<span>  <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">server</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="fu"><a href="reference/reactable-extras-server.html">reactable_extras_server</a></span><span class="op">(</span></span>
-<span>      <span class="st">"test"</span>,</span>
-<span>      data <span class="op">=</span> <span class="va">mtcars_ultra</span>,</span>
-<span>      columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>        mpg <span class="op">=</span> <span class="fu"><a href="https://glin.github.io/reactable/reference/colDef.html" class="external-link">colDef</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Miles per Gallon"</span><span class="op">)</span>,</span>
-<span>        cyl <span class="op">=</span> <span class="fu"><a href="https://glin.github.io/reactable/reference/colDef.html" class="external-link">colDef</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Cylinders"</span><span class="op">)</span>,</span>
-<span>        disp <span class="op">=</span> <span class="fu"><a href="https://glin.github.io/reactable/reference/colDef.html" class="external-link">colDef</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Displacement"</span><span class="op">)</span></span>
-<span>      <span class="op">)</span>,</span>
-<span>      total_pages <span class="op">=</span> <span class="fl">4e4</span></span>
-<span>    <span class="op">)</span></span>
-<span>  <span class="op">}</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<table class="table">
-<colgroup>
-<col width="51%">
-<col width="48%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Server-Side Processing</th>
-<th align="center">Rendering All Data At Once</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center"><img src="reference/figures/server-side-processing.gif"></td>
-<td align="center"><img src="reference/figures/full-data-rendered.gif"></td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level3">
-<h3 id="custom-inputs">Custom inputs<a class="anchor" aria-label="anchor" href="#custom-inputs"></a>
-</h3>
-<p>You can use custom inputs inside your reactable column.</p>
-<p>Supported types for now:</p>
-<ul>
-<li>text input: <code>text_extra</code>
-</li>
-<li>button: <code>button_extra</code>
-</li>
-<li>dropdown: <code>dropdown_extra</code>
-</li>
-<li>date: <code>date_extra</code>
-</li>
-<li>checkbox: <code>checkbox_extra</code>
-</li>
-</ul>
-<p>It’s possible to apply additional styling to your inputs by passing <code>class</code> argument:</p>
-<p><code>checkbox_extra("check", class = "checkbox-extra")</code></p>
-<p>Also it’s important to import javascript dependencies by adding to <code>ui</code>:</p>
-<p><code><a href="reference/reactable_extras_dependency.html">reactable.extras::reactable_extras_dependency()</a></code></p>
-<p>All events of your inputs will be tracked and can be used in your shiny server.</p>
-<p>Example application:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.posit.co/" class="external-link">shiny</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://glin.github.io/reactable/" class="external-link">reactable</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://appsilon.github.io/reactable.extras/">reactable.extras</a></span><span class="op">)</span></span>
-<span><span class="va">string_list</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">values</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span></span>
-<span>    <span class="st">"{"</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">values</span><span class="op">)</span>, <span class="st">" : "</span>, <span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">values</span><span class="op">)</span>, collapse <span class="op">=</span> <span class="st">", "</span><span class="op">)</span>, <span class="st">"}"</span></span>
-<span>  <span class="op">)</span></span>
-<span><span class="op">}</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html" class="external-link">fluidPage</a></span><span class="op">(</span></span>
+<span>  <span class="co"># Include reactable.extras in your UI</span></span>
+<span>  <span class="fu"><a href="reference/reactable_extras_dependency.html">reactable_extras_dependency</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://glin.github.io/reactable/reference/reactable-shiny.html" class="external-link">reactableOutput</a></span><span class="op">(</span><span class="st">"my_table"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span></span>
-<span>  ui <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html" class="external-link">fluidPage</a></span><span class="op">(</span></span>
-<span>    <span class="fu">reactable.extras</span><span class="fu">::</span><span class="fu"><a href="reference/reactable_extras_dependency.html">reactable_extras_dependency</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://glin.github.io/reactable/reference/reactable-shiny.html" class="external-link">reactableOutput</a></span><span class="op">(</span><span class="st">"react"</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">hr</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">textOutput</a></span><span class="op">(</span><span class="st">"date_text"</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">textOutput</a></span><span class="op">(</span><span class="st">"button_text"</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">textOutput</a></span><span class="op">(</span><span class="st">"check_text"</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">textOutput</a></span><span class="op">(</span><span class="st">"dropdown_text"</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">textOutput</a></span><span class="op">(</span><span class="st">"text"</span><span class="op">)</span></span>
-<span>  <span class="op">)</span>,</span>
-<span>  server <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="va">output</span><span class="op">$</span><span class="va">react</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://glin.github.io/reactable/reference/reactable-shiny.html" class="external-link">renderReactable</a></span><span class="op">(</span><span class="op">{</span></span>
-<span>      <span class="co"># preparing the test data</span></span>
-<span>      <span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">MASS</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/MASS/man/Cars93.html" class="external-link">Cars93</a></span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span></span>
-<span>      <span class="va">df</span><span class="op">$</span><span class="va">Date</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2020/01/01"</span><span class="op">)</span>,</span>
-<span>                            <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2023/01/01"</span><span class="op">)</span>,</span>
-<span>                            by <span class="op">=</span> <span class="st">"day"</span><span class="op">)</span>,</span>
-<span>                        <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span><span class="op">)</span></span>
-<span>      <span class="va">df</span><span class="op">$</span><span class="va">Check</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="cn">FALSE</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span>, <span class="cn">TRUE</span><span class="op">)</span></span>
-<span>      <span class="fu"><a href="https://glin.github.io/reactable/reference/reactable.html" class="external-link">reactable</a></span><span class="op">(</span></span>
-<span>        <span class="va">df</span>,</span>
-<span>        columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>          Manufacturer <span class="op">=</span> <span class="fu"><a href="https://glin.github.io/reactable/reference/colDef.html" class="external-link">colDef</a></span><span class="op">(</span></span>
-<span>            cell <span class="op">=</span> <span class="fu"><a href="reference/button_extra.html">button_extra</a></span><span class="op">(</span><span class="st">"button"</span>, class <span class="op">=</span> <span class="st">"button-extra"</span><span class="op">)</span></span>
-<span>          <span class="op">)</span>,</span>
-<span>          Check <span class="op">=</span> <span class="fu"><a href="https://glin.github.io/reactable/reference/colDef.html" class="external-link">colDef</a></span><span class="op">(</span></span>
-<span>            cell <span class="op">=</span> <span class="fu"><a href="reference/checkbox_extra.html">checkbox_extra</a></span><span class="op">(</span><span class="st">"check"</span>, class <span class="op">=</span> <span class="st">"checkbox-extra"</span><span class="op">)</span>,</span>
-<span>            align <span class="op">=</span> <span class="st">"left"</span></span>
-<span>          <span class="op">)</span>,</span>
-<span>          Date <span class="op">=</span> <span class="fu"><a href="https://glin.github.io/reactable/reference/colDef.html" class="external-link">colDef</a></span><span class="op">(</span></span>
-<span>            cell <span class="op">=</span> <span class="fu"><a href="reference/date_extra.html">date_extra</a></span><span class="op">(</span><span class="st">"date"</span>, class <span class="op">=</span> <span class="st">"date-extra"</span><span class="op">)</span></span>
-<span>          <span class="op">)</span>,</span>
-<span>          Type <span class="op">=</span> <span class="fu"><a href="https://glin.github.io/reactable/reference/colDef.html" class="external-link">colDef</a></span><span class="op">(</span></span>
-<span>            cell <span class="op">=</span> <span class="fu"><a href="reference/dropdown_extra.html">dropdown_extra</a></span><span class="op">(</span></span>
-<span>              <span class="st">"dropdown"</span>,</span>
-<span>              <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">Type</span><span class="op">)</span>,</span>
-<span>              class <span class="op">=</span> <span class="st">"dropdown-extra"</span></span>
-<span>            <span class="op">)</span></span>
-<span>          <span class="op">)</span>,</span>
-<span>          Model <span class="op">=</span> <span class="fu"><a href="https://glin.github.io/reactable/reference/colDef.html" class="external-link">colDef</a></span><span class="op">(</span></span>
-<span>            cell <span class="op">=</span> <span class="fu"><a href="reference/text_extra.html">text_extra</a></span><span class="op">(</span></span>
-<span>              <span class="st">"text"</span></span>
-<span>            <span class="op">)</span></span>
-<span>          <span class="op">)</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">my_table</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://glin.github.io/reactable/reference/reactable-shiny.html" class="external-link">renderReactable</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="co"># Create a reactable table with enhanced features</span></span>
+<span>    <span class="fu"><a href="https://glin.github.io/reactable/reference/reactable.html" class="external-link">reactable</a></span><span class="op">(</span></span>
+<span>      <span class="va">data</span>,</span>
+<span>      columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        ID <span class="op">=</span> <span class="fu"><a href="https://glin.github.io/reactable/reference/colDef.html" class="external-link">colDef</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"ID"</span><span class="op">)</span>,</span>
+<span>        SKU_Number <span class="op">=</span> <span class="fu"><a href="https://glin.github.io/reactable/reference/colDef.html" class="external-link">colDef</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"SKU_Number"</span><span class="op">)</span>,</span>
+<span>        Actions <span class="op">=</span> <span class="fu"><a href="https://glin.github.io/reactable/reference/colDef.html" class="external-link">colDef</a></span><span class="op">(</span></span>
+<span>          name <span class="op">=</span> <span class="st">"Actions"</span>,</span>
+<span>          cell <span class="op">=</span> <span class="fu"><a href="reference/button_extra.html">button_extra</a></span><span class="op">(</span><span class="st">"button"</span>, class <span class="op">=</span> <span class="st">"btn btn-primary"</span><span class="op">)</span></span>
+<span>        <span class="op">)</span>,</span>
+<span>        Registered <span class="op">=</span> <span class="fu"><a href="https://glin.github.io/reactable/reference/colDef.html" class="external-link">colDef</a></span><span class="op">(</span></span>
+<span>          cell <span class="op">=</span> <span class="fu"><a href="reference/date_extra.html">date_extra</a></span><span class="op">(</span><span class="st">"Registered"</span>, class <span class="op">=</span> <span class="st">"date-extra"</span><span class="op">)</span></span>
 <span>        <span class="op">)</span></span>
 <span>      <span class="op">)</span></span>
-<span>    <span class="op">}</span><span class="op">)</span></span>
-<span>    <span class="va">output</span><span class="op">$</span><span class="va">date_text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html" class="external-link">renderText</a></span><span class="op">(</span><span class="op">{</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/req.html" class="external-link">req</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">date</span><span class="op">)</span></span>
-<span>      <span class="va">values</span> <span class="op">&lt;-</span> <span class="va">input</span><span class="op">$</span><span class="va">date</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span></span>
-<span>        <span class="st">"Date: "</span>,</span>
-<span>        <span class="fu">string_list</span><span class="op">(</span><span class="va">values</span><span class="op">)</span></span>
-<span>      <span class="op">)</span></span>
-<span>    <span class="op">}</span><span class="op">)</span></span>
-<span>    <span class="va">output</span><span class="op">$</span><span class="va">check_text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html" class="external-link">renderText</a></span><span class="op">(</span><span class="op">{</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/req.html" class="external-link">req</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">check</span><span class="op">)</span></span>
-<span>      <span class="va">values</span> <span class="op">&lt;-</span> <span class="va">input</span><span class="op">$</span><span class="va">check</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span></span>
-<span>        <span class="st">"Check: "</span>,</span>
-<span>        <span class="fu">string_list</span><span class="op">(</span><span class="va">values</span><span class="op">)</span></span>
-<span>      <span class="op">)</span></span>
-<span>    <span class="op">}</span><span class="op">)</span></span>
-<span>    <span class="va">output</span><span class="op">$</span><span class="va">button_text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html" class="external-link">renderText</a></span><span class="op">(</span><span class="op">{</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/req.html" class="external-link">req</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">button</span><span class="op">)</span></span>
-<span>      <span class="va">values</span> <span class="op">&lt;-</span> <span class="va">input</span><span class="op">$</span><span class="va">button</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span></span>
-<span>        <span class="st">"Button: "</span>,</span>
-<span>        <span class="fu">string_list</span><span class="op">(</span><span class="va">values</span><span class="op">)</span></span>
-<span>      <span class="op">)</span></span>
-<span>    <span class="op">}</span><span class="op">)</span></span>
-<span></span>
-<span>    <span class="va">output</span><span class="op">$</span><span class="va">dropdown_text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html" class="external-link">renderText</a></span><span class="op">(</span><span class="op">{</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/req.html" class="external-link">req</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">dropdown</span><span class="op">)</span></span>
-<span>      <span class="va">values</span> <span class="op">&lt;-</span> <span class="va">input</span><span class="op">$</span><span class="va">dropdown</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span></span>
-<span>        <span class="st">"Dropdown: "</span>,</span>
-<span>        <span class="fu">string_list</span><span class="op">(</span><span class="va">values</span><span class="op">)</span></span>
-<span>      <span class="op">)</span></span>
-<span>    <span class="op">}</span><span class="op">)</span></span>
-<span></span>
-<span>    <span class="va">output</span><span class="op">$</span><span class="va">text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html" class="external-link">renderText</a></span><span class="op">(</span><span class="op">{</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/req.html" class="external-link">req</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">text</span><span class="op">)</span></span>
-<span>      <span class="va">values</span> <span class="op">&lt;-</span> <span class="va">input</span><span class="op">$</span><span class="va">text</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span></span>
-<span>        <span class="st">"Dropdown: "</span>,</span>
-<span>        <span class="fu">string_list</span><span class="op">(</span><span class="va">values</span><span class="op">)</span></span>
-<span>      <span class="op">)</span></span>
-<span>    <span class="op">}</span><span class="op">)</span></span>
-<span>  <span class="op">}</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/custom-inputs.gif"></p>
-<p>Example of saving the state when changing the page:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># helper function</span></span>
-<span><span class="va">update_table</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">id</span>, <span class="va">column</span>, <span class="va">value</span>, <span class="va">key_column</span> <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html" class="external-link">is.null</a></span><span class="op">(</span><span class="va">key_column</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="va">data</span><span class="op">[</span><span class="va">data</span><span class="op">[[</span><span class="va">key_column</span><span class="op">]</span><span class="op">]</span> <span class="op">==</span> <span class="va">id</span>, <span class="va">column</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">value</span></span>
-<span>  <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
-<span>    <span class="va">data</span><span class="op">[</span><span class="va">id</span>, <span class="va">column</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">value</span></span>
-<span>  <span class="op">}</span></span>
-<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">button</span>, <span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/showModal.html" class="external-link">showModal</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/modalDialog.html" class="external-link">modalDialog</a></span><span class="op">(</span></span>
+<span>      title <span class="op">=</span> <span class="st">"Selected row data"</span>,</span>
+<span>      <span class="fu"><a href="https://glin.github.io/reactable/reference/reactable.html" class="external-link">reactable</a></span><span class="op">(</span><span class="va">data</span><span class="op">[</span><span class="va">input</span><span class="op">$</span><span class="va">button</span><span class="op">$</span><span class="va">row</span>, <span class="op">]</span><span class="op">)</span></span>
+<span>    <span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  </span>
 <span><span class="op">}</span></span>
 <span></span>
-<span><span class="co"># in server.R</span></span>
-<span><span class="va">values</span> <span class="op">&lt;-</span> <span class="va">input</span><span class="op">$</span><span class="va">text</span></span>
-<span><span class="fu"><a href="https://glin.github.io/reactable/reference/updateReactable.html" class="external-link">updateReactable</a></span><span class="op">(</span></span>
-<span>  <span class="st">"react"</span>,</span>
-<span>  data <span class="op">=</span> <span class="fu">update_table</span><span class="op">(</span></span>
-<span>    <span class="va">df</span>,</span>
-<span>    <span class="va">values</span><span class="op">$</span><span class="va">row</span>,</span>
-<span>    <span class="va">values</span><span class="op">$</span><span class="va">column</span>,</span>
-<span>    <span class="va">values</span><span class="op">$</span><span class="va">value</span></span>
-<span>  <span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-</div>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="how-to-contribute">How to contribute?<a class="anchor" aria-label="anchor" href="#how-to-contribute"></a>
