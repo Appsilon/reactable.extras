@@ -2,20 +2,20 @@
 % Please edit documentation in R/tooltip.R
 \name{tooltip_extra}
 \alias{tooltip_extra}
-\title{Tooltip for table headers}
+\title{Tool-tip for table headers}
 \usage{
 tooltip_extra(content, theme = "light")
 }
 \arguments{
-\item{content}{The content to be displayed in the tooltip}
+\item{content}{The content to be displayed in the tool-tip}
 
-\item{theme}{The theme of the tooltip, either "light", "light-border", "material" or
+\item{theme}{The theme of the tool-tip, either "light", "light-border", "material" or
 "translucent"}
 }
 \description{
-Tooltip for table headers
+Tool-tip for table headers
 }
 \examples{
-reactable::colDef(header = tooltip_extra("This is my tooltip", theme = "material"))
+reactable::colDef(header = tooltip_extra("This is my tool-tip", theme = "material"))
 
 }
