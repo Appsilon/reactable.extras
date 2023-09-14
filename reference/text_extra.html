@@ -104,7 +104,7 @@
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">reactable</span><span class="fu">::</span><span class="fu"><a href="https://glin.github.io/reactable/reference/colDef.html" class="external-link">colDef</a></span><span class="op">(</span>cell <span class="op">=</span> <span class="fu">text_extra</span><span class="op">(</span><span class="st">"text"</span>, class <span class="op">=</span> <span class="st">"table-text"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $cell</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "function(cellInfo) {\n              return React.createElement(textExtras,\n              {id: 'text', value: cellInfo.value, uuid: (Number(cellInfo.id) + 1),\n               column: cellInfo.column.id , class: 'table-text', className: 'table-text'}, cellInfo.id)\n      }"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "function(cellInfo) {\n              return React.createElement(textExtras,\n              {id: 'text', value: cellInfo.value, uuid: cellInfo.row['.internal_uuid'] ? cellInfo.row['.internal_uuid'] : (Number(cellInfo.id) + 1),\n               column: cellInfo.column.id , class: 'table-text', className: 'table-text'}, cellInfo.id)\n        }"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "JS_EVAL"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
