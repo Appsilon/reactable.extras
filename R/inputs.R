@@ -24,7 +24,11 @@ define_key <- function(key) {
   if (!is.null(key)) {
     key <- paste0("cellInfo.row.", key)
   } else {
-    key <- "cellInfo.row['.internal_uuid']"
+    key <- paste(
+      "cellInfo.row['.internal_uuid'] ?",
+      "cellInfo.row['.internal_uuid'] :",
+      "(Number(cellInfo.id) + 1)"
+    )
   }
 
   return(key)
