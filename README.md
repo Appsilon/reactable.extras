@@ -5,9 +5,20 @@
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/reactable.extras)](https://cran.r-project.org/package=reactable.extras)
 [![R-CMD-check](https://github.com/Appsilon/reactable.extras/workflows/R-CMD-check/badge.svg)](https://github.com/Appsilon/reactable.extras/actions/workflows/main.yml)
+![Codecov test coverage](https://codecov.io/gh/Appsilon/reactable.extras/branch/main/graph/badge.svg)
 <!-- badges: end -->
 
+`reactable.extras` is an R package that enhances the functionality of the [reactable](https://glin.github.io/reactable/) package in Shiny applications. Reactable tables are interactive customizable, and `reactable.extras` extend their capabilities, allowing you to create dynamic and interactive data tables with ease.
+
+In the context of web apps, you often need to provide users with additional tools and interactivity for data exploration. `reactable.extras` address this need by offering a set of functions and components that can be seamlessly integrated into your Shiny apps.
+
 ## How to install?
+
+Stable version:
+
+```r
+install.packages("reactable.extras")
+```
 
 Development version:
 
@@ -17,237 +28,62 @@ remotes::install_github("Appsilon/reactable.extras")
 
 ## How to use it?
 
-### Server-Side Processing
+Getting started with `reactable.extras` is straightforward:
 
-Rendering a `reactable` with a lot of data can be inefficient. The initial loading will take some time, and a lot of memory will be thrown to the browser.
-
-A more efficient approach is to render only the data that is needed to be displayed.
-
-`reactable_extras_ui()` and `reactalbe_extras_server()` is a wrapper for `reactable::reactableOutput()` and `reactable::renderReactable({reactable(...)})`.
-It renders only a subset of a large data in the server memory. This almost instantly renders the desired page and keeps the amount of memory used in the browser minimal.
-
-Consider this example data:
+1. Make sure you have latest version of `{reactable}`. It's required to be at least on version 0.4.0
+2. Include the necessary functions and components in your Shiny UI definition.
+3. Use the provided functions to enhance your reactable tables. You can add custom buttons, checkboxes, date pickers, dropdowns, and text inputs to your table cells.
+4. Customize the behavior and appearance of these input components based on your application's requirements.
+5. Implement server-side processing and pagination controls for large datasets.
 
 ```r
 library(shiny)
 library(reactable)
 library(reactable.extras)
 
-mtcars_ultra <- purrr::map(
-  seq(1L, 20000L, by = 1L),
-  ~ {
-    temp_df <- mtcars
-    temp_df$make <- rownames(temp_df)
-    rownames(temp_df) <- NULL
-    temp_df <-
-      dplyr::mutate(temp_df, id_row = paste0("id_", dplyr::row_number(), "_", .x))
-
-    temp_df
-  },
-  .progress = TRUE
-) |>
-  purrr::list_rbind()
-```
-
-And compare the difference in initial load time and amount of memory used in the browser when loading all the data at once vs loading only the data needed for the page.
-
-```r
-# All of the data rendered all at once
-shinyApp(
-  reactableOutput("test"),
-  function(input, output, server) {
-    output$test <- renderReactable(
-      reactable(
-        data = mtcars_ultra,
-        columns = list(
-          mpg = colDef(name = "Miles per Gallon"),
-          cyl = colDef(name = "Cylinders"),
-          disp = colDef(name = "Displacement")
-        ),
-        defaultPageSize = 16
-      )
-    )
-  }
+data <- data.frame(
+  ID = 1:1000,
+  SKU_Number = paste0("SKU ", 1:1000),
+  Actions = rep(c("Updated", "Initialized"), times = 20),
+  Registered = as.Date("2023/1/1")
 )
 
-# Only the subset of the data needed for the page is rendered
-shinyApp(
-  reactable_extras_ui("test"),
-  function(input, output, server) {
-    reactable_extras_server(
-      "test",
-      data = mtcars_ultra,
+ui <- fluidPage(
+  # Include reactable.extras in your UI
+  reactable_extras_dependency(),
+  reactableOutput("my_table")
+)
+
+server <- function(input, output, session) {
+  output$my_table <- renderReactable({
+    # Create a reactable table with enhanced features
+    reactable(
+      data,
       columns = list(
-        mpg = colDef(name = "Miles per Gallon"),
-        cyl = colDef(name = "Cylinders"),
-        disp = colDef(name = "Displacement")
-      ),
-      total_pages = 4e4
-    )
-  }
-)
-
-```
-
-Server-Side Processing                  |  Rendering All Data At Once
-:--------------------------------------:|:-----------------------------------:
-![](man/figures/server-side-processing.gif)  |  ![](man/figures/full-data-rendered.gif)
-
-### Custom inputs
-
-You can use custom inputs inside your reactable column.
-
-Supported types for now:
-
-- text input: `text_extra`
-- button: `button_extra`
-- dropdown: `dropdown_extra`
-- date: `date_extra`
-- checkbox: `checkbox_extra`
-
-It's possible to apply additional styling to your inputs by passing `class` argument:
-
-`checkbox_extra("check", class = "checkbox-extra")`
-
-Also it's important to import javascript dependencies by adding to `ui`:
-
-`reactable.extras::reactable_extras_dependency()`
-
-All events of your inputs will be tracked and can be used in your shiny server.
-
-Example application:
-
-```r
-library(shiny)
-library(reactable)
-library(reactable.extras)
-string_list <- function(values) {
-  paste0(
-    "{", paste0(names(values), " : ", unlist(values), collapse = ", "), "}"
-  )
-}
-
-shinyApp(
-  ui = fluidPage(
-    reactable.extras::reactable_extras_dependency(),
-    reactableOutput("react"),
-    hr(),
-    textOutput("date_text"),
-    textOutput("button_text"),
-    textOutput("check_text"),
-    textOutput("dropdown_text"),
-    textOutput("text")
-  ),
-  server = function(input, output) {
-    output$react <- renderReactable({
-      # preparing the test data
-      df <- MASS::Cars93[, 1:4]
-      df$Date <- sample(seq(as.Date("2020/01/01"),
-                            as.Date("2023/01/01"),
-                            by = "day"),
-                        nrow(df))
-      df$Check <- sample(c(TRUE, FALSE), nrow(df), TRUE)
-      reactable(
-        df,
-        columns = list(
-          Manufacturer = colDef(
-            cell = button_extra("button", class = "button-extra")
-          ),
-          Check = colDef(
-            cell = checkbox_extra("check", class = "checkbox-extra"),
-            align = "left"
-          ),
-          Date = colDef(
-            cell = date_extra("date", class = "date-extra")
-          ),
-          Type = colDef(
-            cell = dropdown_extra(
-              "dropdown",
-              unique(df$Type),
-              class = "dropdown-extra"
-            )
-          ),
-          Model = colDef(
-            cell = text_extra(
-              "text"
-            )
-          )
+        ID = colDef(name = "ID"),
+        SKU_Number = colDef(name = "SKU_Number"),
+        Actions = colDef(
+          name = "Actions",
+          cell = button_extra("button", class = "btn btn-primary")
+        ),
+        Registered = colDef(
+          cell = date_extra("Registered", class = "date-extra")
         )
       )
-    })
-    output$date_text <- renderText({
-      req(input$date)
-      values <- input$date
-      paste0(
-        "Date: ",
-        string_list(values)
-      )
-    })
-    output$check_text <- renderText({
-      req(input$check)
-      values <- input$check
-      paste0(
-        "Check: ",
-        string_list(values)
-      )
-    })
-    output$button_text <- renderText({
-      req(input$button)
-      values <- input$button
-      paste0(
-        "Button: ",
-        string_list(values)
-      )
-    })
-
-    output$dropdown_text <- renderText({
-      req(input$dropdown)
-      values <- input$dropdown
-      paste0(
-        "Dropdown: ",
-        string_list(values)
-      )
-    })
-
-    output$text <- renderText({
-      req(input$text)
-      values <- input$text
-      paste0(
-        "Dropdown: ",
-        string_list(values)
-      )
-    })
-  }
-)
-
-```
-
-![](man/figures/custom-inputs.gif)
-
-Example of saving the state when changing the page:
-
-```R
-# helper function
-update_table <- function(data, id, column, value, key_column = NULL) {
-  if (!is.null(key_column)) {
-    data[data[[key_column]] == id, column] <- value
-  } else {
-    data[id, column] <- value
-  }
-  return(data)
+    )
+  })
+  
+  observeEvent(input$button, {
+    showModal(modalDialog(
+      title = "Selected row data",
+      reactable(data[input$button$row, ])
+    ))
+  })
+  
 }
 
-# in server.R
-values <- input$text
-updateReactable(
-  "react",
-  data = update_table(
-    df,
-    values$row,
-    values$column,
-    values$value
-  )
-)
+shinyApp(ui, server)
+
 ```
 
 ## How to contribute?

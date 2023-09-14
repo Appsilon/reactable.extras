@@ -31,13 +31,22 @@ url: https://appsilon.github.io/reactable.extras/
 navbar:
   bg: primary
   structure:
-    left: [home, reference]
+    left: [home, tutorials, reference]
     right: [search, github, twitter, mastodon]
   components:
     home:
       icon: fa-home
       text: "Start"
       href: index.html
+    tutorials:
+      text: Tutorials
+      menu:
+        - text: Server-Side Processing
+          href: articles/tutorial/server-side-processing.html
+        - text: Custom inputs
+          href: articles/tutorial/custom-inputs.html
+        - text: Combine reactables features
+          href: articles/tutorial/combine-reactable-features.html
     reference:
       icon: fa-file-code-o
       text: "Reference"

@@ -20,7 +20,7 @@ Imports:
     dplyr,
     htmltools,
     purrr (>= 1.0.0),
-    reactable,
+    reactable (>= 0.4.0),
     rjson,
     rlang,
     shiny
