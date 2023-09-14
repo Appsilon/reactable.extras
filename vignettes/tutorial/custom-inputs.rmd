@@ -137,32 +137,6 @@ shinyApp(
 
 ![](images/custom-inputs.gif)
 
-Example of saving the state when changing the page:
-
-```R
-# helper function
-update_table <- function(data, id, column, value, key_column = NULL) {
-  if (!is.null(key_column)) {
-    data[data[[key_column]] == id, column] <- value
-  } else {
-    data[id, column] <- value
-  }
-  return(data)
-}
-
-# in server.R
-values <- input$text
-updateReactable(
-  "react",
-  data = update_table(
-    df,
-    values$row,
-    values$column,
-    values$value
-  )
-)
-```
-
 
 You can also use `{tippy}` to add tooltips to your reactable columns:
 
@@ -200,20 +174,20 @@ shinyApp(
       data = df,
       columns = list(
         Manufacturer = colDef(
-          header = tooltip_extra("tooltip", content = "Manufacturer type"), #tooltip
+          header = tooltip_extra(content = "Manufacturer type"), #tooltip
           cell = button_extra("button", class = "button-extra")
         ),
         Check = colDef(
-          header = tooltip_extra("tooltip", content = "Checkbox"),
+          header = tooltip_extra(content = "Checkbox"),
           cell = checkbox_extra("check", class = "checkbox-extra"),
           align = "left"
         ),
         Date = colDef(
-          header = tooltip_extra("tooltip", content = "Date input"),
+          header = tooltip_extra(content = "Date input"),
           cell = date_extra("date", class = "date-extra")
         ),
         Type = colDef(
-          header = tooltip_extra("tooltip", content = "Type dropdown"),
+          header = tooltip_extra(content = "Type dropdown"),
           cell = dropdown_extra(
             "dropdown",
             unique(df$Type),
@@ -221,7 +195,7 @@ shinyApp(
           )
         ),
         Model = colDef(
-          header = tooltip_extra("tooltip", content = "Model input"),
+          header = tooltip_extra(content = "Model input"),
           cell = text_extra(
             "text"
           )
