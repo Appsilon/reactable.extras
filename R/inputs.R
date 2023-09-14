@@ -24,7 +24,11 @@ define_key <- function(key) {
   if (!is.null(key)) {
     key <- paste0("cellInfo.row.", key)
   } else {
-    key <- "(Number(cellInfo.id) + 1)"
+    key <- paste(
+      "cellInfo.row['.internal_uuid'] ?",
+      "cellInfo.row['.internal_uuid'] :",
+      "(Number(cellInfo.id) + 1)"
+    )
   }
 
   return(key)
@@ -51,10 +55,10 @@ button_extra <- function(id, key = NULL, ...) {
                  return React.createElement(ButtonExtras,
                  {id: '{{id}}', label: cellInfo.value,
                   uuid: {{key}}, column: cellInfo.column.id {{args}}}, cellInfo.id)
-      }",
-      id = id,
-      key = key,
-      args = args_js(...)
+        }",
+        id = id,
+        key = key,
+        args = args_js(...)
       )
     )
   )
@@ -79,10 +83,10 @@ checkbox_extra <- function(id, key = NULL, ...) {
               return React.createElement(checkboxExtras,
               {id: '{{id}}', value: cellInfo.value, uuid: {{key}},
                column: cellInfo.column.id {{args}}}, cellInfo.id)
-      }",
-      id = id,
-      key = key,
-      args = args_js(...)
+        }",
+        id = id,
+        key = key,
+        args = args_js(...)
       )
     )
   )
@@ -107,10 +111,11 @@ date_extra <- function(id, key = NULL, ...) {
               return React.createElement(dateExtras,
               {id: '{{id}}', value: cellInfo.value, uuid: {{key}},
                column: cellInfo.column.id {{args}}}, cellInfo.id)
-      }",
-      id = id,
-      key = key,
-      args = args_js(...))
+        }",
+        id = id,
+        key = key,
+        args = args_js(...)
+      )
     )
   )
 }
@@ -147,13 +152,14 @@ dropdown_extra <- function(id, choices, key = NULL, ...) {
               return React.createElement(dropdownExtras,
               {id: '{{id}}', value: cellInfo.value,
                uuid: {{key}}, column: cellInfo.column.id {{args}} {{choices}}}, cellInfo.id)
-      }",
-      id = id,
-      key = key,
-      choices = choices_js,
-      args = args_js(...)
+        }",
+        id = id,
+        key = key,
+        choices = choices_js,
+        args = args_js(...)
+      )
     )
-  ))
+  )
 }
 
 #' Text input for reactable column cell
@@ -176,10 +182,11 @@ text_extra <- function(id, key = NULL, ...) {
               return React.createElement(textExtras,
               {id: '{{id}}', value: cellInfo.value, uuid: {{key}},
                column: cellInfo.column.id {{args}}}, cellInfo.id)
-      }",
-      id = id,
-      key = key,
-      args = args_js(...))
+        }",
+        id = id,
+        key = key,
+        args = args_js(...)
+      )
     )
   )
 }

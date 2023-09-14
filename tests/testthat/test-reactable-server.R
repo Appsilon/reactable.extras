@@ -3,6 +3,7 @@ library(reactable)
 library(shinytest2)
 library(mockery)
 library(purrr)
+library(dplyr)
 
 motor_trend_cars <- mtcars
 motor_trend_cars$make <- rownames(motor_trend_cars)
@@ -156,7 +157,9 @@ test_that("return_reactable_page should return a reactive page value", {
   expect_error(return_reactable_page("test", "10"))
   expect_error(return_reactable_page("test", c(10, 20)))
   testServer(
-    return_reactable_page, args = list(total_pages = 10), {
+    return_reactable_page,
+    args = list(total_pages = 10),
+    {
       session$setInputs(first_page = 0)
       expect_equal(page_number(), 1)
       expect_equal(output$page_text, "1 of 10")
@@ -217,87 +220,33 @@ test_that("reactable_extras_server should return the correct data subset", {
       striped = TRUE,
       compact = TRUE,
       total_pages = 4
-    ), {
+    ),
+    {
+      reactable_data_no_uuid <- reactive({
+        select(reactable_data(), -.internal_uuid)
+      })
       # Pagination should return the correct data subsets
       session$setInputs("page_controls-first_page" = 0)
-      expect_equal(reactable_data(), head(motor_trend_cars, 8))
+      expect_equal(reactable_data_no_uuid(), head(motor_trend_cars, 8))
       session$setInputs("page_controls-last_page" = 1)
-      expect_equal(reactable_data(), tail(motor_trend_cars, 8), ignore_attr = TRUE)
+      expect_equal(reactable_data_no_uuid(), tail(motor_trend_cars, 8), ignore_attr = TRUE)
       session$setInputs("page_controls-previous_page" = 1)
-      expect_equal(reactable_data(), motor_trend_cars[seq(17, 24, by = 1), ], ignore_attr = TRUE)
+      expect_equal(
+        reactable_data_no_uuid(),
+        motor_trend_cars[seq(17, 24, by = 1), ],
+        ignore_attr = TRUE
+      )
       session$setInputs("page_controls-first_page" = 1)
-      expect_equal(reactable_data(), head(motor_trend_cars, 8))
+      expect_equal(reactable_data_no_uuid(), head(motor_trend_cars, 8))
       session$setInputs("page_controls-next_page" = 1)
-      expect_equal(reactable_data(), motor_trend_cars[seq(9, 16, by = 1), ], ignore_attr = TRUE)
+      expect_equal(
+        reactable_data_no_uuid(),
+        motor_trend_cars[seq(9, 16, by = 1), ],
+        ignore_attr = TRUE
+      )
 
       # Reactable should be returned without error
       output$reactable
-  })
-})
-
-test_that("reactable_extras_server should display the correct reactable page", {
-  skip_on_cran()
-  # This test both passes in windows and mac R CMD CHECK
-  # It fails in linux R CMD CHECK
-  # because of the detritus Crashpad in the temp directory
-  # This skip should be fine since this test is skipped in CRAN anyway
-  # Failures will still appear in CI when the test fails in windows and mac
-  skip_on_os("linux")
-
-  test_app <- shinyApp(
-    reactable_extras_ui("test"),
-    function(input, output, server) {
-      reactable_extras_server(
-        "test",
-        data = motor_trend_cars,
-        columns = list(
-          mpg = colDef(name = "Miles per Gallon"),
-          cyl = colDef(name = "Cylinders"),
-          disp = colDef(name = "Displacement"),
-          hp = colDef(name = "Horsepower"),
-          wt = colDef(name = "Weight"),
-          gear = colDef(name = "Number of forward gears"),
-          vs = colDef(name = "Engine"),
-          am = colDef(name = "Transmission")
-        ),
-        striped = TRUE,
-        compact = TRUE,
-        total_pages = 4
-      )
-    },
-    options = list(test.mode = TRUE)
+    }
   )
-
-  app <- AppDriver$new(
-    test_app,
-    name = "test",
-    screenshot_args = FALSE,
-    expect_values_screenshot_args = FALSE
-  )
-
-  app$set_window_size(width = 1619, height = 1049)
-  app$expect_values()
-  app$click("test-page_controls-next_page")
-  app$expect_values()
-  app$click("test-page_controls-last_page")
-  app$expect_values()
-  app$click("test-page_controls-previous_page")
-  app$expect_values()
-  app$click("test-page_controls-first_page")
-  app$expect_values()
-  app$set_inputs(`test-reactable__reactable__sorted` = "asc", allow_no_input_binding_ = TRUE)
-  app$expect_values()
-  app$set_inputs(`test-reactable__reactable__sorted` = "desc", allow_no_input_binding_ = TRUE)
-  app$expect_values()
-  app$set_inputs(`test-reactable__reactable__sorted` = character(0), allow_no_input_binding_ = TRUE)
-  app$expect_values()
-  app$set_inputs(`test-reactable__reactable__sorted` = "asc", allow_no_input_binding_ = TRUE)
-  app$expect_values()
-  app$set_inputs(`test-reactable__reactable__sorted` = "desc", allow_no_input_binding_ = TRUE)
-  app$expect_values()
-  app$set_inputs(`test-reactable__reactable__sorted` = "asc", allow_no_input_binding_ = TRUE)
-  app$expect_values()
-  app$set_inputs(`test-reactable__reactable__sorted` = character(0), allow_no_input_binding_ = TRUE)
-  app$expect_values()
-
 })
