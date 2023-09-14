@@ -15,7 +15,7 @@ tooltip_extra <- function(content, theme = "light") {
         text_ = "function(columnInfo) {
                  return React.createElement(TooltipExtras,
                  {column: columnInfo.name, tooltip: '{{content}}',
-                 theme: '{{theme}}', {{args}}})
+                 theme: '{{theme}}'})
         }",
         content = content,
         theme = theme
