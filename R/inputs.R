@@ -24,7 +24,11 @@ define_key <- function(key) {
   if (!is.null(key)) {
     key <- paste0("cellInfo.row.", key)
   } else {
-    key <- "(Number(cellInfo.id) + 1)"
+    key <- paste(
+      "cellInfo.row['.internal_uuid'] ?",
+      "cellInfo.row['.internal_uuid'] :",
+      "(Number(cellInfo.id) + 1)"
+    )
   }
 
   return(key)
@@ -110,7 +114,8 @@ date_extra <- function(id, key = NULL, ...) {
         }",
         id = id,
         key = key,
-        args = args_js(...))
+        args = args_js(...)
+      )
     )
   )
 }
@@ -152,8 +157,9 @@ dropdown_extra <- function(id, choices, key = NULL, ...) {
         key = key,
         choices = choices_js,
         args = args_js(...)
+      )
     )
-  ))
+  )
 }
 
 #' Text input for reactable column cell
@@ -179,7 +185,8 @@ text_extra <- function(id, key = NULL, ...) {
         }",
         id = id,
         key = key,
-        args = args_js(...))
+        args = args_js(...)
+      )
     )
   )
 }

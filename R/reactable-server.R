@@ -234,14 +234,23 @@ reactable_extras_ui <- function(id, width = "auto", height = "auto") {
   )
 }
 
+hide_internal_uuid <- function(args) {
+  if (is.null(args$columns)) {
+    args$columns <- list()
+  }
+  args$columns[[".internal_uuid"]] <- reactable::colDef(show = FALSE)
+  return(args)
+}
+
 #' @rdname reactable-extras-server
 #' @export
 reactable_extras_server <- function(id, data, total_pages = 4, sortable = TRUE, ...) {
 
-  data <- as.data.frame(data, stringsAsFactors = TRUE)
+  data <- as.data.frame(data, stringsAsFactors = TRUE) |>
+    dplyr::mutate(.internal_uuid = dplyr::row_number())
 
   # Create and clean-up reactable arguments
-  reactable_args <- list(...)
+  reactable_args <- hide_internal_uuid(list(...))
 
   checkmate::assert(
     checkmate::check_character(id, len = 1),

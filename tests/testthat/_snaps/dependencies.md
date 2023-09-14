@@ -9,8 +9,8 @@
        $ src       :List of 1
         ..$ file: chr "assets"
        $ meta      : NULL
-       $ script    : chr [1:2] "js/reactable-extras.js" "js/reactable-server.js"
-       $ stylesheet: chr "css/reactable-server.css"
+       $ script    : chr [1:4] "js/reactable-extras.js" "js/reactable-server.js" "js/popper.js" "js/tippy.js"
+       $ stylesheet: chr [1:5] "css/reactable-server.css" "css/tippy-light.css" "css/tippy-light-border.css" "css/tippy-material.css" ...
        $ head      : NULL
        $ attachment: NULL
        $ package   : chr "reactable.extras"
