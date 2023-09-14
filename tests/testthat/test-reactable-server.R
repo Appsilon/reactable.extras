@@ -250,3 +250,18 @@ test_that("reactable_extras_server should return the correct data subset", {
     }
   )
 })
+
+test_that("tables are sorted correctly according to direction", {
+  mtcars_with_id <- mutate(mtcars, row_id = row_number())
+
+  expect_equal(
+    sort_table(mtcars_with_id, "row_id", "asc")$row_id,
+    1:32
+  )
+
+  expect_equal(
+    sort_table(mtcars_with_id, "row_id", "desc")$row_id,
+    32:1
+  )
+
+})

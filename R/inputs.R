@@ -120,6 +120,16 @@ date_extra <- function(id, key = NULL, ...) {
   )
 }
 
+build_dropdown_extra_choices <- function(choices) {
+  if (length(choices) == 0) {
+    choices_js <- ""
+  } else {
+    choices_js <- paste0(", choices: ", rjson::toJSON(choices))
+  }
+
+  return(choices_js)
+}
+
 #' Select input for reactable column cell
 #'
 #' @param id id of the select input
@@ -137,11 +147,8 @@ date_extra <- function(id, key = NULL, ...) {
 #'
 #' @export
 dropdown_extra <- function(id, choices, key = NULL, ...) {
-  if (length(choices) == 0) {
-    choices_js <- ""
-  } else {
-    choices_js <- paste0(", choices: ", rjson::toJSON(choices))
-  }
+
+  choices_js <- build_dropdown_extra_choices(choices)
 
   key <- define_key(key)
 
