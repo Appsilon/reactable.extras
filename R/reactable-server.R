@@ -242,6 +242,17 @@ hide_internal_uuid <- function(args) {
   return(args)
 }
 
+sort_table <- function(data, column_name, direction) {
+  column_name <- rlang::sym(column_name)
+  if (direction == "asc") {
+    data |>
+      dplyr::arrange(!!column_name)
+  } else if (direction == "desc") {
+    data |>
+      dplyr::arrange(dplyr::desc(!!column_name))
+  }
+}
+
 #' @rdname reactable-extras-server
 #' @export
 reactable_extras_server <- function(id, data, total_pages = 4, sortable = TRUE, ...) {
@@ -294,17 +305,10 @@ reactable_extras_server <- function(id, data, total_pages = 4, sortable = TRUE, 
           reactable_data()
       } else {
         column_name <- rlang::sym(names(column_sort()))
-        data <- if (column_sort()[[1]] == "asc") {
-          data |>
-            dplyr::arrange(!!column_name) |>
-            get_data_on_page(page_number = page_number(), total_pages = total_pages) |>
-            reactable_data()
-        } else if (column_sort()[[1]] == "desc") {
-          data |>
-            dplyr::arrange(dplyr::desc(!!column_name)) |>
-            get_data_on_page(page_number = page_number(), total_pages = total_pages) |>
-            reactable_data()
-        }
+        data |>
+          get_data_on_page(page_number = page_number(), total_pages = total_pages) |>
+          sort_table(column_name = column_name, direction = column_sort()[[1]]) |>
+          reactable_data()
       }
 
       reactable::updateReactable("reactable", data = reactable_data())
