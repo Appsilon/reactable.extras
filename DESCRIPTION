@@ -1,15 +1,18 @@
 Type: Package
 Package: reactable.extras
 Title: Extra Features for 'Reactable' Package
-Version: 0.1.0.9000
+Version: 0.2.0
 Authors@R:
   c(
     person("Recle", "Vibal", role = c("aut", "cre"), email = "opensource+recle@appsilon.com"),
     person("Ivan", "Hrychaniuk", role = c("aut"), email = "ivan.hrychaniuk@appsilon.com"),
+    person("Andres", "Quintero", role = c("aut"), email = "afquinteromoreano@gmail.com"),
     person("Pedro", "Silva", role = c("aut"), email = "pedro@appsilon.com"),
+    person("Eduardo", "Almeida", role = c("ctb"), email = "eduardo@appsilon.com"),
     person("Appsilon Sp. z o.o.", role = "cph", email = "opensource@appsilon.com")
   )
-Description: A set of extensions for 'reactable' package.
+Description: Enhanced functionality for 'reactable' in 'Shiny' applications, offering interactive and dynamic data table capabilities with ease.
+    With 'reactable.extras', easily integrate a range of functions and components to enrich your 'Shiny' apps and facilitate user-friendly data exploration.
 License: LGPL-3
 URL: https://appsilon.github.io/reactable.extras/, https://github.com/Appsilon/reactable.extras
 BugReports: https://github.com/Appsilon/reactable.extras/issues

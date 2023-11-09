@@ -2,7 +2,7 @@
 title: "Combine reactable functionalities"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{combine reactable}
+  %\VignetteIndexEntry{Combine reactable functionalities}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -57,22 +57,22 @@ server <- function(input, output, session) {
       )
     )
   })
-  
+
   observeEvent(input$select_btn, {
     # Select rows
     updateReactable("table", selected = c(1, 3, 5))
   })
-  
+
   observeEvent(input$clear_btn, {
     # Clear row selection
     updateReactable("table", selected = NA)
   })
-  
+
   observeEvent(input$page_btn, {
     # Change current page
     updateReactable("table", page = 3)
   })
-  
+
 }
 
 shinyApp(ui, server)

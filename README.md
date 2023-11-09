@@ -1,4 +1,4 @@
-# reactable.extras
+# reactable.extras <a href="https://appsilon.github.io/reactable.extras/"><img src="man/figures/logo.png" align="right" alt="reactable.extras logo" style="height: 140px;"></a>
 
 > _Extra features for reactable package_
 
@@ -72,14 +72,14 @@ server <- function(input, output, session) {
       )
     )
   })
-  
+
   observeEvent(input$button, {
     showModal(modalDialog(
       title = "Selected row data",
       reactable(data[input$button$row, ])
     ))
   })
-  
+
 }
 
 shinyApp(ui, server)
@@ -103,4 +103,6 @@ Get in touch [opensource@appsilon.com](mailto:opensource@appsilon.com)
 
 Explore the [Rhinoverse](https://rhinoverse.dev) - a family of R packages built around [Rhino](https://appsilon.github.io/rhino/)!
 
-<a href = "https://appsilon.com/careers/" target="_blank"><img src="https://raw.githubusercontent.com/Appsilon/website-cdn/gh-pages/WeAreHiring1.png" alt="We are hiring!"/></a>
+<a href = "https://appsilon.us16.list-manage.com/subscribe?u=c042d7c0dbf57c5c6f8b54598&id=870d5bfc05" target="_blank">
+  <img src="https://raw.githubusercontent.com/Appsilon/website-cdn/gh-pages/shiny_weekly_light.jpg" alt="Subscribe for Shiny tutorials, exclusive articles, R/Shiny community events, and more."/>
+</a>
