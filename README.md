@@ -1,4 +1,4 @@
-# reactable.extras
+# reactable.extras <a href="https://appsilon.github.io/reactable.extras/"><img src="man/figures/logo.png" align="right" alt="reactable.extras logo" style="height: 140px;"></a>
 
 > _Extra features for reactable package_
 
