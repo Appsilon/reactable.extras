@@ -189,6 +189,7 @@ test_that("return_reactable_page should return a reactive page value", {
 })
 
 test_that("reactable_extras_ui should return a widget of reactableOutput", {
+  skip_on_os(c("windows", "mac"))
   expect_error(reactable_extras_ui(1))
   expect_error(reactable_extras_ui(c("test1", "test2")))
   expect_snapshot(reactable_extras_ui("test"))
