@@ -1,6 +1,6 @@
 Type: Package
 Package: reactable.extras
-Title: Extra Features for 'Reactable' Package
+Title: Extra Features for 'reactable' Package
 Version: 0.2.0
 Authors@R:
   c(

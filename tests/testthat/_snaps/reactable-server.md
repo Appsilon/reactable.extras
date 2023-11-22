@@ -51,5 +51,5 @@
           <span id="test-page_controls-page_text" class="shiny-text-output"></span>
         </div>
       </div>
-      <div class="reactable html-widget html-widget-output shiny-report-size html-fill-item-overflow-hidden html-fill-item" data-reactable-output="test-reactable" id="test-reactable" style="width:auto;height:auto;"></div>
+      <div class="reactable html-widget html-widget-output shiny-report-size html-fill-item" data-reactable-output="test-reactable" id="test-reactable" style="width:auto;height:auto;"></div>
 

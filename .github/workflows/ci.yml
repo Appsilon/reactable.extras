@@ -1,4 +1,4 @@
-name: CI
+name: End-to-end tests
 on: push
 permissions:
   contents: read
@@ -32,12 +32,6 @@ jobs:
       - name: Install Node.js dependencies
         run: yarn install
         working-directory: e2e_tests
-
-      - name: R CMD check
-        if: always()
-        uses: r-lib/actions/check-r-package@v2
-        with:
-          error-on: '"note"'
 
       - name: Run Cypress
         if: always()
