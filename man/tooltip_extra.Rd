@@ -12,6 +12,9 @@ tooltip_extra(content, theme = "light")
 \item{theme}{The theme of the tool-tip, either "light", "light-border", "material" or
 "translucent"}
 }
+\value{
+Custom JS tool-tip renderer for reactable
+}
 \description{
 Tool-tip for table headers
 }

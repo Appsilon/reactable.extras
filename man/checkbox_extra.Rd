@@ -13,6 +13,9 @@ checkbox_extra(id, key = NULL, ...)
 
 \item{...}{parameters of checkbox, only \code{class} is supported for now}
 }
+\value{
+Custom JS checkbox renderer for reactable
+}
 \description{
 Checkbox input for reactable column cell
 }

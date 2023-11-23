@@ -15,6 +15,9 @@ dropdown_extra(id, choices, key = NULL, ...)
 
 \item{...}{parameters of date input, only \code{class} is supported for now}
 }
+\value{
+Custom JS dropdown renderer for reactable
+}
 \description{
 Select input for reactable column cell
 }

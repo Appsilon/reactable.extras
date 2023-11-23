@@ -44,6 +44,7 @@ define_key <- function(key) {
 #' @examples
 #' reactable::colDef(cell = button_extra("click", class = "table-button"))
 #'
+#' @return Custom JS button renderer for reactable
 #'
 #' @export
 button_extra <- function(id, key = NULL, ...) {
@@ -73,6 +74,8 @@ button_extra <- function(id, key = NULL, ...) {
 #' @examples
 #' reactable::colDef(cell = checkbox_extra("check", class = "table-check"))
 #'
+#' @return Custom JS checkbox renderer for reactable
+#'
 #' @export
 checkbox_extra <- function(id, key = NULL, ...) {
   key <- define_key(key)
@@ -100,6 +103,8 @@ checkbox_extra <- function(id, key = NULL, ...) {
 #'
 #' @examples
 #' reactable::colDef(cell = date_extra("date", class = "table-date"))
+#'
+#' @return Custom JS date input renderer for reactable
 #'
 #' @export
 date_extra <- function(id, key = NULL, ...) {
@@ -145,6 +150,8 @@ build_dropdown_extra_choices <- function(choices) {
 #'   )
 #'  )
 #'
+#' @return Custom JS dropdown renderer for reactable
+#'
 #' @export
 dropdown_extra <- function(id, choices, key = NULL, ...) {
 
@@ -177,6 +184,8 @@ dropdown_extra <- function(id, choices, key = NULL, ...) {
 #'
 #' @examples
 #' reactable::colDef(cell = text_extra("text", class = "table-text"))
+##'
+#' @return Custom JS text input renderer for reactable
 #'
 #' @export
 text_extra <- function(id, key = NULL, ...) {

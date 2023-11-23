@@ -7,6 +7,8 @@
 #' @examples
 #' reactable::colDef(header = tooltip_extra("This is my tool-tip", theme = "material"))
 #'
+#' @return Custom JS tool-tip renderer for reactable
+#'
 #' @export
 tooltip_extra <- function(content, theme = "light") {
   reactable::JS(
