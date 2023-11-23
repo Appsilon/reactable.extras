@@ -13,6 +13,9 @@ text_extra(id, key = NULL, ...)
 
 \item{...}{parameters of text input, only \code{class} is supported for now}
 }
+\value{
+Custom JS text input renderer for reactable
+}
 \description{
 Text input for reactable column cell
 }

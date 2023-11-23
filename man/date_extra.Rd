@@ -13,6 +13,9 @@ date_extra(id, key = NULL, ...)
 
 \item{...}{parameters of date input, only \code{class} is supported for now}
 }
+\value{
+Custom JS date input renderer for reactable
+}
 \description{
 Date input for reactable column cell
 }

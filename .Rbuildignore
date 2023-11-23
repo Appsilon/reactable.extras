@@ -6,3 +6,5 @@ vignettes
 pkgdown
 _\.new\.png$
 ^e2e_tests$
+^CRAN-SUBMISSION$
+^cran-comments\.md$

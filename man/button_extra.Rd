@@ -13,11 +13,13 @@ button_extra(id, key = NULL, ...)
 
 \item{...}{parameters of button, only \code{class} is supported for now}
 }
+\value{
+Custom JS button renderer for reactable
+}
 \description{
 Button input for reactable column cell
 }
 \examples{
 reactable::colDef(cell = button_extra("click", class = "table-button"))
-
 
 }
