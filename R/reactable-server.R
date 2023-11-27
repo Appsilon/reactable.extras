@@ -213,8 +213,7 @@ get_data_on_page <- function(data, page_number, total_pages) {
 #'           mpg = reactable::colDef(name = "Miles per Gallon"),
 #'           cyl = reactable::colDef(name = "Cylinders"),
 #'           disp = reactable::colDef(name = "Displacement")
-#'         ),
-#'         rows_per_page = 7
+#'         )
 #'       )
 #'     }
 #'   )

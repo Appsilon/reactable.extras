@@ -1,7 +1,7 @@
 Type: Package
 Package: reactable.extras
 Title: Extra Features for 'reactable' Package
-Version: 0.2.0
+Version: 0.2.0.9000
 Authors@R:
   c(
     person("Recle", "Vibal", role = c("aut", "cre"), email = "opensource+recle@appsilon.com"),
