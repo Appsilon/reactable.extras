@@ -31,7 +31,7 @@ url: https://appsilon.github.io/reactable.extras/
 navbar:
   bg: primary
   structure:
-    left: [home, tutorials, reference]
+    left: [home, tutorials, reference, changelog]
     right: [search, github, twitter, mastodon]
   components:
     home:
@@ -51,6 +51,10 @@ navbar:
       icon: fa-file-code-o
       text: "Reference"
       href: reference/index.html
+    changelog:
+      icon: fa-newspaper-o
+      text: "Changelog"
+      href: news/index.html
     github:
       icon: fa-github fa-lg
       href: https://github.com/Appsilon/reactable.extras

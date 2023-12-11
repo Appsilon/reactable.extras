@@ -49,8 +49,7 @@ if (interactive()) {
           mpg = reactable::colDef(name = "Miles per Gallon"),
           cyl = reactable::colDef(name = "Cylinders"),
           disp = reactable::colDef(name = "Displacement")
-        ),
-        rows_per_page = 7
+        )
       )
     }
   )
