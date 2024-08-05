@@ -129,7 +129,7 @@ build_dropdown_extra_choices <- function(choices) {
   if (length(choices) == 0) {
     choices_js <- ""
   } else {
-    choices_js <- paste0(", choices: ", rjson::toJSON(choices))
+    choices_js <- paste0(", choices: ", rjson::toJSON(as.list(choices)))
   }
 
   return(choices_js)
