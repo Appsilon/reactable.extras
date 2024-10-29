@@ -1,3 +1,11 @@
+# 0.2.1
+
+## R CMD check results
+
+0 errors | 0 warnings | 0 notes
+
+# 0.2.0
+
 # Resubmission
 
 > Please note that package names are case sensitive. 'Shiny' --> 'shiny'
