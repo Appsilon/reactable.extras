@@ -34,6 +34,12 @@ test_that("`dropdown_extra` sets choices to blank when length is 0", {
   expect_equal(choices, "")
 })
 
+test_that("`dropdown_extra` serializes a single value as an array", {
+  choices <- build_dropdown_extra_choices("a")
+
+  expect_equal(choices, ', choices: ["a"]')
+})
+
 test_that("`dropdown_extra` sets choices correctly", {
   choices <- build_dropdown_extra_choices(letters[1:3])
 
