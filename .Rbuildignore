@@ -8,3 +8,4 @@ _\.new\.png$
 ^e2e_tests$
 ^CRAN-SUBMISSION$
 ^cran-comments\.md$
+docs
