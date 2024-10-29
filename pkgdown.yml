@@ -5,7 +5,7 @@ articles:
   tutorial/combine-reactable-features: tutorial/combine-reactable-features.html
   tutorial/custom-inputs: tutorial/custom-inputs.html
   tutorial/server-side-processing: tutorial/server-side-processing.html
-last_built: 2024-10-29T13:26Z
+last_built: 2024-10-29T14:29Z
 urls:
   reference: https://appsilon.github.io/reactable.extras/reference
   article: https://appsilon.github.io/reactable.extras/articles
