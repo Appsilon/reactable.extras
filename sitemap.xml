@@ -1,66 +1,24 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://appsilon.github.io/reactable.extras/404.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/reactable.extras/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/reactable.extras/articles/tutorial/combine-reactable-features.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/reactable.extras/articles/tutorial/custom-inputs.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/reactable.extras/articles/tutorial/server-side-processing.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/reactable.extras/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/reactable.extras/index.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/reactable.extras/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/reactable.extras/reference/button_extra.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/reactable.extras/reference/checkbox_extra.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/reactable.extras/reference/date_extra.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/reactable.extras/reference/define_key.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/reactable.extras/reference/dropdown_extra.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/reactable.extras/reference/get_data_on_page.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/reactable.extras/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/reactable.extras/reference/reactable-extras-server.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/reactable.extras/reference/reactable-page-controls.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/reactable.extras/reference/reactable_extras_dependency.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/reactable.extras/reference/text_extra.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/reactable.extras/reference/toggle_navigation_buttons.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/reactable.extras/reference/tooltip_extra.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://appsilon.github.io/reactable.extras/404.html</loc></url>
+<url><loc>https://appsilon.github.io/reactable.extras/articles/index.html</loc></url>
+<url><loc>https://appsilon.github.io/reactable.extras/articles/tutorial/combine-reactable-features.html</loc></url>
+<url><loc>https://appsilon.github.io/reactable.extras/articles/tutorial/custom-inputs.html</loc></url>
+<url><loc>https://appsilon.github.io/reactable.extras/articles/tutorial/server-side-processing.html</loc></url>
+<url><loc>https://appsilon.github.io/reactable.extras/authors.html</loc></url>
+<url><loc>https://appsilon.github.io/reactable.extras/index.html</loc></url>
+<url><loc>https://appsilon.github.io/reactable.extras/news/index.html</loc></url>
+<url><loc>https://appsilon.github.io/reactable.extras/reference/button_extra.html</loc></url>
+<url><loc>https://appsilon.github.io/reactable.extras/reference/checkbox_extra.html</loc></url>
+<url><loc>https://appsilon.github.io/reactable.extras/reference/date_extra.html</loc></url>
+<url><loc>https://appsilon.github.io/reactable.extras/reference/define_key.html</loc></url>
+<url><loc>https://appsilon.github.io/reactable.extras/reference/dropdown_extra.html</loc></url>
+<url><loc>https://appsilon.github.io/reactable.extras/reference/get_data_on_page.html</loc></url>
+<url><loc>https://appsilon.github.io/reactable.extras/reference/index.html</loc></url>
+<url><loc>https://appsilon.github.io/reactable.extras/reference/reactable-extras-server.html</loc></url>
+<url><loc>https://appsilon.github.io/reactable.extras/reference/reactable-page-controls.html</loc></url>
+<url><loc>https://appsilon.github.io/reactable.extras/reference/reactable_extras_dependency.html</loc></url>
+<url><loc>https://appsilon.github.io/reactable.extras/reference/text_extra.html</loc></url>
+<url><loc>https://appsilon.github.io/reactable.extras/reference/toggle_navigation_buttons.html</loc></url>
+<url><loc>https://appsilon.github.io/reactable.extras/reference/tooltip_extra.html</loc></url>
 </urlset>
+
