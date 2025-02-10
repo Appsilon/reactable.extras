@@ -4,7 +4,7 @@
 \alias{reactable-extras-server}
 \alias{reactable_extras_ui}
 \alias{reactable_extras_server}
-\title{Create reactable UI with server-side processing}
+\title{\link{Deprecated} Create reactable UI with server-side processing}
 \usage{
 reactable_extras_ui(id, width = "auto", height = "auto")
 
@@ -27,7 +27,7 @@ reactable_extras_server(id, data, total_pages = 4, sortable = TRUE, ...)
 \code{reactable_extras_ui()} returns a custom UI for a server-side processed reactable
 }
 \description{
-Create reactable UI with server-side processing
+\link{Deprecated} Create reactable UI with server-side processing
 }
 \details{
 Arguments passed to \code{\link[reactable:reactable]{reactable::reactable()}} must not contain \code{pagination} or \code{showPagination}.
