@@ -29,6 +29,10 @@
 
     Code
       reactable_extras_ui("test")
+    Condition
+      Warning in `reactable_extras_ui()`:
+      `reactable::reactable` now has a `server = TRUE` argument.
+          Please use 'reactable' directly instead of this module.
     Output
       <div class="pagination-controls">
         <button class="btn btn-default action-button pagination-button" id="test-page_controls-first_page" type="button">
