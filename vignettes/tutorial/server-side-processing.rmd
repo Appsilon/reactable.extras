@@ -11,6 +11,10 @@ Rendering a `reactable` with a lot of data can be inefficient. The initial loadi
 
 A more efficient approach is to render only the data that is needed to be displayed.
 
+<p class="alert alert-warning">
+The module `reactable_extras_ui`/`reactable_extras_server` is deprecated. We now recommend using the newest version of `reactable`, where the function `reactable::reactable` has an argument called `server` to enable server-side processing when set to `TRUE`. You can check the docs [here](https://glin.github.io/reactable/reference/reactable.html) and a detailed discussion [here](https://github.com/glin/reactable/issues/22#issuecomment-1475649659).
+</p>
+
 `reactable_extras_ui()` and `reactable_extras_server()` is a wrapper for `reactable::reactableOutput()` and `reactable::renderReactable({reactable(...)})`. It renders only a subset of a large data in the server memory. This almost instantly renders the desired page and keeps the amount of memory used in the browser minimal.
 
 Consider this example data:

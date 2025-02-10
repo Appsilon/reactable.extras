@@ -178,7 +178,7 @@ get_data_on_page <- function(data, page_number, total_pages) {
     dplyr::select(!dplyr::any_of("reactable_data_page"))
 }
 
-#' Create reactable UI with server-side processing
+#' [Deprecated] Create reactable UI with server-side processing
 #'
 #' @param id element id
 #' @param width,height CSS unit (`"100%"`, `"400px"`, or `"auto"`), numeric for number of pixels
@@ -219,6 +219,11 @@ get_data_on_page <- function(data, page_number, total_pages) {
 #'   )
 #' }
 reactable_extras_ui <- function(id, width = "auto", height = "auto") {
+  .Deprecated(
+    new = "reactable::reactable",
+    msg = "`reactable::reactable` now has a `server = TRUE` argument. Please use 'reactable' directly instead of this module."
+  )
+
   checkmate::assert_character(id, len = 1)
 
   ns <- shiny::NS(id)
