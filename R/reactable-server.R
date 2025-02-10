@@ -178,7 +178,7 @@ get_data_on_page <- function(data, page_number, total_pages) {
     dplyr::select(!dplyr::any_of("reactable_data_page"))
 }
 
-#' [Deprecated] Create reactable UI with server-side processing
+#' (Deprecated) Create reactable UI with server-side processing
 #'
 #' @param id element id
 #' @param width,height CSS unit (`"100%"`, `"400px"`, or `"auto"`), numeric for number of pixels
