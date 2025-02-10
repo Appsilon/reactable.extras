@@ -11,7 +11,7 @@ Rendering a `reactable` with a lot of data can be inefficient. The initial loadi
 
 A more efficient approach is to render only the data that is needed to be displayed.
 
-`reactable_extras_ui()` and `reactalbe_extras_server()` is a wrapper for `reactable::reactableOutput()` and `reactable::renderReactable({reactable(...)})`. It renders only a subset of a large data in the server memory. This almost instantly renders the desired page and keeps the amount of memory used in the browser minimal.
+`reactable_extras_ui()` and `reactable_extras_server()` is a wrapper for `reactable::reactableOutput()` and `reactable::renderReactable({reactable(...)})`. It renders only a subset of a large data in the server memory. This almost instantly renders the desired page and keeps the amount of memory used in the browser minimal.
 
 Consider this example data:
 
